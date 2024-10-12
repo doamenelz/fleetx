@@ -110,7 +110,7 @@ export const VehicleTableList: FC<{ data: Vehicle[] }> = ({ data }) => {
                       <TableCell
                         label={
                           <Link
-                            href={""}
+                            href={`vehicles/${vehicle.id}`}
                             className="hover:text-indigo-700 font-semibold text-indigo-800"
                           >
                             <p>{vehicle.name}</p>

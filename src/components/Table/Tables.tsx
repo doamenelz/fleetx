@@ -122,7 +122,7 @@ export const Table: FC<{
       <div className="-my-2 overflow-x-auto">
         <div className="inline-block min-w-full align-middle max-h-[calc(100vh_-_260px)]">
           <table className="min-w-full divide-y divide-indigo-200">
-            <thead className=" w-full mx-auto sticky top-0 z-50">
+            <thead className=" w-full mx-auto sticky top-0 z-10">
               <tr>{head}</tr>
             </thead>
             {context.page.totalResults > 0 && <TableBody>{body}</TableBody>}
@@ -158,10 +158,7 @@ export const TablePagination: FC<{
             onClick={() => context.page.previousPage}
             className="inline-flex hover:bg-slate-900 rounded-md items-center border  px-3 py-2 text-sm font-medium text-slate-600 hover:border-slate-300 hover:text-slate-100"
           >
-            <ArrowLongLeftIcon
-              className="mr-3 h-5 w-5 "
-              aria-hidden="true"
-            />
+            <ArrowLongLeftIcon className="mr-3 h-5 w-5 " aria-hidden="true" />
             Previous
           </button>
         )}

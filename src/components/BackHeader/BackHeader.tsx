@@ -12,7 +12,7 @@ export const BackHeader: FC<{ previousPathName: string }> = (props) => {
     <div className="flex items-center gap-2 py-4">
       <button
         onClick={() => router.back()}
-        className="flex items-center gap-2 px-3 py-2 text-xs tracking-tight text-slate-700 bg-gray-100 rounded hover:bg-gray-900 hover:text-slate-100"
+        className="flex items-center gap-2 px-3 py-2 text-xs tracking-tight text-slate-700 rounded hover:bg-slate-50 hover:text-indigo-800"
       >
         <span>
           <svg
@@ -30,7 +30,7 @@ export const BackHeader: FC<{ previousPathName: string }> = (props) => {
             />
           </svg>
         </span>
-        Back {props.previousPathName}
+        {props.previousPathName}
       </button>
     </div>
   );

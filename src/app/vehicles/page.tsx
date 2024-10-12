@@ -3,7 +3,9 @@ import {
   Button,
   BUTTON_SKIN,
   ICON_POSITION,
+  IconDropdown,
   Lbl,
+  MenuDropdownItemProp,
   PageContainer,
   SCREEN_WIDTH,
   SearchField,
@@ -15,7 +17,14 @@ import {
 import { classNames } from "@/lib/utilities/helperFunctions";
 import { VehicleTableList } from "./components/VehicleTableList";
 import { sampleVehicles, Vehicle } from "@/models/Vehicle";
-import { ChevronLeft, ChevronRight, Ellipsis, PlusIcon } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Download,
+  Ellipsis,
+  PlusIcon,
+  Upload,
+} from "lucide-react";
 import { useState } from "react";
 
 const summaryStats: SummaryCardObject[] = [
@@ -44,8 +53,23 @@ const summaryStats: SummaryCardObject[] = [
     changeType: "positive",
   },
 ];
+
 export default function Page() {
   const [vehicleList, setVehicleList] = useState<Vehicle[]>([]);
+  const vehicleControlItems: MenuDropdownItemProp[] = [
+    {
+      id: "1",
+      label: "Import from CSV",
+      function: () => {},
+      icon: <Upload className="w-3 h-3" />,
+    },
+    {
+      id: "2",
+      label: "Download to CSV",
+      function: () => {},
+      icon: <Download className="w-3 h-3" />,
+    },
+  ];
   return (
     <PageContainer
       documentTitle="Vehicles"
@@ -64,13 +88,10 @@ export default function Page() {
             title="All Vehicles"
             copy="Manage your Next of vehicle, Beneficiaries and Dependents"
             button={
-              <div className="flex gap-4 align-middle">
-                <SearchField
-                  placeholder="Search"
-                  setQuery={() => {}}
-                />
-                <Lbl label="5 of 15 results" />
-                <div>
+              <div className="flex gap-2 items-center">
+                <SearchField placeholder="Search" setQuery={() => {}} />
+                <Lbl label={`5 of ${sampleVehicles.length} results`} />
+                <div className="border-r pr-2">
                   <button className="border p-2 rounded-l hover:bg-slate-50 hover:text-brand-blueRoyal">
                     <ChevronLeft className="w-4 h-4" />
                   </button>
@@ -79,18 +100,25 @@ export default function Page() {
                   </button>
                 </div>
 
-                <button>
-                  <Ellipsis className="w-4 h-4" />
-                </button>
-                <Button
-                  onClick={() => {}}
-                  label="New Vehicle"
-                  skin={BUTTON_SKIN.primary}
-                  icon={{
-                    position: ICON_POSITION.trailing,
-                    asset: <PlusIcon className="w-3 h-3" />,
-                  }}
-                />
+                <div className="items-center flex gap-2">
+                  <IconDropdown
+                    items={vehicleControlItems}
+                    button={
+                      <div className="p-2 rounded-sm border hover:bg-slate-50 hover:text-brand-blueRoyal">
+                        <Ellipsis className="w-4 h-4" />
+                      </div>
+                    }
+                  />
+                  <Button
+                    onClick={() => {}}
+                    label="New Vehicle"
+                    skin={BUTTON_SKIN.primary}
+                    icon={{
+                      position: ICON_POSITION.trailing,
+                      asset: <PlusIcon className="w-3 h-3" />,
+                    }}
+                  />
+                </div>
               </div>
             }
           />

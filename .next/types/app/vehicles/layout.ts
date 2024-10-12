@@ -1,4 +1,4 @@
-// File: /Users/edemekeng/Documents/Projects/fleetx/src/app/vehicles/layout.tsx
+// File: /Users/edemekeng/Documents/Projects/Freelance/fleetx/src/app/vehicles/layout.tsx
 import * as entry from '../../../../src/app/vehicles/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

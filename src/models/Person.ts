@@ -19,7 +19,7 @@ export const generatePerson = (role: string) => {
     lastName: faker.person.lastName(),
 
     role: role,
-    avatar: faker.image.avatar(),
+    avatar: faker.image.avatarGitHub(),
     email: faker.internet.email(),
   };
 };

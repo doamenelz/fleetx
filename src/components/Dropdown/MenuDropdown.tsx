@@ -18,6 +18,7 @@ export interface MenuDropdownItemProp {
   id: string;
   label: string;
   function: () => void;
+  icon?: JSX.Element;
 }
 
 export const MenuDropdown: FC<{
@@ -61,6 +62,47 @@ export const MenuDropdown: FC<{
           </div>
         </MenuItems>
       </Transition>
+    </Menu>
+  );
+};
+
+export const IconDropdown: FC<{
+  items: MenuDropdownItemProp[];
+  button: JSX.Element;
+}> = ({ items, button }) => {
+  return (
+    <Menu as="div" className="relative inline-block text-left">
+      <MenuButton className="focus:outline-none items-center flex">
+        <span className="sr-only">Open options</span>
+        {button}
+      </MenuButton>
+
+      <MenuItems
+        transition
+        className="absolute right-0 z-20 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+      >
+        <div className="p-2">
+          <ul className="space-y-1">
+            {items.slice(0, 2).map((item) => (
+              <MenuItem key={item.id}>
+                <button
+                  onClick={item.function}
+                  className="flex text-xs w-full gap-2 items-center p-2 text-slate-700 hover:bg-slate-100 rounded hover:text-slate-900"
+                >
+                  {item.icon}
+                  <p>{item.label}</p>
+                </button>
+              </MenuItem>
+            ))}
+          </ul>
+          {/* <MenuItem key={items[2].id}>
+        <button className="flex w-full gap-2 items-center mt-1 p-2 hover:bg-indigo-50 rounded hover:text-indigo-700">
+          {items[2].icon}
+          <p>{items[2].label}</p>
+        </button>
+      </MenuItem> */}
+        </div>
+      </MenuItems>
     </Menu>
   );
 };

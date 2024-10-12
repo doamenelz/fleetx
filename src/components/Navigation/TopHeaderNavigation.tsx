@@ -92,10 +92,7 @@ export const TopHeaderNavigation: FC<{
             <div className=" w-full top-0 bg-gray-25 px-4 border-b items-center flex justify-between">
               <div className="flex items-center">
                 <div className="flex items-baseline px-2 gap-1 border-r">
-                  <img
-                    src="./fleetLong.svg"
-                    className="h-4"
-                  />
+                  <img src="./fleetLong.svg" className="h-4" />
                   {/* <p className="text-xs text-slate-600 font-mono">Analytics</p> */}
                 </div>
 
@@ -131,10 +128,7 @@ export const TopHeaderNavigation: FC<{
                     alt=""
                   />
                 </div>
-                <SearchPallette
-                  open={toggleSearch}
-                  setOpen={setToggleSearch}
-                />
+                <SearchPallette open={toggleSearch} setOpen={setToggleSearch} />
               </div>
             </div>
           </div>
@@ -220,10 +214,7 @@ const AvatarDropdown: FC<{ employee: Employee }> = ({ employee }) => {
     },
   ];
   return (
-    <Menu
-      as="div"
-      className="relative inline-block text-left"
-    >
+    <Menu as="div" className="relative inline-block text-left">
       <div>
         <MenuButton className="flex items-center hover:outline-none hover:ring-2 hover:ring-brand-blueFlower hover:ring-offset-2 hover:ring-offset-gray-100 rounded-full bg-gray-100 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 focus:ring-offset-gray-100">
           <span className="sr-only">Open options</span>
@@ -241,7 +232,7 @@ const AvatarDropdown: FC<{ employee: Employee }> = ({ employee }) => {
         className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
       >
         <div className="p-2">
-          <ul className="border-b pb-2 space-y-1">
+          <ul className="pb-2 space-y-1">
             {items.slice(0, 2).map((item) => (
               <MenuItem key={item.id}>
                 <button className="flex w-full gap-2 items-center p-2 text-slate-600 hover:bg-slate-100 rounded hover:text-slate-900">
@@ -251,12 +242,6 @@ const AvatarDropdown: FC<{ employee: Employee }> = ({ employee }) => {
               </MenuItem>
             ))}
           </ul>
-          {/* <MenuItem key={items[2].id}>
-            <button className="flex w-full gap-2 items-center mt-1 p-2 hover:bg-indigo-50 rounded hover:text-indigo-700">
-              {items[2].icon}
-              <p>{items[2].label}</p>
-            </button>
-          </MenuItem> */}
         </div>
       </MenuItems>
     </Menu>
