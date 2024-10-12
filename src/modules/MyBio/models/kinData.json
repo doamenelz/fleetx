@@ -1,0 +1,57 @@
+[
+  {
+    "id": "STE19802",
+    "firstName": "Lindsay",
+    "lastName": "Sawyer",
+    "address": "171A Moshood Olugbani Crescent",
+    "state": "Lagos",
+    "country": "Nigeria",
+    "sex": "Female",
+    "isEmergency": true,
+    "relationship": "Spouse",
+    "mobile": "+1 234 567 8907",
+    "email": "lindsay.jobs@email.com",
+    "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    "percentage": "50%"
+  },
+
+  {
+    "id": "CRYEU33482",
+    "firstName": "Courtney",
+    "lastName": "Sawyer",
+    "address": "171A Moshood Olugbani Crescent",
+    "state": "Lagos",
+    "country": "Nigeria",
+    "sex": "Female",
+    "isEmergency": false,
+    "relationship": "Child",
+
+    "percentage": "25%"
+  },
+  {
+    "id": "CR34IIFEKWS",
+    "firstName": "Jennifer",
+    "lastName": "Sawyer",
+    "address": "171A Moshood Olugbani Crescent",
+    "state": "Lagos",
+    "country": "Nigeria",
+    "sex": "Female",
+    "isEmergency": false,
+    "relationship": "Child",
+    "mobile": "+1 234 567 8907",
+
+    "avatar": "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    "percentage": "25%"
+  },
+  {
+    "id": "CR584930D",
+    "firstName": "Cynthia",
+    "lastName": "Sawyer",
+    "address": "1 Genesis Avenue",
+    "state": "Quebec",
+    "country": "Canada",
+    "sex": "Female",
+    "isEmergency": false,
+    "relationship": "Sibling"
+  }
+]

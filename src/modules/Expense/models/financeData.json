@@ -1,0 +1,682 @@
+[
+  {
+    "id": "CA2303000003",
+    "type": "Cash Advance",
+    "purpose": "Travel Cash Advance",
+    "requestDate": "01 Mar, 2023 12:00 AM",
+    "status": "awaiting",
+    "statusDescription": "Awaiting Approval - DEPARTMENT HEAD",
+    "details": {
+      "department": "IT Architecture Development",
+      "stage": "pending",
+      "advanced": "150,456.54",
+      "retirement": "130,000.00",
+      "currency": "NGN",
+      "requestor": {
+        "bioData": {
+          "firstName": "Charles",
+          "lastName": "Sawyer",
+          "fullName": "Charles James Sawyer",
+          "title": "Mr",
+          "gender": "Male",
+          "dateOfBirth": "11 Nov, 1981"
+        },
+        "id": "001",
+
+        "jobTitle": "Team Lead, IT Architecture",
+        "avatar": "https://source.unsplash.com/3TLl_97HNJo",
+        "teamName": "IT Architecture and Strategy",
+        "teamId": "001",
+        "location": "Victoria Island",
+        "phoneNumber": "+234 803 727 1111",
+        "emailAddress": "charles@example.com"
+      }
+    }
+  },
+  {
+    "id": "CA2303000002",
+    "type": "Cash Advance",
+    "purpose": "Travel Cash Advance - Lagos, Afghanistan to LL, Afghanistan.",
+    "requestDate": "01 Mar, 2023 12:00 AM",
+    "status": "history",
+    "statusDescription": "Awaiting Approval - DEPARTMENT HEAD",
+    "details": {
+      "department": "IT Architecture Development",
+      "stage": "pending",
+      "advanced": "150,456.54",
+      "retirement": "130,000.00",
+      "currency": "NGN",
+      "requestor": {
+        "bioData": {
+          "firstName": "Charles",
+          "lastName": "Sawyer",
+          "fullName": "Charles James Sawyer",
+          "title": "Mr",
+          "gender": "Male",
+          "dateOfBirth": "11 Nov, 1981"
+        },
+        "id": "001",
+
+        "jobTitle": "Team Lead, IT Architecture",
+        "avatar": "https://source.unsplash.com/3TLl_97HNJo",
+        "teamName": "IT Architecture and Strategy",
+        "teamId": "001",
+        "location": "Victoria Island",
+        "phoneNumber": "+234 803 727 1111",
+        "emailAddress": "charles@example.com"
+      }
+    }
+  },
+  {
+    "id": "CA2303000001",
+    "type": "Cash Advance",
+    "purpose": "Travel Cash Advance - Lagos, Afghanistan to LL, Afghanistan.",
+    "requestDate": "01 Mar, 2023 12:00 AM",
+    "status": "inbox",
+    "statusDescription": "Awaiting Approval - DEPARTMENT HEAD",
+    "details": {
+      "department": "IT Architecture Development",
+      "stage": "pending",
+      "advanced": "150,456.54",
+      "retirement": "130,000.00",
+      "currency": "NGN",
+      "requestor": {
+        "bioData": {
+          "firstName": "Charles",
+          "lastName": "Sawyer",
+          "fullName": "Charles James Sawyer",
+          "title": "Mr",
+          "gender": "Male",
+          "dateOfBirth": "11 Nov, 1981"
+        },
+        "id": "001",
+
+        "jobTitle": "Team Lead, IT Architecture",
+        "avatar": "https://source.unsplash.com/3TLl_97HNJo",
+        "teamName": "IT Architecture and Strategy",
+        "teamId": "001",
+        "location": "Victoria Island",
+        "phoneNumber": "+234 803 727 1111",
+        "emailAddress": "charles@example.com"
+      }
+    }
+  },
+  {
+    "id": "CA2303000006",
+    "type": "Cash Advance",
+    "purpose": "Travel Cash Advance - Lagos, Afghanistan to LL, Afghanistan.",
+    "requestDate": "01 Mar, 2023 12:00 AM",
+    "status": "inbox",
+    "statusDescription": "Awaiting Approval - DEPARTMENT HEAD",
+    "details": {
+      "department": "IT Architecture Development",
+      "stage": "pending",
+      "advanced": "150,456.54",
+      "retirement": "130,000.00",
+      "currency": "NGN",
+      "requestor": {
+        "bioData": {
+          "firstName": "Charles",
+          "lastName": "Sawyer",
+          "fullName": "Charles James Sawyer",
+          "title": "Mr",
+          "gender": "Male",
+          "dateOfBirth": "11 Nov, 1981"
+        },
+        "id": "001",
+
+        "jobTitle": "Team Lead, IT Architecture",
+        "avatar": "https://source.unsplash.com/3TLl_97HNJo",
+        "teamName": "IT Architecture and Strategy",
+        "teamId": "001",
+        "location": "Victoria Island",
+        "phoneNumber": "+234 803 727 1111",
+        "emailAddress": "charles@example.com"
+      }
+    }
+  },
+  {
+    "id": "CA2303100003",
+    "type": "Cash Advance",
+    "purpose": "Travel Cash Advance - Lagos, Afghanistan to LL, Afghanistan.",
+    "requestDate": "01 Mar, 2023 12:00 AM",
+    "status": "inbox",
+    "statusDescription": "Awaiting Approval - DEPARTMENT HEAD",
+    "details": {
+      "department": "IT Architecture Development",
+      "stage": "pending",
+      "advanced": "150,456.54",
+      "retirement": "130,000.00",
+      "currency": "NGN",
+      "requestor": {
+        "bioData": {
+          "firstName": "Charles",
+          "lastName": "Sawyer",
+          "fullName": "Charles James Sawyer",
+          "title": "Mr",
+          "gender": "Male",
+          "dateOfBirth": "11 Nov, 1981"
+        },
+        "id": "001",
+
+        "jobTitle": "Team Lead, IT Architecture",
+        "avatar": "https://source.unsplash.com/3TLl_97HNJo",
+        "teamName": "IT Architecture and Strategy",
+        "teamId": "001",
+        "location": "Victoria Island",
+        "phoneNumber": "+234 803 727 1111",
+        "emailAddress": "charles@example.com"
+      }
+    }
+  },
+  {
+    "id": "CA2303200004",
+    "type": "Cash Advance",
+    "purpose": "Travel Cash Advance - Lagos, Afghanistan to LL, Afghanistan.",
+    "requestDate": "01 Mar, 2023 12:00 AM",
+    "status": "history",
+    "statusDescription": "Awaiting Approval - DEPARTMENT HEAD",
+    "details": {
+      "department": "IT Architecture Development",
+      "stage": "pending",
+      "advanced": "150,456.54",
+      "retirement": "130,000.00",
+      "currency": "NGN",
+      "requestor": {
+        "bioData": {
+          "firstName": "Charles",
+          "lastName": "Sawyer",
+          "fullName": "Charles James Sawyer",
+          "title": "Mr",
+          "gender": "Male",
+          "dateOfBirth": "11 Nov, 1981"
+        },
+        "id": "001",
+
+        "jobTitle": "Team Lead, IT Architecture",
+        "avatar": "https://source.unsplash.com/3TLl_97HNJo",
+        "teamName": "IT Architecture and Strategy",
+        "teamId": "001",
+        "location": "Victoria Island",
+        "phoneNumber": "+234 803 727 1111",
+        "emailAddress": "charles@example.com"
+      }
+    }
+  },
+  {
+    "id": "CA2303000007",
+    "type": "Cash Advance",
+    "purpose": "Travel Cash Advance - Lagos, Afghanistan to LL, Afghanistan.",
+    "requestDate": "01 Mar, 2023 12:00 AM",
+    "status": "history",
+    "statusDescription": "Awaiting Approval - DEPARTMENT HEAD",
+    "details": {
+      "department": "IT Architecture Development",
+      "stage": "pending",
+      "advanced": "150,456.54",
+      "retirement": "130,000.00",
+      "currency": "NGN",
+      "requestor": {
+        "bioData": {
+          "firstName": "Charles",
+          "lastName": "Sawyer",
+          "fullName": "Charles James Sawyer",
+          "title": "Mr",
+          "gender": "Male",
+          "dateOfBirth": "11 Nov, 1981"
+        },
+        "id": "001",
+
+        "jobTitle": "Team Lead, IT Architecture",
+        "avatar": "https://source.unsplash.com/3TLl_97HNJo",
+        "teamName": "IT Architecture and Strategy",
+        "teamId": "001",
+        "location": "Victoria Island",
+        "phoneNumber": "+234 803 727 1111",
+        "emailAddress": "charles@example.com"
+      }
+    }
+  },
+  {
+    "id": "CA2303000096",
+    "type": "Cash Advance",
+    "purpose": "Travel Cash Advance - Lagos, Afghanistan to LL, Afghanistan.",
+    "requestDate": "01 Mar, 2023 12:00 AM",
+    "status": "history",
+    "statusDescription": "Awaiting Approval - DEPARTMENT HEAD",
+    "details": {
+      "department": "IT Architecture Development",
+      "stage": "pending",
+      "advanced": "150,456.54",
+      "retirement": "130,000.00",
+      "currency": "NGN",
+      "requestor": {
+        "bioData": {
+          "firstName": "Charles",
+          "lastName": "Sawyer",
+          "fullName": "Charles James Sawyer",
+          "title": "Mr",
+          "gender": "Male",
+          "dateOfBirth": "11 Nov, 1981"
+        },
+        "id": "001",
+
+        "jobTitle": "Team Lead, IT Architecture",
+        "avatar": "https://source.unsplash.com/3TLl_97HNJo",
+        "teamName": "IT Architecture and Strategy",
+        "teamId": "001",
+        "location": "Victoria Island",
+        "phoneNumber": "+234 803 727 1111",
+        "emailAddress": "charles@example.com"
+      }
+    }
+  },
+  {
+    "id": "CA2303000033",
+    "type": "Cash Advance",
+    "purpose": "Travel Cash Advance - Lagos, Afghanistan to LL, Afghanistan.",
+    "requestDate": "01 Mar, 2023 12:00 AM",
+    "status": "history",
+    "statusDescription": "Awaiting Approval - DEPARTMENT HEAD",
+    "details": {
+      "department": "IT Architecture Development",
+      "stage": "pending",
+      "advanced": "150,456.54",
+      "retirement": "130,000.00",
+      "currency": "NGN",
+      "requestor": {
+        "bioData": {
+          "firstName": "Charles",
+          "lastName": "Sawyer",
+          "fullName": "Charles James Sawyer",
+          "title": "Mr",
+          "gender": "Male",
+          "dateOfBirth": "11 Nov, 1981"
+        },
+        "id": "001",
+
+        "jobTitle": "Team Lead, IT Architecture",
+        "avatar": "https://source.unsplash.com/3TLl_97HNJo",
+        "teamName": "IT Architecture and Strategy",
+        "teamId": "001",
+        "location": "Victoria Island",
+        "phoneNumber": "+234 803 727 1111",
+        "emailAddress": "charles@example.com"
+      }
+    }
+  },
+  {
+    "id": "CA2303000602",
+    "type": "Cash Advance",
+    "purpose": "Travel Cash Advance - Lagos, Afghanistan to LL, Afghanistan.",
+    "requestDate": "01 Mar, 2023 12:00 AM",
+    "status": "history",
+    "statusDescription": "Awaiting Approval - DEPARTMENT HEAD",
+    "details": {
+      "department": "IT Architecture Development",
+      "stage": "pending",
+      "advanced": "150,456.54",
+      "retirement": "130,000.00",
+      "currency": "NGN",
+      "requestor": {
+        "bioData": {
+          "firstName": "Charles",
+          "lastName": "Sawyer",
+          "fullName": "Charles James Sawyer",
+          "title": "Mr",
+          "gender": "Male",
+          "dateOfBirth": "11 Nov, 1981"
+        },
+        "id": "001",
+
+        "jobTitle": "Team Lead, IT Architecture",
+        "avatar": "https://source.unsplash.com/3TLl_97HNJo",
+        "teamName": "IT Architecture and Strategy",
+        "teamId": "001",
+        "location": "Victoria Island",
+        "phoneNumber": "+234 803 727 1111",
+        "emailAddress": "charles@example.com"
+      }
+    }
+  },
+  {
+    "id": "CA2303000701",
+    "type": "Cash Advance",
+    "purpose": "Travel Cash Advance - Lagos, Afghanistan to LL, Afghanistan.",
+    "requestDate": "01 Mar, 2023 12:00 AM",
+    "status": "draft",
+    "statusDescription": "Awaiting Approval - DEPARTMENT HEAD",
+    "details": {
+      "department": "IT Architecture Development",
+      "stage": "pending",
+      "advanced": "150,456.54",
+      "retirement": "130,000.00",
+      "currency": "NGN",
+      "requestor": {
+        "bioData": {
+          "firstName": "Charles",
+          "lastName": "Sawyer",
+          "fullName": "Charles James Sawyer",
+          "title": "Mr",
+          "gender": "Male",
+          "dateOfBirth": "11 Nov, 1981"
+        },
+        "id": "001",
+
+        "jobTitle": "Team Lead, IT Architecture",
+        "avatar": "https://source.unsplash.com/3TLl_97HNJo",
+        "teamName": "IT Architecture and Strategy",
+        "teamId": "001",
+        "location": "Victoria Island",
+        "phoneNumber": "+234 803 727 1111",
+        "emailAddress": "charles@example.com"
+      }
+    }
+  },
+  {
+    "id": "CA2303090006",
+    "type": "Cash Advance",
+    "purpose": "Travel Cash Advance - Lagos, Afghanistan to LL, Afghanistan.",
+    "requestDate": "01 Mar, 2023 12:00 AM",
+    "status": "draft",
+    "statusDescription": "Awaiting Approval - DEPARTMENT HEAD",
+    "details": {
+      "department": "IT Architecture Development",
+      "stage": "pending",
+      "advanced": "150,456.54",
+      "retirement": "130,000.00",
+      "currency": "NGN",
+      "requestor": {
+        "bioData": {
+          "firstName": "Charles",
+          "lastName": "Sawyer",
+          "fullName": "Charles James Sawyer",
+          "title": "Mr",
+          "gender": "Male",
+          "dateOfBirth": "11 Nov, 1981"
+        },
+        "id": "001",
+
+        "jobTitle": "Team Lead, IT Architecture",
+        "avatar": "https://source.unsplash.com/3TLl_97HNJo",
+        "teamName": "IT Architecture and Strategy",
+        "teamId": "001",
+        "location": "Victoria Island",
+        "phoneNumber": "+234 803 727 1111",
+        "emailAddress": "charles@example.com"
+      }
+    }
+  },
+  {
+    "id": "CA2303300003",
+    "type": "Cash Advance",
+    "purpose": "Travel Cash Advance - Lagos, Afghanistan to LL, Afghanistan.",
+    "requestDate": "01 Mar, 2023 12:00 AM",
+    "status": "draft",
+    "statusDescription": "Awaiting Approval - DEPARTMENT HEAD",
+    "details": {
+      "department": "IT Architecture Development",
+      "stage": "pending",
+      "advanced": "150,456.54",
+      "retirement": "130,000.00",
+      "currency": "NGN",
+      "requestor": {
+        "bioData": {
+          "firstName": "Charles",
+          "lastName": "Sawyer",
+          "fullName": "Charles James Sawyer",
+          "title": "Mr",
+          "gender": "Male",
+          "dateOfBirth": "11 Nov, 1981"
+        },
+        "id": "001",
+
+        "jobTitle": "Team Lead, IT Architecture",
+        "avatar": "https://source.unsplash.com/3TLl_97HNJo",
+        "teamName": "IT Architecture and Strategy",
+        "teamId": "001",
+        "location": "Victoria Island",
+        "phoneNumber": "+234 803 727 1111",
+        "emailAddress": "charles@example.com"
+      }
+    }
+  },
+  {
+    "id": "CA2303530002",
+    "type": "Cash Advance",
+    "purpose": "Travel Cash Advance - Lagos, Afghanistan to LL, Afghanistan.",
+    "requestDate": "01 Mar, 2023 12:00 AM",
+    "status": "draft",
+    "statusDescription": "Awaiting Approval - DEPARTMENT HEAD",
+    "details": {
+      "department": "IT Architecture Development",
+      "stage": "pending",
+      "advanced": "150,456.54",
+      "retirement": "130,000.00",
+      "currency": "NGN",
+      "requestor": {
+        "bioData": {
+          "firstName": "Charles",
+          "lastName": "Sawyer",
+          "fullName": "Charles James Sawyer",
+          "title": "Mr",
+          "gender": "Male",
+          "dateOfBirth": "11 Nov, 1981"
+        },
+        "id": "001",
+
+        "jobTitle": "Team Lead, IT Architecture",
+        "avatar": "https://source.unsplash.com/3TLl_97HNJo",
+        "teamName": "IT Architecture and Strategy",
+        "teamId": "001",
+        "location": "Victoria Island",
+        "phoneNumber": "+234 803 727 1111",
+        "emailAddress": "charles@example.com"
+      }
+    }
+  },
+  {
+    "id": "CA2303200001",
+    "type": "Cash Advance",
+    "purpose": "Travel Cash Advance - Lagos, Afghanistan to LL, Afghanistan.",
+    "requestDate": "01 Mar, 2023 12:00 AM",
+    "status": "history",
+    "statusDescription": "Awaiting Approval - DEPARTMENT HEAD",
+    "details": {
+      "department": "IT Architecture Development",
+      "stage": "pending",
+      "advanced": "150,456.54",
+      "retirement": "130,000.00",
+      "currency": "NGN",
+      "requestor": {
+        "bioData": {
+          "firstName": "Charles",
+          "lastName": "Sawyer",
+          "fullName": "Charles James Sawyer",
+          "title": "Mr",
+          "gender": "Male",
+          "dateOfBirth": "11 Nov, 1981"
+        },
+        "id": "001",
+
+        "jobTitle": "Team Lead, IT Architecture",
+        "avatar": "https://source.unsplash.com/3TLl_97HNJo",
+        "teamName": "IT Architecture and Strategy",
+        "teamId": "001",
+        "location": "Victoria Island",
+        "phoneNumber": "+234 803 727 1111",
+        "emailAddress": "charles@example.com"
+      }
+    }
+  },
+  {
+    "id": "CA2301400006",
+    "type": "Cash Advance",
+    "purpose": "Travel Cash Advance - Lagos, Afghanistan to LL, Afghanistan.",
+    "requestDate": "01 Mar, 2023 12:00 AM",
+    "status": "history",
+    "statusDescription": "Awaiting Approval - DEPARTMENT HEAD",
+    "details": {
+      "department": "IT Architecture Development",
+      "stage": "pending",
+      "advanced": "150,456.54",
+      "retirement": "130,000.00",
+      "currency": "NGN",
+      "requestor": {
+        "bioData": {
+          "firstName": "Charles",
+          "lastName": "Sawyer",
+          "fullName": "Charles James Sawyer",
+          "title": "Mr",
+          "gender": "Male",
+          "dateOfBirth": "11 Nov, 1981"
+        },
+        "id": "001",
+
+        "jobTitle": "Team Lead, IT Architecture",
+        "avatar": "https://source.unsplash.com/3TLl_97HNJo",
+        "teamName": "IT Architecture and Strategy",
+        "teamId": "001",
+        "location": "Victoria Island",
+        "phoneNumber": "+234 803 727 1111",
+        "emailAddress": "charles@example.com"
+      }
+    }
+  },
+  {
+    "id": "CA2303000063",
+    "type": "Cash Advance",
+    "purpose": "Travel Cash Advance - Lagos, Afghanistan to LL, Afghanistan.",
+    "requestDate": "01 Mar, 2023 12:00 AM",
+    "status": "history",
+    "statusDescription": "Awaiting Approval - DEPARTMENT HEAD",
+    "details": {
+      "department": "IT Architecture Development",
+      "stage": "pending",
+      "advanced": "150,456.54",
+      "retirement": "130,000.00",
+      "currency": "NGN",
+      "requestor": {
+        "bioData": {
+          "firstName": "Charles",
+          "lastName": "Sawyer",
+          "fullName": "Charles James Sawyer",
+          "title": "Mr",
+          "gender": "Male",
+          "dateOfBirth": "11 Nov, 1981"
+        },
+        "id": "001",
+
+        "jobTitle": "Team Lead, IT Architecture",
+        "avatar": "https://source.unsplash.com/3TLl_97HNJo",
+        "teamName": "IT Architecture and Strategy",
+        "teamId": "001",
+        "location": "Victoria Island",
+        "phoneNumber": "+234 803 727 1111",
+        "emailAddress": "charles@example.com"
+      }
+    }
+  },
+  {
+    "id": "CA2303000098",
+    "type": "Cash Advance",
+    "purpose": "Travel Cash Advance - Lagos, Afghanistan to LL, Afghanistan.",
+    "requestDate": "01 Mar, 2023 12:00 AM",
+    "status": "history",
+    "statusDescription": "Awaiting Approval - DEPARTMENT HEAD",
+    "details": {
+      "department": "IT Architecture Development",
+      "stage": "pending",
+      "advanced": "150,456.54",
+      "retirement": "130,000.00",
+      "currency": "NGN",
+      "requestor": {
+        "bioData": {
+          "firstName": "Charles",
+          "lastName": "Sawyer",
+          "fullName": "Charles James Sawyer",
+          "title": "Mr",
+          "gender": "Male",
+          "dateOfBirth": "11 Nov, 1981"
+        },
+        "id": "001",
+
+        "jobTitle": "Team Lead, IT Architecture",
+        "avatar": "https://source.unsplash.com/3TLl_97HNJo",
+        "teamName": "IT Architecture and Strategy",
+        "teamId": "001",
+        "location": "Victoria Island",
+        "phoneNumber": "+234 803 727 1111",
+        "emailAddress": "charles@example.com"
+      }
+    }
+  },
+  {
+    "id": "CA2303000058",
+    "type": "Cash Advance",
+    "purpose": "Travel Cash Advance - Lagos, Afghanistan to LL, Afghanistan.",
+    "requestDate": "01 Mar, 2023 12:00 AM",
+    "status": "awaiting",
+    "statusDescription": "Awaiting Approval - DEPARTMENT HEAD",
+    "details": {
+      "department": "IT Architecture Development",
+      "stage": "pending",
+      "advanced": "150,456.54",
+      "retirement": "130,000.00",
+      "currency": "NGN",
+      "requestor": {
+        "bioData": {
+          "firstName": "Charles",
+          "lastName": "Sawyer",
+          "fullName": "Charles James Sawyer",
+          "title": "Mr",
+          "gender": "Male",
+          "dateOfBirth": "11 Nov, 1981"
+        },
+        "id": "001",
+
+        "jobTitle": "Team Lead, IT Architecture",
+        "avatar": "https://source.unsplash.com/3TLl_97HNJo",
+        "teamName": "IT Architecture and Strategy",
+        "teamId": "001",
+        "location": "Victoria Island",
+        "phoneNumber": "+234 803 727 1111",
+        "emailAddress": "charles@example.com"
+      }
+    }
+  },
+  {
+    "id": "CA2303000013",
+    "type": "Cash Advance",
+    "purpose": "Travel Cash Advance - Lagos, Afghanistan to LL, Afghanistan.",
+    "requestDate": "01 Mar, 2023 12:00 AM",
+    "status": "awaiting",
+    "statusDescription": "Awaiting Approval - DEPARTMENT HEAD",
+    "details": {
+      "department": "IT Architecture Development",
+      "stage": "pending",
+      "advanced": "150,456.54",
+      "retirement": "130,000.00",
+      "currency": "NGN",
+      "requestor": {
+        "bioData": {
+          "firstName": "Charles",
+          "lastName": "Sawyer",
+          "fullName": "Charles James Sawyer",
+          "title": "Mr",
+          "gender": "Male",
+          "dateOfBirth": "11 Nov, 1981"
+        },
+        "id": "001",
+
+        "jobTitle": "Team Lead, IT Architecture",
+        "avatar": "https://source.unsplash.com/3TLl_97HNJo",
+        "teamName": "IT Architecture and Strategy",
+        "teamId": "001",
+        "location": "Victoria Island",
+        "phoneNumber": "+234 803 727 1111",
+        "emailAddress": "charles@example.com"
+      }
+    }
+  }
+]

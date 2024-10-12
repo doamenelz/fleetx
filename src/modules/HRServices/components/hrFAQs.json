@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "title": "Where can I find a list of upcoming public holidays?",
+    "copy": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tincidunt elit nunc. Phasellus justo lacus, mollis nec enim vitae, tempor pellentesque nunc. Nulla maximus diam magna. Quisque dolor mauris, dictum sit amet ligula quis, sodales molestie nibh. Pellentesque quis mi ut justo ullamcorper condimentum a in enim. Nam varius libero maximus faucibus sodales. Nullam bibendum quis risus et ultrices. Nullam at erat rhoncus, congue ipsum at, pretium nibh. ",
+    "tags": "vacation time off holidays"
+  },
+  {
+    "id": "2",
+    "title": "How do I get a copy of my Tax Records?",
+    "copy": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tincidunt elit nunc. Phasellus justo lacus, mollis nec enim vitae, tempor pellentesque nunc. Nulla maximus diam magna. Quisque dolor mauris, dictum sit amet ligula quis, sodales molestie nibh. Pellentesque quis mi ut justo ullamcorper condimentum a in enim. Nam varius libero maximus faucibus sodales. Nullam bibendum quis risus et ultrices. Nullam at erat rhoncus, congue ipsum at, pretium nibh. ",
+    "tags": "tax salary compensation"
+  },
+  {
+    "id": "3",
+    "title": "I lost my Identification Card, how do I request a new one?",
+    "copy": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tincidunt elit nunc. ",
+    "tags": "id card incident lost"
+  },
+  {
+    "id": "4",
+    "title": "Why is my available leave days less than my entitled days?",
+    "copy": "",
+    "tags": "vacation time off holidays"
+  }
+]
