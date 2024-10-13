@@ -35,7 +35,7 @@ import {
 } from "@/components";
 import { TableContext } from "@/components/Table/TableContext";
 import { classNames } from "@/lib/utilities/helperFunctions";
-import { Vehicle } from "@/models/Vehicle";
+import { Vehicle } from "@/models/Vehicle/Vehicle";
 import { PencilIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -113,19 +113,19 @@ export const VehicleTableList: FC<{ data: Vehicle[] }> = ({ data }) => {
                             href={`vehicles/${vehicle.id}`}
                             className="hover:text-indigo-700 font-semibold text-indigo-800"
                           >
-                            <p>{vehicle.name}</p>
+                            <p>{vehicle.generalInfo.name}</p>
                           </Link>
                         }
                         mainCell={false}
                         hideOnMobile={false}
                       />
                       <TableCell
-                        label={vehicle.license}
+                        label={vehicle.generalInfo.license}
                         mainCell={false}
                         hideOnMobile={false}
                       />
                       <TableCell
-                        label={vehicle.type}
+                        label={vehicle.generalInfo.type}
                         mainCell={false}
                         hideOnMobile={false}
                       />
@@ -154,13 +154,19 @@ export const VehicleTableList: FC<{ data: Vehicle[] }> = ({ data }) => {
                       <TableCell
                         label={
                           <div className="flex items-center gap-2">
-                            <Avatar
-                              firstName={vehicle.operator.firstName}
-                              lastName={vehicle.operator.lastName}
-                              imageUrl={vehicle.operator.avatar}
-                              size={AVATAR_SIZES.sm}
-                            />
-                            <Lbl label={vehicle.operator.name} />
+                            {vehicle.operator !== undefined ? (
+                              <>
+                                <Avatar
+                                  firstName={vehicle.operator.firstName}
+                                  lastName={vehicle.operator.lastName}
+                                  imageUrl={vehicle.operator.avatar}
+                                  size={AVATAR_SIZES.sm}
+                                />
+                                <Lbl label={vehicle.operator.name} />
+                              </>
+                            ) : (
+                              "Unassigned"
+                            )}
                           </div>
                         }
                         mainCell={false}

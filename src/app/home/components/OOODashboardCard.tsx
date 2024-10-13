@@ -6,7 +6,7 @@ import {
   AvatarCell,
   EmptyStateText,
   Lbl,
-  AnalyticsCard,
+  CustomCardWithTitle,
   CARD_SPAN,
   SlideOutWrapper,
   SectionHeader,
@@ -44,7 +44,7 @@ export const DashboardOutOfOfficeList = () => {
 
   return (
     <>
-      <AnalyticsCard
+      <CustomCardWithTitle
         title="Time Off and Absences Overview"
         copy="Workforce"
         span={CARD_SPAN.full}
@@ -138,7 +138,7 @@ export const DashboardOutOfOfficeList = () => {
             </div>
           </div>
         )}
-      </AnalyticsCard>
+      </CustomCardWithTitle>
       {ReactDOM.createPortal(
         <SlideOutWrapper
           closeControl={showModalHandler}

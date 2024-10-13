@@ -14,23 +14,29 @@ export interface LoaderProps {
 export const PageLoader: FC<LoaderProps> = (props) => {
   return (
     <div className="mx-auto fixed inset-0 overscroll-y-none flex items-center justify-center bg-slate-200/50 z-20">
-      <div className="text-center mx-auto">
-        <LoaderCircle
-          className={classNames(
-            "animate-spin text-indigo-700 bg-clip-text mx-auto",
-            props.size === "lg"
-              ? "h-24 w-24"
-              : props.size === "md"
-              ? "h-16 w-16"
-              : "h-12 w-12"
-          )}
-        />
-        {props.label && (
-          <p className="animate-pulse font-mono text-center text-xs text-slate-600">
-            {props.label}
-          </p>
+      <Spinner props={props} />
+    </div>
+  );
+};
+
+export const Spinner: FC<{ props: LoaderProps }> = ({ props }) => {
+  return (
+    <div className="text-center mx-auto">
+      <LoaderCircle
+        className={classNames(
+          "animate-spin text-indigo-700 bg-clip-text mx-auto",
+          props.size === "lg"
+            ? "h-24 w-24"
+            : props.size === "md"
+            ? "h-16 w-16"
+            : "h-12 w-12"
         )}
-      </div>
+      />
+      {props.label && (
+        <p className="animate-pulse font-mono text-center text-xs text-slate-600">
+          {props.label}
+        </p>
+      )}
     </div>
   );
 };

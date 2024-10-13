@@ -1,6 +1,6 @@
 "use client";
 import {
-  AnalyticsCard,
+  CustomCardWithTitle,
   BodyCopy,
   Button,
   CARD_SPAN,

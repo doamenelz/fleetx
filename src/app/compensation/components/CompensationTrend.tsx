@@ -25,7 +25,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import {
-  AnalyticsCard,
+  CustomCardWithTitle,
   BUTTON_GROUP,
   ButtonGroup,
   CARD_SPAN,
@@ -61,7 +61,7 @@ const chartData = [
 
 export const RCompTrend: FC<{ span: CARD_SPAN }> = ({ span }) => {
   return (
-    <AnalyticsCard
+    <CustomCardWithTitle
       title="Monthly Payroll"
       copy="Compensation"
       span={span}
@@ -76,7 +76,10 @@ export const RCompTrend: FC<{ span: CARD_SPAN }> = ({ span }) => {
       }
     >
       <CardContent>
-        <ChartContainer config={{}} className="max-h-[350px] w-full">
+        <ChartContainer
+          config={{}}
+          className="max-h-[350px] w-full"
+        >
           <LineChart
             accessibilityLayer
             data={chartData}
@@ -85,7 +88,10 @@ export const RCompTrend: FC<{ span: CARD_SPAN }> = ({ span }) => {
               right: 12,
             }}
           >
-            <CartesianGrid vertical={true} horizontal={false} />
+            <CartesianGrid
+              vertical={true}
+              horizontal={false}
+            />
             <XAxis
               dataKey="category"
               tickLine={false}
@@ -93,7 +99,10 @@ export const RCompTrend: FC<{ span: CARD_SPAN }> = ({ span }) => {
               tickMargin={8}
               tickFormatter={(value) => value.slice(0, 3)}
             />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent />}
+            />
             <Line
               dataKey="Net"
               type="monotone"
@@ -118,7 +127,12 @@ export const RCompTrend: FC<{ span: CARD_SPAN }> = ({ span }) => {
         </ChartContainer>
       </CardContent>
       <div className="flex gap-4 justify-center">
-        <ChartLegendItem name={"Net"} value={""} category="" fill="#2a9d90" />
+        <ChartLegendItem
+          name={"Net"}
+          value={""}
+          category=""
+          fill="#2a9d90"
+        />
         <ChartLegendItem
           name={"Deductions"}
           value={""}
@@ -126,6 +140,6 @@ export const RCompTrend: FC<{ span: CARD_SPAN }> = ({ span }) => {
           fill="#fb923c"
         />
       </div>
-    </AnalyticsCard>
+    </CustomCardWithTitle>
   );
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  AnalyticsCard,
+  CustomCardWithTitle,
   BodyCopy,
   CARD_SPAN,
   ChartLegendItem,
@@ -34,7 +34,7 @@ const chartData = [
 export const RDemContractType: FC<{ config: ReportConfig }> = ({ config }) => {
   const _chartData = createChartData(chartData, CHART_COLOR_SCHEME.default);
   return (
-    <AnalyticsCard
+    <CustomCardWithTitle
       title={config.title}
       copy={config.category}
       span={CARD_SPAN.one}
@@ -90,6 +90,6 @@ export const RDemContractType: FC<{ config: ReportConfig }> = ({ config }) => {
           ))}
         </ul>
       </div>
-    </AnalyticsCard>
+    </CustomCardWithTitle>
   );
 };

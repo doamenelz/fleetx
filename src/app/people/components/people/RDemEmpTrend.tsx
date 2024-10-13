@@ -25,7 +25,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import {
-  AnalyticsCard,
+  CustomCardWithTitle,
   BUTTON_GROUP,
   ButtonGroup,
   CARD_SPAN,
@@ -65,7 +65,7 @@ export const RDemEmpTrend: FC<{ span?: CARD_SPAN; config: ReportConfig }> = ({
   config,
 }) => {
   return (
-    <AnalyticsCard
+    <CustomCardWithTitle
       title={config.title}
       copy={config.category}
       span={span ?? CARD_SPAN.one}
@@ -144,6 +144,6 @@ export const RDemEmpTrend: FC<{ span?: CARD_SPAN; config: ReportConfig }> = ({
           fill="#fb923c"
         />
       </div>
-    </AnalyticsCard>
+    </CustomCardWithTitle>
   );
 };

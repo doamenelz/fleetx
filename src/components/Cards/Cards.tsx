@@ -79,7 +79,7 @@ const CardHeader: FC<{
   );
 };
 
-export const AnalyticsCard: FC<CardProps> = ({
+export const CustomCardWithTitle: FC<CardProps> = ({
   children,
   title,
   copy,

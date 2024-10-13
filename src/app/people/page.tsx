@@ -1,6 +1,6 @@
 "use client";
 import {
-  AnalyticsCard,
+  CustomCardWithTitle,
   BodyCopy,
   CARD_SPAN,
   GRID_TYPE,
@@ -36,7 +36,7 @@ export default function Page() {
         )}
       >
         <GridLayout type={GRID_TYPE.threeCol}>
-          <AnalyticsCard
+          <CustomCardWithTitle
             title="Age Distribution"
             span={CARD_SPAN.two}
             button={
@@ -50,8 +50,8 @@ export default function Page() {
             }
           >
             <BodyCopy text="Pie Chart showing Distribution for staff" />
-          </AnalyticsCard>
-          <AnalyticsCard
+          </CustomCardWithTitle>
+          <CustomCardWithTitle
             title="Sample Analytics Card Title"
             copy="Sample Analytics Card Copy"
             span={CARD_SPAN.one}
@@ -66,8 +66,8 @@ export default function Page() {
             }
           >
             <BodyCopy text="Pie Chart showing Distribution for staff" />
-          </AnalyticsCard>
-          <AnalyticsCard
+          </CustomCardWithTitle>
+          <CustomCardWithTitle
             title="Sample Analytics Card Title"
             copy="Sample Analytics Card Copy"
             span={CARD_SPAN.one}
@@ -82,8 +82,8 @@ export default function Page() {
             }
           >
             <BodyCopy text="Pie Chart showing Distribution for staff" />
-          </AnalyticsCard>
-          <AnalyticsCard
+          </CustomCardWithTitle>
+          <CustomCardWithTitle
             title="Sample Analytics Card Title"
             copy="Sample Analytics Card Copy"
             span={CARD_SPAN.one}
@@ -98,7 +98,7 @@ export default function Page() {
             }
           >
             <BodyCopy text="Pie Chart showing Distribution for staff" />
-          </AnalyticsCard>
+          </CustomCardWithTitle>
           <AnnualRemunerationCard />
         </GridLayout>
       </div>

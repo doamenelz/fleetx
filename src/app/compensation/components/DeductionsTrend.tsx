@@ -25,7 +25,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import {
-  AnalyticsCard,
+  CustomCardWithTitle,
   BUTTON_GROUP,
   ButtonGroup,
   CARD_SPAN,
@@ -66,7 +66,7 @@ export const RDeductionsTrend: FC<{
   config: ReportConfig;
 }> = ({ span, config }) => {
   return (
-    <AnalyticsCard
+    <CustomCardWithTitle
       title={config.title}
       copy={config.category}
       span={span}
@@ -208,6 +208,6 @@ export const RDeductionsTrend: FC<{
           fill="#1A2E44"
         />
       </div>
-    </AnalyticsCard>
+    </CustomCardWithTitle>
   );
 };

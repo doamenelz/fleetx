@@ -31,12 +31,13 @@ export const Tabs: FC<{
           <div className="hidden sm:block ">
             <nav className="flex -mb-px">
               {tabs.map((tab) => (
-                <button
+                <a
+                  href={tab.href}
                   key={tab.id}
                   onClick={() => tabHandler(tab.id)}
                   className={classNames(
                     selectedTab === tab.id
-                      ? "border-primary-500 text-primary-900 font-medium"
+                      ? "border-brand-blueDeep text-brand-blueRoyal font-medium"
                       : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
                     "whitespace-nowrap flex border-b-2 items-center gap-1 px-6 pb-3 text-sm"
                   )}
@@ -44,7 +45,7 @@ export const Tabs: FC<{
                 >
                   <span className="w-4 h-4">{tab.icon}</span>
                   {tab.name}
-                </button>
+                </a>
               ))}
             </nav>
           </div>

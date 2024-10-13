@@ -10,7 +10,7 @@ import {
   YAxis,
 } from "recharts";
 import {
-  AnalyticsCard,
+  CustomCardWithTitle,
   BodyCopy,
   CARD_SPAN,
   ChartLegendItem,
@@ -62,7 +62,7 @@ const chartConfig = {
 /** Analytics card showing the Time it takes to hire per Grade Strata */
 export const TimeToHireStrata: FC<{ config: ReportConfig }> = ({ config }) => {
   return (
-    <AnalyticsCard
+    <CustomCardWithTitle
       title={config.title}
       copy={config.category}
       span={CARD_SPAN.one}
@@ -120,6 +120,6 @@ export const TimeToHireStrata: FC<{ config: ReportConfig }> = ({ config }) => {
           </ChartContainer>
         </CardContent>
       </div>
-    </AnalyticsCard>
+    </CustomCardWithTitle>
   );
 };

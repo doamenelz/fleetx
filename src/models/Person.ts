@@ -9,6 +9,7 @@ export interface Person {
   role: string;
   avatar: string;
   email: string;
+  phone?: string;
 }
 
 export const generatePerson = (role: string) => {
@@ -21,5 +22,6 @@ export const generatePerson = (role: string) => {
     role: role,
     avatar: faker.image.avatarGitHub(),
     email: faker.internet.email(),
+    phone: faker.phone.number(),
   };
 };

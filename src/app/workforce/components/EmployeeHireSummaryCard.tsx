@@ -27,7 +27,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import {
-  AnalyticsCard,
+  CustomCardWithTitle,
   BodyCopy,
   BUTTON_GROUP,
   ButtonGroup,
@@ -59,7 +59,7 @@ export const EmployeeHireSummaryCard: FC<{
   config: ReportConfig;
 }> = ({ span, config }) => {
   return (
-    <AnalyticsCard
+    <CustomCardWithTitle
       title={config.title}
       copy={config.category}
       span={span}
@@ -144,6 +144,6 @@ export const EmployeeHireSummaryCard: FC<{
           </div>
         </div>
       </CardContent>
-    </AnalyticsCard>
+    </CustomCardWithTitle>
   );
 };

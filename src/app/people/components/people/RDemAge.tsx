@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  AnalyticsCard,
+  CustomCardWithTitle,
   BodyCopy,
   CARD_SPAN,
   ChartLegendItem,
@@ -35,7 +35,7 @@ const chartData = [
 export const RDemAge = () => {
   const _chartData = createChartData(chartData, CHART_COLOR_SCHEME.default);
   return (
-    <AnalyticsCard
+    <CustomCardWithTitle
       title="Distribution by Age"
       copy="Demographics"
       span={CARD_SPAN.one}
@@ -91,6 +91,6 @@ export const RDemAge = () => {
           ))}
         </ul>
       </div>
-    </AnalyticsCard>
+    </CustomCardWithTitle>
   );
 };

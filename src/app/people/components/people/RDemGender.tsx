@@ -10,7 +10,7 @@ import {
   YAxis,
 } from "recharts";
 import {
-  AnalyticsCard,
+  CustomCardWithTitle,
   BodyCopy,
   CARD_SPAN,
   ChartLegendItem,
@@ -43,7 +43,7 @@ const chartData = [
 /** Analytics card showing the Demographics Age Distribution */
 export const RDemGender: FC<{ config: ReportConfig }> = ({ config }) => {
   return (
-    <AnalyticsCard
+    <CustomCardWithTitle
       title={config.title}
       copy={config.category}
       span={CARD_SPAN.one}
@@ -160,6 +160,6 @@ export const RDemGender: FC<{ config: ReportConfig }> = ({ config }) => {
           />
         </div>
       </div>
-    </AnalyticsCard>
+    </CustomCardWithTitle>
   );
 };

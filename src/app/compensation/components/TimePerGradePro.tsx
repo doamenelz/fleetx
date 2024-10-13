@@ -10,7 +10,7 @@ import {
   YAxis,
 } from "recharts";
 import {
-  AnalyticsCard,
+  CustomCardWithTitle,
   BodyCopy,
   CARD_SPAN,
   ChartLegendItem,
@@ -46,7 +46,7 @@ export const TimePerGradePromotion: FC<{ config: ReportConfig }> = ({
   config,
 }) => {
   return (
-    <AnalyticsCard
+    <CustomCardWithTitle
       title={config.title}
       copy={config.category}
       span={CARD_SPAN.one}
@@ -104,6 +104,6 @@ export const TimePerGradePromotion: FC<{ config: ReportConfig }> = ({
           </ChartContainer>
         </CardContent>
       </div>
-    </AnalyticsCard>
+    </CustomCardWithTitle>
   );
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  AnalyticsCard,
+  CustomCardWithTitle,
   BodyCopy,
   CARD_SPAN,
   ChartLegendItem,
@@ -37,7 +37,7 @@ export const SanctionsSummaryCard: FC<{ config: ReportConfig }> = ({
 }) => {
   const _chartData = createChartData(chartData, CHART_COLOR_SCHEME.default);
   return (
-    <AnalyticsCard
+    <CustomCardWithTitle
       title={config.title}
       copy={config.category}
       span={CARD_SPAN.one}
@@ -90,6 +90,6 @@ export const SanctionsSummaryCard: FC<{ config: ReportConfig }> = ({
           ))}
         </ul>
       </div>
-    </AnalyticsCard>
+    </CustomCardWithTitle>
   );
 };

@@ -1,11 +1,16 @@
 "use client";
 
-import { AnalyticsCard, BodyCopy, CARD_SPAN, MenuDropdown } from "@/components";
+import {
+  CustomCardWithTitle,
+  BodyCopy,
+  CARD_SPAN,
+  MenuDropdown,
+} from "@/components";
 
 /** Analytics card showing the Demographics Age Distribution */
 export const RDemGeoPolitical = () => {
   return (
-    <AnalyticsCard
+    <CustomCardWithTitle
       title="Distribution by Geo Locations"
       copy="Demographics"
       span={CARD_SPAN.one}
@@ -20,6 +25,6 @@ export const RDemGeoPolitical = () => {
       }
     >
       <BodyCopy text="" />
-    </AnalyticsCard>
+    </CustomCardWithTitle>
   );
 };
