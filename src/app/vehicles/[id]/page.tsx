@@ -17,10 +17,10 @@ import { VehicleTableList } from "../components/VehicleTableList";
 import { VehicleSummaryView } from "../components/VehicleSummaryView";
 import { simulateLoader } from "@/lib/utilities/helperFunctions";
 
+//TODO: Update the Document Title
 export default function Page({ params }: { params: { id: string } }) {
   // const _leaveDetails = sampleBalances.find((p) => p.type === params.id);
-  const [isLoading, setIsLoading] = useState(true);
-  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle>();
+
   useEffect(() => {
     const vehicleDetails = sampleVehicles.find(
       (vehicle) => vehicle.id === params.id
@@ -28,10 +28,12 @@ export default function Page({ params }: { params: { id: string } }) {
     setSelectedVehicle(vehicleDetails);
     simulateLoader(setIsLoading, 2000);
   }, []);
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle>();
 
   return (
     <PageContainer
-      documentTitle={`Vehicles - ${params.id}`}
+      documentTitle={`Vehicles - ${selectedVehicle?.generalInfo.name}`}
       fullWidth={SCREEN_WIDTH.full}
       isLoading={false}
       hasPadding={false}

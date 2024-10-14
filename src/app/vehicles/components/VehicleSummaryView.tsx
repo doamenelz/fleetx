@@ -40,93 +40,24 @@ export const VehicleSummaryView: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
         lhs={
           <div className="space-y-6">
             <OverviewCard vehicle={generalInfo!} />
-            {/* <CardWithSectionHeader
-              title="Overview"
-              //   copy="Specifications of the Vehicle"
-            >
-              <ListTable data={createListData()} />
-            </CardWithSectionHeader>
-            General Information Upcoming Reminders / Service Recent Expenses
-            Issues and Faults
-            <CardWithSectionHeader
-              title="Specifications"
-              //   copy="Specifications of the Vehicle"
-            >
-              <ListTable data={createListData()} />
-            </CardWithSectionHeader>
-            <CardWithSectionHeader
-              title="Specifications"
-              //   copy="Specifications of the Vehicle"
-            >
-              <ListTable data={createListData()} />
-            </CardWithSectionHeader>
-            <CardWithSectionHeader
-              title="Specifications"
-              //   copy="Specifications of the Vehicle"
-            >
-              <ListTable data={createListData()} />
-            </CardWithSectionHeader> */}
+            <FaultSummary vehicle={generalInfo!} />
+            <WorkOrders vehicle={generalInfo!} />
+
+            <Costs vehicle={generalInfo!} />
           </div>
         }
         rhs={
-          <>
+          <div className="space-y-6">
             <img
+              className="rounded-md"
               alt=""
               src="https://www.aronline.co.uk/wp-content/uploads/2008/04/Chrysler-300C.jpeg"
             />
-            <div className="rounded-md border pb-12">
+            <UpcomingActivities vehicle={generalInfo!} />
+            {/* <div className="rounded-md border pb-12">
               <div className="bg-gradient-to-r from-yellow-600 to-red-600 h-20 rounded-tl-md rounded-tr-md"></div>
               <div className="text-center block mx-auto px-4 align-baseline w-full -m-10 space-y-6">
-                {/* <div className="flex justify-between items-end">
-                  <Avatar
-                    firstName={vehicle.operator.firstName}
-                    lastName={vehicle.operator.lastName}
-                    imageUrl={vehicle.operator.avatar}
-                    size={AVATAR_SIZES.xxl}
-                  />
-                  <Button
-                    label="View Profile"
-                    skin={BUTTON_SKIN.secondaryColor}
-                  />
-                </div>
-
-                <div className="text-left space-y-1">
-                  <p className="text-slate-900 font-semibold">
-                    {vehicle.operator.firstName}
-                  </p>
-                  <p className="text-slate-700 text-sm">
-                    {vehicle.operator.firstName}
-                  </p>
-                  <p className="text-slate-700 text-xs">
-                    #: {vehicle.operator.firstName}
-                  </p>
-                  <StatusBadge
-                    label="Active"
-                    statusType={STATUS_COLORS.success}
-                  />
-                </div> */}
-
-                {/* <div className="border-t py-4 space-y-4">
-                  <div className="py-2 space-y-2">
-                    <Lbl label="Manager" />
-                    <AvatarCell
-                      firstName={employee.lineManager?.bioData.firstName ?? ""}
-                      lastName={employee.lineManager?.bioData.lastName ?? ""}
-                      fullName={employee.lineManager?.bioData.fullName ?? ""}
-                      imageUrl={employee.lineManager?.bioData.avatar ?? ""}
-                      row2={
-                        employee.lineManager?.jobInformation?.jobTitle ?? ""
-                      }
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Lbl label="Direct Reports" />
-                    <AvatarStack
-                      employees={sampleEmployeeList}
-                      size={AVATAR_SIZES.sm}
-                    />
-                  </div>
-                </div> */}
+               
               </div>
             </div>
             <p>Custodian</p>
@@ -136,8 +67,8 @@ export const VehicleSummaryView: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
             <p>New Issue </p>
             <p>New Inspection</p>
             <p>New Expense</p>
-            <p>New Fault</p>
-          </>
+            <p>New Fault</p> */}
+          </div>
         }
       ></GridLayout>
     </div>
@@ -218,6 +149,77 @@ const OverviewCard: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
       //   copy="Specifications of the Vehicle"
     >
       <ListTable data={data} />
+    </CardWithSectionHeader>
+  );
+};
+
+const FaultSummary: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
+  return (
+    <CardWithSectionHeader
+      title="Open Issues"
+      //   copy="Specifications of the Vehicle"
+    >
+      <p></p>
+    </CardWithSectionHeader>
+  );
+};
+
+const WorkOrders: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
+  return (
+    <CardWithSectionHeader
+      title="Work Orders"
+      //   copy="Specifications of the Vehicle"
+    >
+      <p></p>
+    </CardWithSectionHeader>
+  );
+};
+
+const UpcomingActivities: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
+  const data: ListTableData[] = [
+    {
+      id: "1",
+      key: "Service",
+      value: "8,000km Oil Change | 23 Aug, 2024",
+    },
+    {
+      id: "1",
+      key: "Tire Inspection",
+      value: "23 Aug, 2024",
+    },
+    {
+      id: "1",
+      key: "Annual IMTO Inspection",
+      value: "25 Aug, 2024",
+    },
+    {
+      id: "1",
+      key: "Insurance Payment",
+      value: "$420 | 25 Aug, 2024",
+    },
+    {
+      id: "1",
+      key: "Lease Payment",
+      value: "$315 Bi-Weekly | 25 Aug, 2024",
+    },
+  ];
+  return (
+    <CardWithSectionHeader
+      title="Scheduled Items"
+      hasBoundary={false}
+      //   copy="Specifications of the Vehicle"
+    >
+      <ListTable data={data} />
+    </CardWithSectionHeader>
+  );
+};
+const Costs: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
+  return (
+    <CardWithSectionHeader
+      title="Costs & Expenses"
+      //   copy="Specifications of the Vehicle"
+    >
+      <p></p>
     </CardWithSectionHeader>
   );
 };

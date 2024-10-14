@@ -8,6 +8,7 @@ export interface CardProps {
   copy?: string;
   /** Used to determine the span of the Card.  */
   span?: CARD_SPAN;
+  hasBoundary?: boolean;
 }
 
 export enum CARD_SPAN {

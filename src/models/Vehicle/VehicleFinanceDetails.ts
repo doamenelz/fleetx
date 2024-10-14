@@ -4,6 +4,7 @@ export interface VehicleFinanceDetails {
   purchaseCost: string;
   financeType: string;
   monthlyPayment: string;
+  paymentSchedule: string;
   outstandingPayment: string;
   startDate: string;
   endDate: string;
@@ -12,4 +13,5 @@ export interface VehicleFinanceDetails {
   notes: string;
   contractNumber: string;
   saleDetails?: {};
+  insurance: string;
 }
