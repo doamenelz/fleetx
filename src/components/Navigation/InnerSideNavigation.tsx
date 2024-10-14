@@ -5,13 +5,8 @@ import { classNames } from "@/lib/utilities/helperFunctions";
 import { NavigationProps } from ".";
 import Link from "next/link";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import {
-  ArrowsRightLeftIcon,
-  ChevronDownIcon,
-} from "@heroicons/react/20/solid";
-import { SectionHeader } from "..";
-import { MainNavigationNotification, Avatar, AVATAR_SIZES } from "..";
-import { sampleEmployee } from "@/models";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { usePathname } from "next/navigation";
 export interface SideNavItem {
   id: string;
   label: string;
@@ -23,28 +18,31 @@ export const InnerSideNavigation: FC<{
   items: NavigationProps[];
   moduleName?: string;
 }> = ({ children, items, top, moduleName }) => {
-  const [selectedView, setSelectedView] = useState("");
+  const pathname = usePathname();
+  const [selectedView, setSelectedView] = useState(pathname);
   const [switchView, setSwitchView] = useState(top);
 
   useEffect(() => {
     const url = getURl();
     console.log(`Current url is ${url}`);
+    console.log(`pathname url is ${pathname}`);
+    // setSelectedView(pathname);
     return () => {
-      setSelectedView(location.pathname);
+      setSelectedView("/vehicles");
     };
-  }, []);
+  }, [pathname]);
 
   const getURl = () => {
     return (
-      items.find((item) => location.pathname === item.link)?.link ??
+      items.find((item) => pathname === item.link)?.link ??
       getUrlForSubItems(items)
     );
   };
 
   const getUrlForSubItems = (items: NavigationProps[]) => {
-    if (items.some((e) => location.pathname.includes(e.link ?? ""))) {
-      // if (items.some((e) => location.pathname === e.link)) {
-      return location.pathname;
+    if (items.some((e) => pathname.includes(e.link ?? ""))) {
+      // if (items.some((e) => pathname === e.link)) {
+      return pathname;
     } else {
       return "";
     }
@@ -120,7 +118,7 @@ export const InnerSideNavigation: FC<{
                                 <p
                                   className={classNames(
                                     "text-xs px-3 py-2.5 text-left w-full hover:text-slate-900",
-                                    selectedView === subItem.link
+                                    selectedView.includes("/vehicles")
                                       ? "text-slate-700 font-semibold"
                                       : "text-slate-600 hover:bg-slate-100  hover:border-slate-500"
                                   )}
@@ -162,7 +160,7 @@ const NavItem: FC<{
       <p
         className={classNames(
           "text-xs px-3 py-2.5 border-b-2 gap-2 text-left w-full hover:text-brand-blueRoyal  flex justify-between items-center",
-          selectedView === nav.link
+          selectedView.includes(nav.link)
             ? "text-brand-blueRoyal border-brand-orangeHabanero font-normal "
             : "text-slate-700 border-transparent font-normal hover:border-slate-300"
         )}

@@ -3,6 +3,7 @@ import { classNames } from "@/lib/utilities/helperFunctions";
 import { Tab } from "./Tabs.types";
 import { TEXT_INPUT_SIZE } from "../TextInput";
 import { Dropdown } from "../Dropdown";
+import Link from "next/link";
 
 export const Tabs: FC<{
   tabs: Tab[];
@@ -31,12 +32,12 @@ export const Tabs: FC<{
           <div className="hidden sm:block ">
             <nav className="flex -mb-px">
               {tabs.map((tab) => (
-                <a
+                <Link
                   href={tab.href}
                   key={tab.id}
-                  onClick={() => tabHandler(tab.id)}
+                  onClick={() => tabHandler(tab.href)}
                   className={classNames(
-                    selectedTab === tab.id
+                    tab.href === selectedTab
                       ? "border-brand-blueDeep text-brand-blueRoyal font-medium"
                       : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
                     "whitespace-nowrap flex border-b-2 items-center gap-1 px-6 pb-3 text-sm"
@@ -45,7 +46,7 @@ export const Tabs: FC<{
                 >
                   <span className="w-4 h-4">{tab.icon}</span>
                   {tab.name}
-                </a>
+                </Link>
               ))}
             </nav>
           </div>

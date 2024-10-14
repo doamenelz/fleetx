@@ -8,35 +8,12 @@ import {
   TableRow,
   AVATAR_SIZES,
   Avatar,
-  AvatarCell,
-  BUTTON_SKIN,
-  ModalBackdrop,
-  SlideOutWrapper,
-  SectionHeader,
-  TextLabel,
-  Accordion,
-  timelineActivities,
-  Timeline,
-  MenuDropdown,
-  MenuDropdownItemProp,
-  CenterCardModal,
-  GridLayout,
-  GRID_TYPE,
-  InputHandler,
-  TEXT_INPUT_SIZE,
-  INPUT_TYPES,
-  DatePicker,
-  Button,
-  ICON_POSITION,
   StatusBadge,
   STATUS_COLORS,
-  BodyCopy,
   Lbl,
 } from "@/components";
 import { TableContext } from "@/components/Table/TableContext";
-import { classNames } from "@/lib/utilities/helperFunctions";
 import { Vehicle } from "@/models/Vehicle/Vehicle";
-import { PencilIcon } from "lucide-react";
 import Link from "next/link";
 
 export const VehicleTableList: FC<{ data: Vehicle[] }> = ({ data }) => {
@@ -110,6 +87,10 @@ export const VehicleTableList: FC<{ data: Vehicle[] }> = ({ data }) => {
                       <TableCell
                         label={
                           <Link
+                            // href={{
+                            //   pathname: `vehicles/${vehicle.id}`,
+                            //   query: { id: vehicle.id },
+                            // }}
                             href={`vehicles/${vehicle.id}`}
                             className="hover:text-indigo-700 font-semibold text-indigo-800"
                           >
