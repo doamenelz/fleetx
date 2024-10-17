@@ -37,6 +37,7 @@ export default function Page({ params }: { params: { id: string } }) {
       fullWidth={SCREEN_WIDTH.full}
       isLoading={false}
       hasPadding={false}
+      // bgColor="bg-slate-50"
     >
       {isLoading ? ( //max-h-[calc(100vh_-_260px)]
         <div className="mx-auto fixed inset-0 overscroll-y-none flex items-center justify-center 100vh ">

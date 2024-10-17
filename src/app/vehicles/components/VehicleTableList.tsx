@@ -40,43 +40,36 @@ export const VehicleTableList: FC<{ data: Vehicle[] }> = ({ data }) => {
                     label={"Name"}
                     mainCell={true}
                     hideOnMobile={false}
-                    isDark={true}
                   />
                   <TableHeadCell
                     label={"License #"}
                     mainCell={false}
                     hideOnMobile={false}
-                    isDark={true}
                   />
                   <TableHeadCell
                     label={"Type"}
                     mainCell={false}
                     hideOnMobile={false}
-                    isDark={true}
                   />
                   <TableHeadCell
                     label={"Status"}
                     mainCell={false}
                     hideOnMobile={false}
-                    isDark={true}
                   />
                   <TableHeadCell
                     label={"Year"}
                     mainCell={false}
                     hideOnMobile={false}
-                    isDark={true}
                   />
                   <TableHeadCell
                     label={"Make"}
                     mainCell={false}
                     hideOnMobile={false}
-                    isDark={true}
                   />
                   <TableHeadCell
                     label={"Assigned to"}
                     mainCell={false}
                     hideOnMobile={false}
-                    isDark={true}
                   />
                 </>
               }

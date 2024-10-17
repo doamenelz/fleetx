@@ -40,11 +40,15 @@ export const CardWithSectionHeader: FC<CardProps> = ({
   return (
     <div
       className={classNames(
-        " py-2 text-sm rounded-md bg-gray-25  ",
-        _hasBoundary ? "px-4 md:px-6 border md:border-gray-200" : ""
+        " py-2 text-sm  bg-gray-25  ",
+        _hasBoundary ? "px-4 md:px-6 border rounded-md md:border-c-mid" : ""
       )}
     >
-      <CardHeader title={title!} button={button} copy={copy} />
+      <CardHeader
+        title={title!}
+        button={button}
+        copy={copy}
+      />
       {children}
     </div>
   );
@@ -52,7 +56,7 @@ export const CardWithSectionHeader: FC<CardProps> = ({
 
 export const PlainCard: FC<CardProps> = ({ children }) => {
   return (
-    <div className="px-4 py-4 border rounded-md bg-gray-25 md:px-6 md:border-gray-200">
+    <div className="px-4 py-4 border rounded-md bg-gray-25 md:px-6 md:border-c-mid">
       {children}
     </div>
   );
@@ -119,7 +123,10 @@ export const CustomCardWithTitle: FC<CardProps> = ({
         {copy == undefined ? (
           <BodyCopy text={title ?? ""} />
         ) : (
-          <TextLabel label={copy} copy={title} />
+          <TextLabel
+            label={copy}
+            copy={title}
+          />
         )}
         <div className="flex justify-between  items-center">{button}</div>
       </div>

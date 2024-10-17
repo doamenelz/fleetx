@@ -17,6 +17,16 @@ const config = {
         "2xl": "1400px",
       },
     },
+    // fontSize: {
+    //   xxs: "0.5rem",
+    //   sm: "0.8rem",
+    //   base: "1rem",
+    //   xl: "1.25rem",
+    //   "2xl": "1.563rem",
+    //   "3xl": "1.953rem",
+    //   "4xl": "2.441rem",
+    //   "5xl": "3.052rem",
+    // },
     extend: {
       borderColor: {
         "c-light": "#eef2ff",
@@ -139,6 +149,15 @@ const config = {
           orangeHabanero: "#F98513",
           kiriMist: "#C5C5D3",
           festiveFerret: "#DFDFE5",
+          indiGlow: "#301885",
+          floppyDisk: "#110044",
+          speedOfLight: "#F6F4EF",
+          persianBlue: "#1330BE",
+          vistaBlue: "#7A9CEF",
+          voldermort: "#2D135F",
+          sapphireDust: "#516AC8",
+          blueOblivion: "#26428B",
+          darkHunterGreen: "#3A4A3F",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",

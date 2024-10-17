@@ -19,19 +19,19 @@ export const Accordion: FC<AccordionProps> = ({
     <Disclosure defaultOpen={defaultOpen}>
       {({ open }) => (
         /* Use the `open` state to conditionally change the direction of an icon. */
-        <>
+        <div className={classNames(open ? "border-c-mid border-b" : "")}>
           {style === "section" && (
             <Disclosure.Button
               className={classNames(
-                "flex group items-center hover:bg-indigo-50/20 justify-between w-full px-2 py-4 text-sm font-semibold text-left text-slate-700 border-b ",
-                open ? "bg-indigo-50/20 border-indigo-200" : ""
+                "flex group items-center justify-between w-full px-2 py-6 text-sm font-semibold text-left text-zinc-700 border-b",
+                open ? "border-c-mid" : ""
               )}
             >
               <div>
                 <p
                   className={classNames(
-                    "group-hover:text-indigo-700",
-                    open ? " text-indigo-700 " : ""
+                    "group-hover:text-brand-indiGlow",
+                    open ? "text-brand-oceanicNoir" : ""
                   )}
                 >
                   {title}
@@ -66,7 +66,7 @@ export const Accordion: FC<AccordionProps> = ({
           )}
 
           {body !== undefined && <Disclosure.Panel>{body}</Disclosure.Panel>}
-        </>
+        </div>
       )}
     </Disclosure>
   );

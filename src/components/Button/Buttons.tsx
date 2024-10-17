@@ -61,7 +61,7 @@ export const Button: FC<ButtonProps> = ({
           ? "bg-error-600 border-error-600 focus-visible:outline-error-200 hover:bg-error-700"
           : disabled
           ? "bg-slate-400 border-indigo-400"
-          : "border-indigo-700 bg-gradient-to-r from-indigo-800 to-indigo-900 hover:bg-gradient-to-r hover:from-indigo-700 hover:to-indigo-700 focus-visible:outline-indigo-200"
+          : " bg-gradient-to-r from-brand-indiGlow to-brand-indiGlow hover:bg-gradient-to-r hover:from-indigo-700 hover:to-indigo-700 focus-visible:outline-indigo-200"
       } border text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1`;
       break;
     case BUTTON_SKIN.secondary:
@@ -75,7 +75,7 @@ export const Button: FC<ButtonProps> = ({
       skinStyleClass = `${
         _destructive
           ? "bg-error-100 border-error-300 text-error-900 hover:text-slate-50 text-error-700 hover:bg-error-700 focus-visible:outline-error-400"
-          : "bg-indigo-50 ring-indigo-300 text-indigo-900 hover:bg-indigo-900 hover:text-indigo-100 focus-visible:outline-indigo-100"
+          : "bg-indigo-50 ring-indigo-300 text-indigo-900 hover:bg-brand-blueAnchorFish hover:text-indigo-100 focus-visible:outline-indigo-100"
       }  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1`;
       break;
     case BUTTON_SKIN.link:
@@ -124,7 +124,11 @@ export const Button: FC<ButtonProps> = ({
                 } `
               )}
             >
-              <ButtonLabel label={label} isLoading={isLoading} icon={icon} />
+              <ButtonLabel
+                label={label}
+                isLoading={isLoading}
+                icon={icon}
+              />
             </div>
           </Link>
         </div>
@@ -141,7 +145,11 @@ export const Button: FC<ButtonProps> = ({
             } ${fillWidth && "w-full"} `
           )}
         >
-          <ButtonLabel label={label} isLoading={isLoading} icon={icon} />
+          <ButtonLabel
+            label={label}
+            isLoading={isLoading}
+            icon={icon}
+          />
         </button>
       )}
     </>
@@ -210,7 +218,10 @@ export const IconStyleQL: FC<{
       </div>
       <div className="flex-auto">
         <h3 className="text-sm font-semibold leading-6 text-gray-900 group-hover:text-primary-900">
-          <span className="absolute inset-0" aria-hidden="true" />
+          <span
+            className="absolute inset-0"
+            aria-hidden="true"
+          />
           {label}
         </h3>
         <p className="mt-1 text-sm font-light leading-6 text-gray-600">

@@ -6,6 +6,9 @@ export const GridLayout: FC<GridProps> = ({
   lhs,
   rhs,
   type,
+  colOne,
+  colTwo,
+  colThree,
   verticalPadding,
 }) => {
   let classStyle = `${verticalPadding && "py-2"}`;
@@ -28,6 +31,12 @@ export const GridLayout: FC<GridProps> = ({
       break;
     case GRID_TYPE.fourCol:
       classStyle = "grid gap-4 mx-auto md:grid-cols-2 lg:grid-cols-4";
+      break;
+    case GRID_TYPE.twoFlex:
+      classStyle = "grid w-full grid-cols-1  lg:gap-6  md:grid-cols-2";
+      break;
+    case GRID_TYPE.threeFlex:
+      classStyle = "grid w-full grid-cols-1  lg:gap-6  md:grid-cols-3";
       break;
 
     default:
@@ -59,6 +68,19 @@ export const GridLayout: FC<GridProps> = ({
         <div className={`${verticalPadding && "my-4"} ${classStyle}`}>
           <div className="col-span-4 lg:col-span-1">{lhs}</div>
           <div className="col-span-4 lg:col-span-2">{rhs}</div>
+        </div>
+      )}
+      {type === GRID_TYPE.twoFlex && (
+        <div className={`${verticalPadding && "my-4"} ${classStyle}`}>
+          <div className="col-span-4 lg:col-span-1">{colOne}</div>
+          <div className="col-span-4 lg:col-span-1">{colTwo}</div>
+        </div>
+      )}
+      {type === GRID_TYPE.threeFlex && (
+        <div className={`${verticalPadding && "my-4"} ${classStyle}`}>
+          <div className="col-span-4 lg:col-span-1">{colOne}</div>
+          <div className="col-span-4 lg:col-span-1">{colTwo}</div>
+          <div className="col-span-4 lg:col-span-1">{colTwo}</div>
         </div>
       )}
     </>

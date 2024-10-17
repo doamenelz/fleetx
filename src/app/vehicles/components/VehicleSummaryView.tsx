@@ -3,20 +3,25 @@ import {
   AVATAR_SIZES,
   Button,
   BUTTON_SKIN,
+  CARD_SPAN,
   CardWithSectionHeader,
-  CardWithTitle,
-  CustomCardWithTitle,
   GRID_TYPE,
   GridLayout,
+  ICON_POSITION,
   Lbl,
   ListTable,
   ListTableData,
   STATUS_COLORS,
   StatusBadge,
 } from "@/components";
-import { sampleVehicles, Vehicle } from "@/models/Vehicle/Vehicle";
+import { sampleVehicleIssues, VehicleIssues } from "@/models";
+import { Vehicle } from "@/models/Vehicle/Vehicle";
+import Link from "next/link";
 
 import { FC, useEffect, useState } from "react";
+import { CostSummaryCard } from "./VehicleCostSummary";
+import { Archive, Delete, Edit, FileWarning, Trash } from "lucide-react";
+import { VehicleFuelSummaryCard } from "./VehicleFuelSummaryCard";
 
 export const VehicleSummaryView: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
   useEffect(() => {
@@ -40,10 +45,12 @@ export const VehicleSummaryView: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
         lhs={
           <div className="space-y-6">
             <OverviewCard vehicle={generalInfo!} />
-            <FaultSummary vehicle={generalInfo!} />
-            <WorkOrders vehicle={generalInfo!} />
-
-            <Costs vehicle={generalInfo!} />
+            <CostSummaryCard
+              vehicle={generalInfo!}
+              span={CARD_SPAN.full}
+              title="Costs & Expenses"
+            />
+            <VehicleFuelSummaryCard vehicle={generalInfo!} />
           </div>
         }
         rhs={
@@ -53,21 +60,37 @@ export const VehicleSummaryView: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
               alt=""
               src="https://www.aronline.co.uk/wp-content/uploads/2008/04/Chrysler-300C.jpeg"
             />
-            <UpcomingActivities vehicle={generalInfo!} />
-            {/* <div className="rounded-md border pb-12">
-              <div className="bg-gradient-to-r from-yellow-600 to-red-600 h-20 rounded-tl-md rounded-tr-md"></div>
-              <div className="text-center block mx-auto px-4 align-baseline w-full -m-10 space-y-6">
-               
-              </div>
+            <div className="flex gap-2">
+              <Button
+                label="Edit Vehicle"
+                fillWidth
+                skin={BUTTON_SKIN.secondaryColor}
+                icon={{
+                  position: ICON_POSITION.leading,
+                  asset: <Edit className="h-3 w-3" />,
+                }}
+              />
+              <Button
+                label="Log Issue"
+                fillWidth
+                skin={BUTTON_SKIN.secondaryColor}
+                icon={{
+                  position: ICON_POSITION.leading,
+                  asset: <FileWarning className="h-3 w-3" />,
+                }}
+              />
+              <Button
+                label="Archive Vehicle"
+                destructive
+                fillWidth
+                icon={{
+                  position: ICON_POSITION.leading,
+                  asset: <Archive className="h-3 w-3" />,
+                }}
+              />
             </div>
-            <p>Custodian</p>
-            <p>Reassign</p>
-            <p>Disable</p>
-            <p>Update</p>
-            <p>New Issue </p>
-            <p>New Inspection</p>
-            <p>New Expense</p>
-            <p>New Fault</p> */}
+            <UpcomingActivities vehicle={generalInfo!} />
+            <FaultSummary vehicle={generalInfo!} />
           </div>
         }
       ></GridLayout>
@@ -104,6 +127,11 @@ const OverviewCard: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
       id: "13",
       key: "Ownership",
       value: vehicle.generalInfo.contractOwnership,
+    },
+    {
+      id: "15",
+      key: "Active Since",
+      value: vehicle.generalInfo.activeSince,
     },
     {
       id: "14",
@@ -154,23 +182,78 @@ const OverviewCard: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
 };
 
 const FaultSummary: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
+  const issues: VehicleIssues[] = sampleVehicleIssues;
   return (
     <CardWithSectionHeader
       title="Open Issues"
+      hasBoundary={false}
+      button={
+        <Button
+          componentType="link"
+          link=""
+          skin={BUTTON_SKIN.link}
+          label="All Issues"
+        />
+      }
       //   copy="Specifications of the Vehicle"
     >
-      <p></p>
-    </CardWithSectionHeader>
-  );
-};
+      <div>
+        <dl className="[&>*:nth-child(even)]:bg-indigo-50/20 divide-y divide-slate-100">
+          {issues.map((issue) => (
+            <div
+              id={issue.id}
+              className="py-4 space-y-2 px-2"
+            >
+              <div className="flex justify-between">
+                <Link
+                  href={""}
+                  className="text-brand-blueRoyal text-xs font-semibold items-center flex group"
+                >
+                  [#{issue.id}] -
+                  <span className="text-sm pl-1 flex justify-between text-slate-700 group-hover:text-brand-blueRoyal">
+                    {issue.summary}
+                  </span>
+                </Link>
+                <StatusBadge
+                  label={issue.priority}
+                  statusType={
+                    issue.status === "High"
+                      ? STATUS_COLORS.declined
+                      : STATUS_COLORS.pending
+                  }
+                />
+              </div>
 
-const WorkOrders: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
-  return (
-    <CardWithSectionHeader
-      title="Work Orders"
-      //   copy="Specifications of the Vehicle"
-    >
-      <p></p>
+              <p className="text-xs text-slate-900">
+                Inspection Notes: {issue.additionalNotes}
+              </p>
+
+              <div className="flex gap-2">
+                {vehicle != undefined && (
+                  <div className="flex gap-1 items-center">
+                    <Lbl label="Reporter:" />
+                    <Lbl
+                      label=""
+                      labelComponent={
+                        <p className=" text-brand-blueRoyal">
+                          {issue.reportedBy.name}
+                        </p>
+                      }
+                    />
+                    •
+                    <Lbl
+                      label=""
+                      labelComponent={
+                        <p className="text-slate-600">{issue.reportedDate}</p>
+                      }
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </dl>
+      </div>
     </CardWithSectionHeader>
   );
 };
@@ -179,47 +262,120 @@ const UpcomingActivities: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
   const data: ListTableData[] = [
     {
       id: "1",
-      key: "Service",
-      value: "8,000km Oil Change | 23 Aug, 2024",
+      key: "Service & Repairs",
+      value: (
+        <div className=" space-y-2">
+          <ListTableCell
+            url={`${vehicle.id}/specifications`}
+            title="Tire Rotation"
+            copy="Bi-Annual"
+            due="23 Aug, 2024"
+          />
+          <ListTableCell
+            url={`${vehicle.id}/specifications`}
+            title="8000km Oil Change"
+            copy="Every 8000km"
+            due="23 Aug, 2024"
+          />
+          <ListTableCell
+            url={`${vehicle.id}/specifications`}
+            title="Transmission Oil Change"
+            copy="As needed"
+            due="23 Aug, 2024"
+          />
+        </div>
+      ),
     },
     {
-      id: "1",
-      key: "Tire Inspection",
-      value: "23 Aug, 2024",
+      id: "2",
+      key: "Inspection",
+      value: (
+        <div className=" space-y-2">
+          <ListTableCell
+            url={`${vehicle.id}/specifications`}
+            title="Emission Test"
+            copy="Quarterly"
+            due="23 Aug, 2024"
+          />
+          <ListTableCell
+            url={`${vehicle.id}/specifications`}
+            title="IMTO 6-Point Check"
+            copy="Annual"
+            due="23 Aug, 2024"
+          />
+        </div>
+      ),
     },
     {
-      id: "1",
-      key: "Annual IMTO Inspection",
-      value: "25 Aug, 2024",
-    },
-    {
-      id: "1",
-      key: "Insurance Payment",
-      value: "$420 | 25 Aug, 2024",
-    },
-    {
-      id: "1",
-      key: "Lease Payment",
-      value: "$315 Bi-Weekly | 25 Aug, 2024",
+      id: "4",
+      key: "Renewals",
+      value: (
+        <div className=" space-y-2">
+          <ListTableCell
+            url={`${vehicle.id}/specifications`}
+            title="Vehicle Insurance"
+            copy="$233.45 p/m"
+            due="23 Aug, 2024"
+          />
+          <ListTableCell
+            url={`${vehicle.id}/specifications`}
+            title="Lease Payment"
+            copy="$199.99 b/w"
+            due="23 Aug, 2024"
+          />
+
+          <div className="space-y-0">
+            <button className="text-brand-blueRoyal hover:underline">
+              Vehicle License
+            </button>
+            <p className="text-slate-500 text-[10px]/[10px] normal-case">
+              $233.45 p/m | <span>23 Aug, 2024</span>
+            </p>
+          </div>
+          <div className="space-y-0">
+            <button className="text-brand-blueRoyal hover:underline">
+              401 Transponder Renewal
+            </button>
+            <p className="text-slate-500 text-[10px]/[10px] normal-case">
+              $21 p/m | <span>23 Aug, 2024</span>
+            </p>
+          </div>
+        </div>
+      ),
     },
   ];
   return (
     <CardWithSectionHeader
       title="Scheduled Items"
       hasBoundary={false}
-      //   copy="Specifications of the Vehicle"
+      copy="Overdue and Upcoming Items"
     >
       <ListTable data={data} />
     </CardWithSectionHeader>
   );
 };
-const Costs: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
+
+const ListTableCell: FC<{
+  url?: string;
+  title: string;
+  copy?: string;
+  due: string;
+}> = ({ title, copy, url, due }) => {
   return (
-    <CardWithSectionHeader
-      title="Costs & Expenses"
-      //   copy="Specifications of the Vehicle"
-    >
-      <p></p>
-    </CardWithSectionHeader>
+    <div className="space-y-0">
+      {url && (
+        <Link
+          href={url}
+          className="text-brand-blueRoyal hover:underline"
+        >
+          {title}
+        </Link>
+      )}
+      {!url && <p className="">{title}</p>}
+
+      <p className="text-slate-500 text-[10px]/[10px] normal-case">
+        {copy} | <span>{due}</span>
+      </p>
+    </div>
   );
 };

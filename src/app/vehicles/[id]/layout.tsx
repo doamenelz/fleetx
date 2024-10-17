@@ -62,6 +62,21 @@ export default function VehicleDetails({
       href: `/vehicles/${loc.split("/")[2]}/assignments`,
       id: "4",
     },
+    {
+      name: "Renewals",
+      href: `/vehicles/${loc.split("/")[2]}/assignments`,
+      id: "5",
+    },
+    {
+      name: "Expenses",
+      href: `/vehicles/${loc.split("/")[2]}/assignments`,
+      id: "6",
+    },
+    {
+      name: "Audit",
+      href: `/vehicles/${loc.split("/")[2]}/assignments`,
+      id: "7",
+    },
     // { name: "Fuel & Energy", href: "", id: "5" },
     // { name: "Expenses", href: "", id: "5" },
     // { name: "Usage History", href: "", id: "5" },
