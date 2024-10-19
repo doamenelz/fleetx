@@ -102,8 +102,8 @@ export const TableHeadCell: FC<TableCellProps> = (props) => {
         props.hideOnMobile ? "hidden" : "",
         props.isDark
           ? "text-slate-100 bg-brand-black"
-          : "text-slate-900  bg-brand-whiteLuster",
-        "text-left text-xs py-3 font-semibold border-b border-slate-300 shadow"
+          : "text-slate-900  bg-brand-speedOfLight",
+        "text-left text-xs py-5 font-semibold border-b border-slate-300 shadow"
       )}
     >
       {props.label}
@@ -115,12 +115,18 @@ export const Table: FC<{
   head: React.ReactNode;
   body: React.ReactNode;
   emptyState?: React.ReactNode;
-}> = ({ head, body, emptyState }) => {
+  height?: string;
+}> = ({ head, body, emptyState, height }) => {
   const context = useContext(TableContext);
   return (
     <div className="flow-root">
-      <div className="-my-2 overflow-x-auto">
-        <div className="inline-block min-w-full align-middle max-h-[calc(100vh_-_260px)]">
+      <div className="my-1 overflow-x-auto">
+        <div
+          className={classNames(
+            "inline-block min-w-full align-middle",
+            height ? `max-h-[calc(100vh_-_${height})]` : ""
+          )}
+        >
           <table className="min-w-full divide-y divide-indigo-200">
             <thead className=" w-full mx-auto sticky top-0 z-10">
               <tr>{head}</tr>

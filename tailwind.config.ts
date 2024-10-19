@@ -158,6 +158,9 @@ const config = {
           sapphireDust: "#516AC8",
           blueOblivion: "#26428B",
           darkHunterGreen: "#3A4A3F",
+          showjiWhite: "#E6DFD3",
+          kabuki: "#A73A3E",
+          vividOrangePeel: "#FFA102",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",

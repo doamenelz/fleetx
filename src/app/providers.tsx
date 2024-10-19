@@ -8,6 +8,7 @@ import {
   TopHeaderNavigation,
 } from "@/components";
 import { useEffect, useState, useRef } from "react";
+import { NextUIProvider } from "@nextui-org/react";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [documentTitle, setDocumentTitle] = useState("");
@@ -50,7 +51,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
         setNotificationType: setNotificationType,
       }}
     >
-      <TopHeaderNavigation>{children}</TopHeaderNavigation>
+      <NextUIProvider>
+        <TopHeaderNavigation>{children}</TopHeaderNavigation>
+      </NextUIProvider>
     </RootContext.Provider>
   );
 }

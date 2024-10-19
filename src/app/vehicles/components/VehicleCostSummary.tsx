@@ -200,32 +200,9 @@ export const CostSummaryCard: FC<{
               </LineChart>
             </ChartContainer>
           </CardContent>
-          {/* <div className="flex gap-4 justify-center">
-            <ChartLegendItem
-              name={"Fuel"}
-              value={""}
-              category=""
-              fill="#2a9d90"
-            />
-            <ChartLegendItem
-              name={"Service"}
-              value={""}
-              category=""
-              fill="#fb923c"
-            />
-            <ChartLegendItem
-              name={"Others"}
-              value={""}
-              category=""
-              fill="#1A2E44"
-            />
-          </div> */}
         </div>
         <div className=" flex flex-col space-y-6 p-4 rounded-sm justify-center">
           <div className="">
-            {/* <div className="flex justify-between pb-2">
-              <Lbl label={`Since ${vehicle.generalInfo.activeSince}`} />
-            </div> */}
             <Lbl label="Total Cost(s)" />
             <p className="text-3xl font-medium">$23,567.45</p>
           </div>

@@ -2,11 +2,12 @@ import { FC } from "react";
 import { TipDirection } from "./Tooltip.types";
 export const ToolTip: FC<{
   label: string | JSX.Element;
+
   direction: TipDirection;
 }> = ({ label, direction }) => {
   return (
-    <span className="absolute hidden group-hover:block rounded-md text-gray-600 w-full border border-gray-200 bg-gray-900 shadow-lg shadow-gray-200 -top-8 left-3 z-50 opacity-0 transition-opacity group-hover:opacity-100">
-      <div className="relative mx-2">
+    <span className="absolute hidden group-hover:block rounded-md text-gray-600 w-full border border-gray-200 bg-gray-900 shadow-lg shadow-gray-200 -top-16 z-50 opacity-0 transition-opacity group-hover:opacity-100">
+      <div className="relative ">
         <div className=" text-gray-100 text-xs rounded py-1 px-4 right-0 bottom-full">
           {direction === TipDirection.center && (
             <svg
