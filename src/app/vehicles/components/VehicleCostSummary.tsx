@@ -74,10 +74,12 @@ export const CostSummaryCard: FC<{
   // config: ReportConfig;
   vehicle: Vehicle;
   title: string;
-}> = ({ span, vehicle, title }) => {
+  copy?: string;
+}> = ({ span, vehicle, title, copy }) => {
   return (
     <CardWithSectionHeader
       title={title}
+      copy={copy}
       // copy={config.category}
       span={span}
       // button={
@@ -93,10 +95,7 @@ export const CostSummaryCard: FC<{
       <div className="grid grid-cols-3 py-4">
         <div className="col-span-2">
           <CardContent>
-            <ChartContainer
-              config={{}}
-              className="max-h-[350px] w-full pt-24"
-            >
+            <ChartContainer config={{}} className="max-h-[350px] w-full pt-24">
               <LineChart
                 accessibilityLayer
                 data={chartData}
@@ -105,10 +104,7 @@ export const CostSummaryCard: FC<{
                   right: 12,
                 }}
               >
-                <CartesianGrid
-                  vertical={true}
-                  horizontal={false}
-                />
+                <CartesianGrid vertical={true} horizontal={false} />
                 <XAxis
                   dataKey="category"
                   tickLine={false}
@@ -204,7 +200,7 @@ export const CostSummaryCard: FC<{
         <div className=" flex flex-col space-y-6 p-4 rounded-sm justify-center">
           <div className="">
             <Lbl label="Total Cost(s)" />
-            <p className="text-3xl font-medium">$23,567.45</p>
+            <p className="text-3xl font-medium font-mono">$5,361.05</p>
           </div>
 
           <div className=" content-center space-y-4 border-t pt-4">
@@ -212,18 +208,21 @@ export const CostSummaryCard: FC<{
               <TextLabel
                 label="Fuel"
                 copy={"$1,695.56"}
+                copyStyle="font-mono"
               />
             </div>
             <div className="border-l-4 pl-2 border-brand-indiGlow">
               <TextLabel
                 label="Service & Repairs"
                 copy={"$3,110.00"}
+                copyStyle="font-mono"
               />
             </div>
             <div className="border-l-4 pl-2 border-brand-vistaBlue">
               <TextLabel
                 label="Other Costs (Expenses)"
                 copy={"$555.49"}
+                copyStyle="font-mono"
               />
             </div>
           </div>

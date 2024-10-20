@@ -7,6 +7,7 @@ export interface TextProps {
   required?: boolean;
   direction?: "flex" | "column";
   labelComponent?: JSX.Element;
+  copyStyle?: string;
   /** Defaults to Left when no value is provided */
   textAlign?: "text-right" | "text-center";
 }

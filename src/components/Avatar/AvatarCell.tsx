@@ -39,7 +39,7 @@ export const AvatarCell: FC<{
       <div className="ml-3">
         <p
           className={classNames(
-            "text-sm font-medium ",
+            "text-xs font-medium ",
             props.highlightName
               ? "text-primary-700 group-hover:text-primary-900"
               : _dark
@@ -52,7 +52,7 @@ export const AvatarCell: FC<{
         {props.row2 && (
           <p
             className={classNames(
-              "text-sm font-light ",
+              "text-xs font-light ",
               _dark ? "text-gray-200" : "text-gray-900"
             )}
           >

@@ -63,17 +63,17 @@ export default function VehicleDetails({
       id: "4",
     },
     {
-      name: "Renewals",
-      href: `/vehicles/${loc.split("/")[2]}/renewals`,
-      id: "5",
-    },
-    {
-      name: "Expenses",
-      href: `/vehicles/${loc.split("/")[2]}/expenses`,
+      name: "Finance",
+      href: `/vehicles/${loc.split("/")[2]}/finance`,
       id: "6",
     },
     {
-      name: "Audit",
+      name: "Schedule & Reminders",
+      href: `/vehicles/${loc.split("/")[2]}/schedule`,
+      id: "5",
+    },
+    {
+      name: "Audit History",
       href: `/vehicles/${loc.split("/")[2]}/audit`,
       id: "7",
     },
@@ -123,11 +123,7 @@ export default function VehicleDetails({
                 <span>{selectedVehicle!.generalInfo.location}</span>
               </p>
             </div>
-            <Tabs
-              tabs={tabs}
-              tabHandler={tabHandler}
-              selectedTab={selectedTab}
-            >
+            <Tabs tabs={tabs} tabHandler={tabHandler} selectedTab={selectedTab}>
               <></>
             </Tabs>
           </div>

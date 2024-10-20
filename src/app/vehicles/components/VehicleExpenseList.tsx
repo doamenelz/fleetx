@@ -18,7 +18,7 @@ import {
 } from "@/components";
 import { TableContext } from "@/components/Table/TableContext";
 import { ServiceDetails } from "@/app/service/components/ServiceDetails";
-import { VehicleAssignment } from "@/models";
+import { VehicleExpenses } from "@/models";
 import {
   ArrowLeftRight,
   Download,
@@ -27,7 +27,7 @@ import {
   Upload,
 } from "lucide-react";
 
-export const VehicleAssignmentTable: FC<{ data: VehicleAssignment[] }> = ({
+export const VehicleExpenseList: FC<{ data: VehicleExpenses[] }> = ({
   data,
 }) => {
   const [showModal, setShowModal] = useState(false);
@@ -75,7 +75,6 @@ export const VehicleAssignmentTable: FC<{ data: VehicleAssignment[] }> = ({
         <TableContainer
           mainContent={
             <Table
-              height="270px"
               head={
                 <>
                   <TableHeadCell
@@ -84,98 +83,126 @@ export const VehicleAssignmentTable: FC<{ data: VehicleAssignment[] }> = ({
                     hideOnMobile={false}
                   />
                   <TableHeadCell
-                    label={"Operator"}
+                    label={"Summary"}
                     mainCell={false}
                     hideOnMobile={false}
                   />
                   <TableHeadCell
-                    label={"Start Mileage"}
+                    label={"Created"}
                     mainCell={false}
                     hideOnMobile={false}
                   />
                   <TableHeadCell
-                    label={"End Mileage"}
+                    label={"Type"}
                     mainCell={false}
                     hideOnMobile={false}
                   />
                   <TableHeadCell
-                    label={"Start Date"}
+                    label={"Vendor"}
                     mainCell={false}
                     hideOnMobile={false}
                   />
                   <TableHeadCell
-                    label={"End Date"}
+                    label={"Amount"}
                     mainCell={false}
                     hideOnMobile={false}
                     centerCell
                   />
                   <TableHeadCell
-                    label={""}
+                    label={"Status"}
                     mainCell={false}
                     hideOnMobile={false}
                     centerCell={true}
                   />
+                  {/* <TableHeadCell
+                    label={""}
+                    mainCell={false}
+                    hideOnMobile={false}
+                    centerCell={true}
+                  /> */}
                 </>
               }
               body={
                 <>
-                  {data.map((assignment, index) => (
-                    <TableRow key={assignment.id}>
+                  {data.map((expense, index) => (
+                    <TableRow key={expense.id}>
                       <TableCell
                         label={
                           <button
                             onClick={() =>
-                              viewServiceDetailsHandler(assignment.id)
+                              viewServiceDetailsHandler(expense.id)
                             }
                             className="hover:text-indigo-700 font-semibold text-indigo-800"
                           >
-                            <p>{assignment.id}</p>
+                            <p>{expense.id}</p>
                           </button>
                         }
                         mainCell={false}
                         hideOnMobile={false}
                       />
-                      <TableCell
+                      {/* <TableCell
                         label={
                           <AvatarCell
-                            firstName={assignment.custodian.firstName}
-                            lastName={assignment.custodian.lastName}
-                            imageUrl={assignment.custodian.avatar}
+                            firstName={expense.custodian.firstName}
+                            lastName={expense.custodian.lastName}
+                            imageUrl={expense.custodian.avatar}
                             size={AVATAR_SIZES.xs}
-                            fullName={`${assignment.custodian.firstName} ${assignment.custodian.lastName}`}
+                            fullName={`${expense.custodian.firstName} ${expense.custodian.lastName}`}
                             row2={`${
-                              assignment.isCurrent ? "Current Custodian" : ""
+                              expense.isCurrent ? "Current Custodian" : ""
                             }`}
                           />
                         }
                         mainCell={false}
                         hideOnMobile={false}
-                      />
+                      /> */}
                       <TableCell
-                        label={assignment.odometerStart}
+                        label={expense.summary}
                         mainCell={false}
                         hideOnMobile={false}
                       />
                       <TableCell
-                        label={assignment.odometerEnd}
+                        label={expense.dateReported}
                         mainCell={false}
                         hideOnMobile={false}
                       />
                       <TableCell
-                        label={assignment.startDate}
+                        label={expense.type}
                         mainCell={false}
                         hideOnMobile={false}
                       />
                       <TableCell
-                        label={assignment.endDate}
+                        label={expense.vendorId}
+                        mainCell={false}
+                        hideOnMobile={false}
+                      />
+                      <TableCell
+                        label={expense.cost.spentAmount}
                         centerCell
                         mainCell={false}
                         hideOnMobile={false}
                       />
                       <TableCell
+                        label={
+                          <StatusBadge
+                            label={expense.status}
+                            statusType={
+                              expense.status === "paid"
+                                ? STATUS_COLORS.success
+                                : expense.status === "declined"
+                                ? STATUS_COLORS.declined
+                                : STATUS_COLORS.pending
+                            }
+                          />
+                        }
+                        centerCell
+                        mainCell={false}
+                        hideOnMobile={false}
+                      />
+                      {/* <TableCell
                         centerCell
                         label={
-                          assignment.isCurrent ? (
+                          expense.isCurrent ? (
                             <IconDropdown
                               items={ellipsisItems}
                               button={
@@ -193,7 +220,7 @@ export const VehicleAssignmentTable: FC<{ data: VehicleAssignment[] }> = ({
                         }
                         mainCell={false}
                         hideOnMobile={false}
-                      />
+                      /> */}
                     </TableRow>
                   ))}
                 </>

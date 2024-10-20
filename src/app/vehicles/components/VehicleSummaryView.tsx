@@ -48,7 +48,7 @@ export const VehicleSummaryView: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
             <CostSummaryCard
               vehicle={generalInfo!}
               span={CARD_SPAN.full}
-              title="Costs & Expenses"
+              title="Costs Overview"
             />
             <VehicleFuelSummaryCard vehicle={generalInfo!} />
           </div>
@@ -200,10 +200,7 @@ const FaultSummary: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
       <div>
         <dl className="[&>*:nth-child(even)]:bg-indigo-50/20 divide-y divide-slate-100">
           {issues.map((issue) => (
-            <div
-              id={issue.id}
-              className="py-4 space-y-2 px-2"
-            >
+            <div id={issue.id} className="py-4 space-y-2 px-2">
               <div className="flex justify-between">
                 <Link
                   href={""}
@@ -364,10 +361,7 @@ const ListTableCell: FC<{
   return (
     <div className="space-y-0">
       {url && (
-        <Link
-          href={url}
-          className="text-brand-blueRoyal hover:underline"
-        >
+        <Link href={url} className="text-brand-blueRoyal hover:underline">
           {title}
         </Link>
       )}

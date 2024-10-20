@@ -4,6 +4,7 @@ export interface TableCellProps {
   hideOnMobile: boolean;
   button?: { url: string; label: string };
   isDark?: Boolean;
+  centerCell?: boolean;
 }
 
 export interface TableContainerProps {
@@ -18,4 +19,5 @@ export interface TableContainerProps {
 
 export interface TableHeaderCellProps {
   label: string;
+  centerCell?: boolean;
 }

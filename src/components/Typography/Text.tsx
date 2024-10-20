@@ -21,7 +21,11 @@ export const TextLabel: FC<TextProps> = (props) => {
         labelComponent={props.labelComponent}
       />
       {typeof props.copy === "string" ? (
-        <BodyCopy isLight={props.isLight} text={props.copy} />
+        <BodyCopy
+          isLight={props.isLight}
+          text={props.copy}
+          style={props.copyStyle}
+        />
       ) : (
         props.copy
       )}

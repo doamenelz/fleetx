@@ -71,6 +71,7 @@ export const TableCell: FC<TableCellProps> = (props) => {
         props.mainCell ? "pl-4 sm:pl-3 pr-3" : "px-3 py-2 ",
 
         props.hideOnMobile ? "hidden" : "",
+        props.centerCell ? "text-center" : "text-left",
         "whitespace-nowrap py-4 text-xs font-normal text-slate-700"
       )}
     >
@@ -102,8 +103,9 @@ export const TableHeadCell: FC<TableCellProps> = (props) => {
         props.hideOnMobile ? "hidden" : "",
         props.isDark
           ? "text-slate-100 bg-brand-black"
-          : "text-slate-900  bg-brand-speedOfLight",
-        "text-left text-xs py-5 font-semibold border-b border-slate-300 shadow"
+          : "text-slate-900  bg-gray-50",
+        props.centerCell ? "" : "text-left",
+        " text-xs py-5 font-semibold border-b border-slate-300 shadow"
       )}
     >
       {props.label}
@@ -164,10 +166,7 @@ export const TablePagination: FC<{
             onClick={() => context.page.previousPage}
             className="inline-flex hover:bg-slate-900 rounded-md items-center border  px-3 py-2 text-sm font-medium text-slate-600 hover:border-slate-300 hover:text-slate-100"
           >
-            <ArrowLongLeftIcon
-              className="mr-3 h-5 w-5 "
-              aria-hidden="true"
-            />
+            <ArrowLongLeftIcon className="mr-3 h-5 w-5 " aria-hidden="true" />
             Previous
           </button>
         )}
