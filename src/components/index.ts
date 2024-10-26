@@ -26,3 +26,4 @@ export * from "./Calendar";
 export * from "./EmptyStates";
 export * from "./Notification";
 export * from "./QuickLinks";
+export * from "./BreadCrumbs";

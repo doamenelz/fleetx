@@ -1,4 +1,6 @@
+import { classNames } from "@/lib/utilities/helperFunctions";
 import { FC } from "react";
+import { BreadCrumbs } from "../BreadCrumbs";
 
 export const MainHeader: FC<{ title: string }> = ({ title }) => {
   return (
@@ -25,6 +27,34 @@ export const MainHeader: FC<{ title: string }> = ({ title }) => {
           {/* <PlusSmallIcon className="-ml-1.5 h-5 w-5" aria-hidden="true" /> */}
           Button
         </a>
+      </div>
+    </div>
+  );
+};
+
+export const PageHeader = () => {
+  return (
+    <div
+      className={classNames(
+        "bg-white z-30 px-6 sticky top-0 overscroll-contain "
+        // sidebarIsOpen ? "lg:pl-56" : "lg:pl-12"
+      )}
+    >
+      <div className=" w-full top-0 bg-gray-25 py-3.5 items-center flex justify-between border-b">
+        <BreadCrumbs
+          data={[]}
+          mainPage={{ id: "", name: "Inventory", href: "" }}
+        />
+        <div className="flex gap-4 items-center text-xs text-slate-700">
+          <div className="border-r h-6 text-slate-700 border-slate-200"></div>
+          <div className="">
+            <img
+              src="https://demo.hr-flex.com/uploadeddocuments/_assets/companylogo.png"
+              className="h-6"
+              alt=""
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

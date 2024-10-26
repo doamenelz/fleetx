@@ -5,8 +5,10 @@ import {
   ICON_POSITION,
   IconDropdown,
   Lbl,
+  MainHeader,
   MenuDropdownItemProp,
   PageContainer,
+  PageHeader,
   SCREEN_WIDTH,
   SearchField,
   SectionHeader,
@@ -26,6 +28,7 @@ import {
   Upload,
 } from "lucide-react";
 import { useState } from "react";
+import { ModuleContainerContext } from "@/context/ModuleContainerContext";
 
 const summaryStats: SummaryCardObject[] = [
   {
@@ -72,7 +75,7 @@ export default function Page() {
   ];
   return (
     <PageContainer
-      documentTitle="Vehicles"
+      documentTitle="Inventory"
       fullWidth={SCREEN_WIDTH.full}
       isLoading={false}
       hasPadding={true}
@@ -89,10 +92,7 @@ export default function Page() {
             copy="Manage your Next of vehicle, Beneficiaries and Dependents"
             button={
               <div className="flex gap-2 items-center">
-                <SearchField
-                  placeholder="Search"
-                  setQuery={() => {}}
-                />
+                <SearchField placeholder="Search" setQuery={() => {}} />
                 <Lbl label={`5 of ${sampleVehicles.length} results`} />
                 <div className="border-r pr-2">
                   <button className="border p-2 rounded-l hover:bg-slate-50 hover:text-brand-blueRoyal">

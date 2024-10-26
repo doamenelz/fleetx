@@ -44,37 +44,37 @@ export default function VehicleDetails({
   const tabs: Tab[] = [
     {
       name: "Summary",
-      href: `/vehicles/${loc.split("/")[2]}`,
+      href: `/inventory/${loc.split("/")[2]}`,
       id: "summary",
     },
     {
       name: "Specifications",
-      href: `/vehicles/${loc.split("/")[2]}/specifications`,
+      href: `/inventory/${loc.split("/")[2]}/specifications`,
       id: "2",
     },
     {
       name: "Service & Repairs",
-      href: `/vehicles/${loc.split("/")[2]}/service`,
+      href: `/inventory/${loc.split("/")[2]}/service`,
       id: "3",
     },
     {
       name: "Assignments",
-      href: `/vehicles/${loc.split("/")[2]}/assignments`,
+      href: `/inventory/${loc.split("/")[2]}/assignments`,
       id: "4",
     },
     {
       name: "Finance",
-      href: `/vehicles/${loc.split("/")[2]}/finance`,
+      href: `/inventory/${loc.split("/")[2]}/finance`,
       id: "6",
     },
     {
       name: "Schedule & Reminders",
-      href: `/vehicles/${loc.split("/")[2]}/schedule`,
+      href: `/inventory/${loc.split("/")[2]}/schedule`,
       id: "5",
     },
     {
       name: "Audit History",
-      href: `/vehicles/${loc.split("/")[2]}/audit`,
+      href: `/inventory/${loc.split("/")[2]}/audit`,
       id: "7",
     },
     // { name: "Fuel & Energy", href: "", id: "5" },
@@ -87,7 +87,7 @@ export default function VehicleDetails({
   };
   return (
     <PageContainer
-      documentTitle={`Vehicles - `}
+      documentTitle={`Inventory - `}
       fullWidth={SCREEN_WIDTH.full}
       isLoading={false}
       hasPadding={true}
@@ -98,8 +98,11 @@ export default function VehicleDetails({
         </div>
       ) : (
         <>
-          <div className="sticky top-[87px] w-full z-10 bg-white">
-            <BackHeader previousPathName="Vehicles" previousPath="/vehicles" />
+          <div className="sticky top-12 w-full z-10 bg-white">
+            <BackHeader
+              previousPathName="Inventory"
+              previousPath="/inventory"
+            />
 
             <div className="">
               <p className="text-xs text-slate-500">

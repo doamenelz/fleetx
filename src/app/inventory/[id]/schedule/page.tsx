@@ -2,7 +2,7 @@
 
 import { PageContainer, SCREEN_WIDTH } from "@/components";
 import { Calendar } from "@/components/Calendar/CalendarFull";
-import { ScheduleView } from "@/app/vehicles/components/SchedulePlan";
+import { ScheduleView } from "@/app/inventory/components/SchedulePlan";
 
 export default function Page() {
   return (

@@ -84,7 +84,7 @@ export const VehicleTableList: FC<{ data: Vehicle[] }> = ({ data }) => {
                             //   pathname: `vehicles/${vehicle.id}`,
                             //   query: { id: vehicle.id },
                             // }}
-                            href={`vehicles/${vehicle.id}`}
+                            href={`inventory/${vehicle.id}`}
                             className="hover:text-indigo-700 font-semibold text-indigo-800"
                           >
                             <p>{vehicle.generalInfo.name}</p>

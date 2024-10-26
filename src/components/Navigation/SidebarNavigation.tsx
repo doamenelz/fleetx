@@ -21,6 +21,7 @@ import {
   MenuDropdownItemProp,
   BodyCopy,
   Lbl,
+  BreadCrumbs,
 } from "..";
 import { PrimaryNavigation } from "..";
 import {
@@ -43,6 +44,7 @@ import {
   EllipsisVerticalIcon,
   PanelLeftClose,
   PanelLeftOpen,
+  Search,
 } from "lucide-react";
 
 export const SidebarLayout: FC<{
@@ -108,11 +110,7 @@ export const SidebarLayout: FC<{
           )}
         >
           <div className="flex flex-col p-2.5 overflow-y-auto grow bg-slate-50">
-            <img
-              src="/fleetShort.svg"
-              alt=""
-              className="pb-2 w-8 h-8"
-            />
+            <img src="/fleetShort.svg" alt="" className="pb-2 w-8 h-8" />
             <nav className="flex flex-col flex-1 place-items-center pt-2 ">
               <ul
                 className={classNames(
@@ -144,6 +142,11 @@ export const SidebarLayout: FC<{
                     dark={!switchColor}
                   />
                 ))}
+                <SearchButton
+                  toggleSearch={toggleSearch}
+                  setToggleSearch={setToggleSearch}
+                  sideBarIsOpen={sidebarIsOpen}
+                />
               </ul>
               <ul
                 className={classNames(
@@ -193,46 +196,10 @@ export const SidebarLayout: FC<{
           </div>
         </div>
         <MobileNav />
+        <SearchPallette open={toggleSearch} setOpen={setToggleSearch} />
         <div
           className={classNames(sidebarIsOpen ? "lg:pl-56" : "lg:pl-12", "")}
         >
-          <div
-            className={classNames(
-              "bg-white z-30 fixed top-0 inset-x-0 overscroll-contain ",
-              sidebarIsOpen ? "lg:pl-56" : "lg:pl-12"
-            )}
-          >
-            <div className=" w-full top-0 bg-gray-25 px-4 py-3.5 items-center flex justify-between">
-              <p className="text-base font-semibold text-gray-700 ">
-                {rootContext.navTitle}
-              </p>
-
-              <div className="flex gap-4 items-center text-xs text-slate-700">
-                <button
-                  onClick={() => setToggleSearch(!toggleSearch)}
-                  className="bg-slate-100 rounded-full p-2 hover:bg-slate-700 focus:outline-none hover:text-slate-50"
-                >
-                  <Icon
-                    icon={IconList.search}
-                    size={ICON_SIZES.sm}
-                  />
-                </button>
-
-                <div className="border-r h-6 text-slate-700 border-slate-200"></div>
-                <div className="">
-                  <img
-                    src="https://demo.hr-flex.com/uploadeddocuments/_assets/companylogo.png"
-                    className="h-6"
-                    alt=""
-                  />
-                </div>
-                <SearchPallette
-                  open={toggleSearch}
-                  setOpen={setToggleSearch}
-                />
-              </div>
-            </div>
-          </div>
           <main className="overscroll-none pt-12">{props.children}</main>
         </div>
       </div>
@@ -289,19 +256,45 @@ const NavItem: FC<NavigationProps> = ({
   );
 };
 
+const SearchButton: FC<{
+  sideBarIsOpen: boolean;
+  setToggleSearch: Function;
+  toggleSearch: boolean;
+}> = ({ sideBarIsOpen, setToggleSearch, toggleSearch }) => {
+  const pathName = usePathname();
+  const rootContext = useContext(RootContext);
+  return (
+    <div className="group ">
+      <button
+        onClick={() => setToggleSearch(!toggleSearch)}
+        className={classNames(
+          "group flex p-2 border-l-2 w-full group-hover:text-indigo-800 group-hover:bg-indigo-50 border-slate-50 text-neutral-500 ",
+
+          sideBarIsOpen
+            ? "items-center text-left gap-2"
+            : "items-center justify-center "
+        )}
+      >
+        <Search className="" />
+        {sideBarIsOpen && <p className="font-medium">Search</p>}
+      </button>
+
+      {!sideBarIsOpen && (
+        <span className="absolute z-50 hidden p-2 ml-12 -mt-10 font-medium bg-gray-950 border border-gray-500 rounded-sm cursor-text text-gray-50 group-hover:block">
+          Search
+        </span>
+      )}
+    </div>
+  );
+};
+
 const AvatarDropdown: FC<{ employee: Employee }> = ({ employee }) => {
   return (
-    <Menu
-      as="div"
-      className="relative inline-block text-left"
-    >
+    <Menu as="div" className="relative inline-block text-left">
       <div>
         <MenuButton className="flex items-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
           <span className="sr-only">Open options</span>
-          <EllipsisVerticalIcon
-            aria-hidden="true"
-            className="h-5 w-5"
-          />
+          <EllipsisVerticalIcon aria-hidden="true" className="h-5 w-5" />
         </MenuButton>
       </div>
 
@@ -334,10 +327,7 @@ const AvatarDropdown: FC<{ employee: Employee }> = ({ employee }) => {
               License
             </a>
           </MenuItem>
-          <form
-            action="#"
-            method="POST"
-          >
+          <form action="#" method="POST">
             <MenuItem>
               <button
                 type="submit"

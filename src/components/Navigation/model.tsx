@@ -25,9 +25,9 @@ export const PrimaryNavigation: NavigationProps[] = [
     searchActions: [],
   },
   {
-    id: "vehicles",
-    label: "Vehicles",
-    link: "/vehicles",
+    id: "Inventory",
+    label: "Inventory",
+    link: "/inventory",
     description: "",
     category: "personal",
     icon: <CarFront className="w-5 h-5" />,
@@ -37,18 +37,13 @@ export const PrimaryNavigation: NavigationProps[] = [
       {
         id: "performance-home",
         label: "Inventory",
-        link: "/vehicles",
+        link: "/inventory",
       },
 
       {
         id: "appraisals",
         label: "Fuel & Expenses",
-        link: "/performance/appraisals",
-      },
-      {
-        id: "planning",
-        label: "Documents",
-        link: "/performance/planning",
+        link: "/inventory/appraisals",
       },
     ],
   },
