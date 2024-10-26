@@ -39,7 +39,11 @@ import {
   MenuItems,
   Transition,
 } from "@headlessui/react";
-import { EllipsisVerticalIcon } from "lucide-react";
+import {
+  EllipsisVerticalIcon,
+  PanelLeftClose,
+  PanelLeftOpen,
+} from "lucide-react";
 
 export const SidebarLayout: FC<{
   children?: React.ReactNode;
@@ -104,23 +108,29 @@ export const SidebarLayout: FC<{
           )}
         >
           <div className="flex flex-col p-2.5 overflow-y-auto grow bg-slate-50">
-            <img src="/fleetShort.svg" alt="" className="pb-2 w-8 h-8" />
+            <img
+              src="/fleetShort.svg"
+              alt=""
+              className="pb-2 w-8 h-8"
+            />
             <nav className="flex flex-col flex-1 place-items-center pt-2 ">
-              {/* <MainIcon sidebarIsOpen={sidebarIsOpen} /> */}
-
               <ul
                 className={classNames(
                   // "flex-1 pt-1 pb-4 ml-1 mb-32 space-y-2 text-xs font-normal "
-                  "flex-1 mb-32 space-y-2 text-xs font-normal ",
+                  "flex-1 mb-32 space-y-1 text-xs font-normal ",
                   sidebarIsOpen ? "w-full text-left" : ""
                 )}
               >
-                {/* <div
-                  className="border-l-2 p-2 border-transparent items-center text-slate-400 hover:text-orange-400 cursor-pointer "
+                <div
+                  className="border-l-2 hover:bg-slate-100 p-2 border-transparent items-center text-slate-400 hover:text-orange-400 cursor-pointer "
                   onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
                 >
-                  <Bars3Icon className="w-5 h-5" />
-                </div> */}
+                  {!sidebarIsOpen ? (
+                    <PanelLeftOpen className="h-5 w-5 stroke-1 text-slate-600 " />
+                  ) : (
+                    <PanelLeftClose className="h-5 w-5 stroke-1 text-slate-600 " />
+                  )}
+                </div>
 
                 {filterNavigation(profile).map((item, index) => (
                   <NavItem
@@ -135,7 +145,12 @@ export const SidebarLayout: FC<{
                   />
                 ))}
               </ul>
-              <ul className="space-y-2 text-xs justify-center font-normal">
+              <ul
+                className={classNames(
+                  "space-y-1 text-xs justify-center font-normal",
+                  sidebarIsOpen ? "w-full text-left" : ""
+                )}
+              >
                 {SecondaryNavigation.filter(
                   (nav) => nav.id !== PrimaryNavigation[0].id
                 ).map((item, index) => (
@@ -146,6 +161,7 @@ export const SidebarLayout: FC<{
                     icon={item.icon}
                     link={item.link}
                     fillIcon={item.fillIcon}
+                    sideBarIsOpen={sidebarIsOpen}
                     dark={!switchColor}
                   />
                 ))}
@@ -186,29 +202,21 @@ export const SidebarLayout: FC<{
               sidebarIsOpen ? "lg:pl-56" : "lg:pl-12"
             )}
           >
-            <div className=" w-full top-0 bg-gray-25 px-4 py-2 border-b items-center flex justify-between">
+            <div className=" w-full top-0 bg-gray-25 px-4 py-3.5 items-center flex justify-between">
               <p className="text-base font-semibold text-gray-700 ">
                 {rootContext.navTitle}
               </p>
 
               <div className="flex gap-4 items-center text-xs text-slate-700">
-                {/* <button
+                <button
                   onClick={() => setToggleSearch(!toggleSearch)}
-                  className="bg-slate-100 rounded-full p-2 hover:bg-slate-700 hover:text-slate-50"
+                  className="bg-slate-100 rounded-full p-2 hover:bg-slate-700 focus:outline-none hover:text-slate-50"
                 >
                   <Icon
                     icon={IconList.search}
                     size={ICON_SIZES.sm}
                   />
-                </button> */}
-                <AvatarDropdown employee={sampleEmployee} />
-                <Avatar
-                  size={AVATAR_SIZES.sm}
-                  firstName={sampleEmployee.bioData.firstName}
-                  lastName={sampleEmployee.bioData.lastName}
-                  imageUrl={sampleEmployee.bioData.avatar}
-                />
-                {/* <AvatarDropdown items={items} /> */}
+                </button>
 
                 <div className="border-r h-6 text-slate-700 border-slate-200"></div>
                 <div className="">
@@ -218,10 +226,10 @@ export const SidebarLayout: FC<{
                     alt=""
                   />
                 </div>
-                {/* <SearchPallette
+                <SearchPallette
                   open={toggleSearch}
                   setOpen={setToggleSearch}
-                /> */}
+                />
               </div>
             </div>
           </div>
@@ -253,10 +261,10 @@ const NavItem: FC<NavigationProps> = ({
       >
         <div
           className={classNames(
-            "group flex p-2 border-l-2",
+            "group flex p-2 border-l-2 group-hover:text-indigo-800 group-hover:bg-indigo-50",
             pathName.includes(link!)
-              ? "group-hover:text-gray-700  group-hover:bg-slate-200 border-brand-oceanicNoir text-brand-oceanicNoir "
-              : "group-hover:text-indigo-800 group-hover:bg-indigo-50  border-slate-50 text-neutral-500 ",
+              ? "border-brand-oceanicNoir text-brand-oceanicNoir "
+              : "  border-slate-50 text-neutral-500 ",
             sideBarIsOpen && pathName.includes(link!) ? "" : "",
             sideBarIsOpen
               ? "items-center text-left gap-2"
@@ -283,11 +291,17 @@ const NavItem: FC<NavigationProps> = ({
 
 const AvatarDropdown: FC<{ employee: Employee }> = ({ employee }) => {
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu
+      as="div"
+      className="relative inline-block text-left"
+    >
       <div>
         <MenuButton className="flex items-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
           <span className="sr-only">Open options</span>
-          <EllipsisVerticalIcon aria-hidden="true" className="h-5 w-5" />
+          <EllipsisVerticalIcon
+            aria-hidden="true"
+            className="h-5 w-5"
+          />
         </MenuButton>
       </div>
 
@@ -320,7 +334,10 @@ const AvatarDropdown: FC<{ employee: Employee }> = ({ employee }) => {
               License
             </a>
           </MenuItem>
-          <form action="#" method="POST">
+          <form
+            action="#"
+            method="POST"
+          >
             <MenuItem>
               <button
                 type="submit"

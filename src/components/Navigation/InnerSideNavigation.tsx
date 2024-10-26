@@ -161,7 +161,7 @@ const NavItem: FC<{
         className={classNames(
           "text-xs px-3 py-2.5 border-b-2 gap-2 text-left w-full hover:text-brand-blueRoyal  flex justify-between items-center",
           selectedView.includes(nav.link)
-            ? "text-brand-blueRoyal border-brand-orangeHabanero font-normal "
+            ? "text-brand-indiGlow border-brand-indiGlow font-normal "
             : "text-slate-700 border-transparent font-normal hover:border-slate-300"
         )}
       >
