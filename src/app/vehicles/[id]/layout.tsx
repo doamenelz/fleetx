@@ -99,7 +99,7 @@ export default function VehicleDetails({
       ) : (
         <>
           <div className="sticky top-[87px] w-full z-10 bg-white">
-            <BackHeader previousPathName="Vehicles" />
+            <BackHeader previousPathName="Vehicles" previousPath="/vehicles" />
 
             <div className="">
               <p className="text-xs text-slate-500">
