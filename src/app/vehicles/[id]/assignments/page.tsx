@@ -100,3 +100,5 @@ export default function Page() {
     </PageContainer>
   );
 }
+
+//TODO: Make this a thread, add check into store as an option

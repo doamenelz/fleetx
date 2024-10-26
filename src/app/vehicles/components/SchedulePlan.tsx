@@ -1,4 +1,5 @@
-import { BoxCalendar } from "./BoxCalendar";
+import { SectionHeader } from "../../../components/Headers";
+import { BoxCalendar } from "../../../components/Calendar/BoxCalendar";
 import { FC, useEffect } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
@@ -6,8 +7,6 @@ import {
   checkIfDateInRange,
   ALL_MONTHS,
   allDatesInMonth,
-  formatDate,
-  DATE_OPTIONS,
 } from "@/lib/utilities/dateHelpers";
 import { CalendarStore } from "@/context/CalendarStore";
 import {
@@ -15,7 +14,10 @@ import {
   sampleCalendarEmployee,
 } from "@/app/time-off/models/TimeOff";
 
-export const Calendar = () => {
+import { getScheduleColor, ScheduleList } from "./ScheduleListing";
+import { classNames } from "@/lib/utilities/helperFunctions";
+
+export const ScheduleView = () => {
   /** State Controls for the Calendar Toggles */
   const [toggleMonth, setToggleMonth] = useState(new Date().getMonth());
   const [toggleYear, setToggleYear] = useState(new Date().getFullYear());
@@ -24,22 +26,16 @@ export const Calendar = () => {
 
   const [allDates, setAllDates] = useState<Date[]>([]);
 
+  const scheduleTypes = [
+    "payment",
+    "service",
+    "inspection",
+    "renewals",
+    "others",
+  ];
+
   /** Date selected on the Calendar Control */
   const [selectedCalendarDate, setSelectedCalendarDate] = useState(toggledDay);
-
-  const employeesInDate = (boxDate: Date) => {
-    let filteredEmployees: TimeOffDetails[] = [];
-
-    filteredEmployees = sampleCalendarEmployee.filter((emp) =>
-      checkIfDateInRange(
-        new Date(emp.startDate),
-        new Date(emp.endDate),
-        boxDate
-      )
-    );
-
-    return filteredEmployees;
-  };
 
   const addMonth = () => {
     /** TODO:  */
@@ -129,21 +125,31 @@ export const Calendar = () => {
             Go to Today
           </button>
         </div>
-        <div className="items-center gap-4 px-4 text-xs border-r lg:flex">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-primary-300"></div> Holidays
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-warning-300"></div> Company
-            Events
-          </div>
-          <div className="flex items-center gap-2 lg:hidden">
-            <div className="w-3 h-3 bg-gray-700 rounded-full"></div> Out Of
-            Office
-          </div>
+
+        <div className="items-center gap-4 px-4 text-xs lg:flex">
+          {scheduleTypes.map((scheduleType) => (
+            <LegendItem type={scheduleType} />
+          ))}
         </div>
       </div>
-      <BoxCalendar calendarContent={<></>} />
+      <BoxCalendar
+        calendarContent={
+          <>
+            <ScheduleList />
+          </>
+        }
+      />
     </CalendarStore.Provider>
+  );
+};
+
+const LegendItem: FC<{ type: string }> = ({ type }) => {
+  return (
+    <div className="flex text-xs items-center gap-1 capitalize">
+      <div
+        className={classNames("w-2 h-2 rounded-full", getScheduleColor(type))}
+      ></div>
+      {type}
+    </div>
   );
 };
