@@ -52,7 +52,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       }}
     >
       <NextUIProvider>
-        <TopHeaderNavigation>{children}</TopHeaderNavigation>
+        <SidebarLayout>{children}</SidebarLayout>
       </NextUIProvider>
     </RootContext.Provider>
   );

@@ -1,3 +1,10 @@
+import {
+  CarFront,
+  CircleHelp,
+  IdCard,
+  LayoutPanelLeft,
+  Settings,
+} from "lucide-react";
 import { NavigationProps } from ".";
 import {
   NavigationIcon,
@@ -15,45 +22,27 @@ import {
   MyReports,
 } from "../Icons";
 export const PrimaryNavigation: NavigationProps[] = [
-  {
-    id: "dashboard",
-    label: "Home",
-    link: "/dashboard",
-    description: "",
-    category: "personal",
-    icon: (
-      <NavigationIcon
-        size={ICON_SIZES.xxl}
-        icon={<Dashboard />}
-      />
-    ),
-    searchActions: [],
-    fillIcon: (
-      <NavigationIcon
-        size={ICON_SIZES.xxl}
-        icon={<Dashboard fill={true} />}
-      />
-    ),
-  },
+  // {
+  //   id: "dashboard",
+  //   label: "Home",
+  //   link: "/dashboard",
+  //   description: "",
+  //   category: "personal",
+  //   icon: <NavigationIcon size={ICON_SIZES.xl} icon={<LayoutPanelLeft />} />,
+  //   searchActions: [],
+  //   fillIcon: (
+  //     <NavigationIcon size={ICON_SIZES.xl} icon={<LayoutPanelLeft />} />
+  //   ),
+  // },
   {
     id: "vehicles",
     label: "Vehicles",
     link: "/vehicles",
     description: "",
     category: "personal",
-    icon: (
-      <NavigationIcon
-        size={ICON_SIZES.xxl}
-        icon={<Dashboard />}
-      />
-    ),
+    icon: <CarFront className="w-5 h-5" />,
     searchActions: [],
-    fillIcon: (
-      <NavigationIcon
-        size={ICON_SIZES.xxl}
-        icon={<Dashboard fill={true} />}
-      />
-    ),
+    fillIcon: <CarFront className="w-5 h-5" />,
     children: [
       {
         id: "performance-home",
@@ -101,80 +90,13 @@ export const PrimaryNavigation: NavigationProps[] = [
     link: "/home",
     description: "",
     category: "personal",
-    icon: (
-      <NavigationIcon
-        size={ICON_SIZES.xxl}
-        icon={<HomeIcon />}
-      />
-    ),
+    icon: <IdCard className="w-5 h-5" />,
     searchActions: [],
     fillIcon: (
-      <NavigationIcon
-        size={ICON_SIZES.xxl}
-        icon={<HomeIcon fill={true} />}
-      />
+      <NavigationIcon size={ICON_SIZES.xxl} icon={<HomeIcon fill={true} />} />
     ),
   },
-  {
-    id: "home",
-    label: "Service",
-    link: "/service",
-    description: "",
-    category: "personal",
-    icon: (
-      <NavigationIcon
-        size={ICON_SIZES.xxl}
-        icon={<HomeIcon />}
-      />
-    ),
-    searchActions: [],
-    fillIcon: (
-      <NavigationIcon
-        size={ICON_SIZES.xxl}
-        icon={<HomeIcon fill={true} />}
-      />
-    ),
-    children: [
-      {
-        id: "performance-home",
-        label: "History",
-        link: "/service",
-      },
 
-      {
-        id: "planning",
-        label: "Work Orders",
-        link: "/service/work-orders",
-      },
-      {
-        id: "appraisals",
-        label: "Parts",
-        link: "/performance/appraisals",
-      },
-      {
-        id: "benefits",
-        label: "Benefits",
-        link: "/performance/team",
-        children: [
-          {
-            id: "plans",
-            label: "Plans",
-            link: "/performance/team/planning",
-          },
-          {
-            id: "team-scorecards",
-            label: "HMO",
-            link: "/performance/team/scorecards",
-          },
-          {
-            id: "team-interventions",
-            label: "Loans",
-            link: "/performance/team/scorecards",
-          },
-        ],
-      },
-    ],
-  },
   // {
   //   id: "administration",
   //   label: "Administration",
@@ -254,53 +176,45 @@ export const PrimaryNavigation: NavigationProps[] = [
   //     />
   //   ),
   // },
-  {
-    id: "people",
-    label: "Users",
-    link: "/people",
-    category: "admin",
-    description: "",
-    icon: (
-      <NavigationIcon
-        size={ICON_SIZES.xxl}
-        icon={<People />}
-      />
-    ),
+  // {
+  //   id: "people",
+  //   label: "Users",
+  //   link: "/people",
+  //   category: "admin",
+  //   description: "",
+  //   icon: <NavigationIcon size={ICON_SIZES.xxl} icon={<People />} />,
 
-    fillIcon: (
-      <NavigationIcon
-        size={ICON_SIZES.xxl}
-        icon={<People fill={true} />}
-      />
-    ),
-    children: [
-      {
-        id: "people",
-        label: "Home",
-        link: "/people",
-      },
-      {
-        id: "people-demographics",
-        label: "Demographics",
-        link: "/people/demographics",
-      },
-      {
-        id: "people-diversity",
-        label: "Diversity",
-        link: "/people/diversity",
-      },
-      {
-        id: "people-wellness",
-        label: "Wellness",
-        link: "/people/wellness",
-      },
-      {
-        id: "people-tenure-retirement",
-        label: "Tenure & Retirement",
-        link: "/people/tenure-retirement",
-      },
-    ],
-  },
+  //   fillIcon: (
+  //     <NavigationIcon size={ICON_SIZES.xxl} icon={<People fill={true} />} />
+  //   ),
+  //   children: [
+  //     {
+  //       id: "people",
+  //       label: "Home",
+  //       link: "/people",
+  //     },
+  //     {
+  //       id: "people-demographics",
+  //       label: "Demographics",
+  //       link: "/people/demographics",
+  //     },
+  //     {
+  //       id: "people-diversity",
+  //       label: "Diversity",
+  //       link: "/people/diversity",
+  //     },
+  //     {
+  //       id: "people-wellness",
+  //       label: "Wellness",
+  //       link: "/people/wellness",
+  //     },
+  //     {
+  //       id: "people-tenure-retirement",
+  //       label: "Tenure & Retirement",
+  //       link: "/people/tenure-retirement",
+  //     },
+  //   ],
+  // },
   // {
   //   id: "requests",
   //   label: "Requests",
@@ -342,24 +256,85 @@ export const PrimaryNavigation: NavigationProps[] = [
   //     },
   //   ],
   // },
+  // {
+  //   id: "design-center",
+  //   label: "Vendors",
+  //   link: "/compensation",
+  //   category: "admin",
+  //   description: "Payslips, Remittance, Taxes",
+  //   icon: <NavigationIcon size={ICON_SIZES.xxl} icon={<Compensation />} />,
+  //   fillIcon: (
+  //     <NavigationIcon
+  //       size={ICON_SIZES.xxl}
+  //       icon={<Compensation fill={true} />}
+  //     />
+  //   ),
+  // },
+  // {
+  //   id: "design-center",
+  //   label: "Configurations",
+  //   link: "/compensation",
+  //   category: "admin",
+  //   description: "Payslips, Remittance, Taxes",
+  //   icon: <NavigationIcon size={ICON_SIZES.xxl} icon={<Compensation />} />,
+  //   fillIcon: (
+  //     <NavigationIcon
+  //       size={ICON_SIZES.xxl}
+  //       icon={<Compensation fill={true} />}
+  //     />
+  //   ),
+  // },
+];
+
+export const SecondaryNavigation: NavigationProps[] = [
   {
-    id: "design-center",
-    label: "Vendors",
-    link: "/compensation",
-    category: "admin",
-    description: "Payslips, Remittance, Taxes",
-    icon: (
-      <NavigationIcon
-        size={ICON_SIZES.xxl}
-        icon={<Compensation />}
-      />
-    ),
-    fillIcon: (
-      <NavigationIcon
-        size={ICON_SIZES.xxl}
-        icon={<Compensation fill={true} />}
-      />
-    ),
+    id: "administration",
+    label: "Administration",
+    link: "/administration",
+    description: "",
+    category: "personal",
+    icon: <Settings className="w-5 h-5" />,
+    searchActions: [],
+    children: [
+      {
+        id: "performance-home",
+        label: "Inventory",
+        link: "/vehicles",
+      },
+
+      {
+        id: "planning",
+        label: "Schedule",
+        link: "/performance/planning",
+      },
+      {
+        id: "appraisals",
+        label: "Parts",
+        link: "/performance/appraisals",
+      },
+      {
+        id: "benefits",
+        label: "Benefits",
+        link: "/performance/team",
+        children: [
+          {
+            id: "plans",
+            label: "Plans",
+            link: "/performance/team/planning",
+          },
+          {
+            id: "team-scorecards",
+            label: "HMO",
+            link: "/performance/team/scorecards",
+          },
+          {
+            id: "team-interventions",
+            label: "Loans",
+            link: "/performance/team/scorecards",
+          },
+        ],
+      },
+    ],
   },
   {
     id: "design-center",
@@ -367,39 +342,6 @@ export const PrimaryNavigation: NavigationProps[] = [
     link: "/compensation",
     category: "admin",
     description: "Payslips, Remittance, Taxes",
-    icon: (
-      <NavigationIcon
-        size={ICON_SIZES.xxl}
-        icon={<Compensation />}
-      />
-    ),
-    fillIcon: (
-      <NavigationIcon
-        size={ICON_SIZES.xxl}
-        icon={<Compensation fill={true} />}
-      />
-    ),
-  },
-];
-
-export const SecondaryNavigation: NavigationProps[] = [
-  {
-    id: "switch",
-    label: "HRFlex Core",
-    link: "/flex-core",
-    description: "Setups and Configurations for HR Processes",
-    category: "admin",
-    icon: (
-      <NavigationIcon
-        size={ICON_SIZES.xxl}
-        icon={<Switch />}
-      />
-    ),
-    fillIcon: (
-      <NavigationIcon
-        size={ICON_SIZES.xxl}
-        icon={<Switch fill={true} />}
-      />
-    ),
+    icon: <CircleHelp className="w-5 h-5" />,
   },
 ];

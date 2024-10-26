@@ -19,6 +19,8 @@ import {
   SearchPallette,
   MenuDropdown,
   MenuDropdownItemProp,
+  BodyCopy,
+  Lbl,
 } from "..";
 import { PrimaryNavigation } from "..";
 import {
@@ -97,25 +99,28 @@ export const SidebarLayout: FC<{
         <div
           className={classNames(
             sidebarIsOpen ? "lg:w-56" : "lg:w-12",
-            switchColor ? "bg-stone-50" : "bg-slate-950",
-            "hidden h-screen  lg:fixed lg:flex z-50 lg:flex-col overscroll-contain"
+            switchColor ? "bg-stone-50" : "bg-white",
+            "hidden h-screen  lg:fixed lg:flex z-50 lg:flex-col overscroll-contain border-r"
           )}
         >
-          <div className="flex flex-col overflow-y-auto grow">
-            <nav className="flex flex-col flex-1 ">
+          <div className="flex flex-col p-2.5 overflow-y-auto grow bg-slate-50">
+            <img src="/fleetShort.svg" alt="" className="pb-2 w-8 h-8" />
+            <nav className="flex flex-col flex-1 place-items-center pt-2 ">
               {/* <MainIcon sidebarIsOpen={sidebarIsOpen} /> */}
 
               <ul
                 className={classNames(
-                  "flex-1 pt-1 pb-4 ml-1 mb-32 space-y-2 text-xs font-normal "
+                  // "flex-1 pt-1 pb-4 ml-1 mb-32 space-y-2 text-xs font-normal "
+                  "flex-1 mb-32 space-y-2 text-xs font-normal ",
+                  sidebarIsOpen ? "w-full text-left" : ""
                 )}
               >
-                <div
+                {/* <div
                   className="border-l-2 p-2 border-transparent items-center text-slate-400 hover:text-orange-400 cursor-pointer "
                   onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
                 >
-                  <Bars3Icon className="w-6 h-6" />
-                </div>
+                  <Bars3Icon className="w-5 h-5" />
+                </div> */}
 
                 {filterNavigation(profile).map((item, index) => (
                   <NavItem
@@ -130,24 +135,44 @@ export const SidebarLayout: FC<{
                   />
                 ))}
               </ul>
+              <ul className="space-y-2 text-xs justify-center font-normal">
+                {SecondaryNavigation.filter(
+                  (nav) => nav.id !== PrimaryNavigation[0].id
+                ).map((item, index) => (
+                  <NavItem
+                    key={index}
+                    id={item.id}
+                    label={item.label}
+                    icon={item.icon}
+                    link={item.link}
+                    fillIcon={item.fillIcon}
+                    dark={!switchColor}
+                  />
+                ))}
+              </ul>
             </nav>
-            <ul className="pb-4 mx-auto items-center text-xs">
-              {SecondaryNavigation.filter(
-                (nav) => nav.id !== PrimaryNavigation[0].id
-              ).map((item, index) => (
-                <NavItem
-                  key={index}
-                  id={item.id}
-                  label={item.label}
-                  icon={item.icon}
-                  link={item.link}
-                  fillIcon={item.fillIcon}
-                  dark={!switchColor}
-                />
-              ))}
-            </ul>
-            <div className=" p-2 border-slate-700 border-t items-center">
-              <FlexIcon />
+
+            <div
+              className={classNames(
+                " border-slate-700 border-t mt-2 py-2 flex  gap-2",
+                sidebarIsOpen
+                  ? " text-left items-center"
+                  : "justify-center items-center"
+              )}
+            >
+              {/* <FlexIcon /> */}
+              <Avatar
+                size={AVATAR_SIZES.sm}
+                firstName={sampleEmployee.bioData.firstName}
+                lastName={sampleEmployee.bioData.lastName}
+                imageUrl={sampleEmployee.bioData.avatar}
+                hasPadding={false}
+              />
+              {sidebarIsOpen && (
+                <p className="text-xs text-slate-300">
+                  {sampleEmployee.bioData.fullName}
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -165,23 +190,7 @@ export const SidebarLayout: FC<{
               <p className="text-base font-semibold text-gray-700 ">
                 {rootContext.navTitle}
               </p>
-              <MenuDropdown
-                button={
-                  <>
-                    <p className="text-xs font-light text-primary-900">
-                      Company: Grand Oak - Nigeria
-                    </p>
-                  </>
-                }
-                items={[
-                  {
-                    id: "",
-                    label: "Grand Oak - Nigeria",
-                    function: () => {},
-                  },
-                  { id: "", label: "Grand Oak - Ghana", function: () => {} },
-                ]}
-              />
+
               <div className="flex gap-4 items-center text-xs text-slate-700">
                 {/* <button
                   onClick={() => setToggleSearch(!toggleSearch)}
@@ -240,19 +249,21 @@ const NavItem: FC<NavigationProps> = ({
         key={id}
         href={link!}
         onClick={() => rootContext.updateNavTitle(label)}
+        className=""
       >
         <div
           className={classNames(
-            "group flex items-center border-l-2 w-full  ",
+            "group flex p-2 border-l-2",
             pathName.includes(link!)
-              ? "group-hover:text-gray-700 border-orange-500 text-orange-400 group-hover:bg-slate-200 "
-              : "group-hover:text-indigo-800 group-hover:bg-indigo-50 text-slate-400 border-slate-950",
-            sideBarIsOpen && pathName.includes(link!)
-              ? "bg-slate-900 pr-2 shadow-sm"
-              : ""
+              ? "group-hover:text-gray-700  group-hover:bg-slate-200 border-brand-oceanicNoir text-brand-oceanicNoir "
+              : "group-hover:text-indigo-800 group-hover:bg-indigo-50  border-slate-50 text-neutral-500 ",
+            sideBarIsOpen && pathName.includes(link!) ? "" : "",
+            sideBarIsOpen
+              ? "items-center text-left gap-2"
+              : "items-center justify-center "
           )}
         >
-          {pathName.includes(link!) ? fillIcon : icon}
+          {icon}
           {sideBarIsOpen && <p className="font-medium">{label}</p>}
 
           {notificationCount !== undefined && notificationCount > 0 && (
@@ -272,17 +283,11 @@ const NavItem: FC<NavigationProps> = ({
 
 const AvatarDropdown: FC<{ employee: Employee }> = ({ employee }) => {
   return (
-    <Menu
-      as="div"
-      className="relative inline-block text-left"
-    >
+    <Menu as="div" className="relative inline-block text-left">
       <div>
         <MenuButton className="flex items-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
           <span className="sr-only">Open options</span>
-          <EllipsisVerticalIcon
-            aria-hidden="true"
-            className="h-5 w-5"
-          />
+          <EllipsisVerticalIcon aria-hidden="true" className="h-5 w-5" />
         </MenuButton>
       </div>
 
@@ -315,10 +320,7 @@ const AvatarDropdown: FC<{ employee: Employee }> = ({ employee }) => {
               License
             </a>
           </MenuItem>
-          <form
-            action="#"
-            method="POST"
-          >
+          <form action="#" method="POST">
             <MenuItem>
               <button
                 type="submit"

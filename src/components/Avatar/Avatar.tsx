@@ -73,8 +73,8 @@ export const Avatar: FC<AvatarProps> = ({
         <img
           className={classNames(
             sizeClass,
-            _hasPadding ? "p-1 shadow-sm" : "",
-            "max-w-none ring-2 ring-white rounded-full object-cover flex-shrink-0",
+            _hasPadding ? "p-1 shadow-sm ring-2 ring-white" : "",
+            "max-w-none   rounded-full object-cover flex-shrink-0",
             center ? "mx-auto" : ""
           )}
           src={imageUrl}
