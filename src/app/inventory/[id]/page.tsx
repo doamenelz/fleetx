@@ -16,11 +16,13 @@ import { useEffect, useState } from "react";
 import { VehicleTableList } from "../components/VehicleTableList";
 import { VehicleSummaryView } from "../components/VehicleSummaryView";
 import { simulateLoader } from "@/lib/utilities/helperFunctions";
+import { getVehicleBreadCrumbs } from "./breadCrumbModel";
+import { usePathname } from "next/navigation";
 
 //TODO: Update the Document Title
 export default function Page({ params }: { params: { id: string } }) {
   // const _leaveDetails = sampleBalances.find((p) => p.type === params.id);
-
+  const loc = usePathname();
   useEffect(() => {
     const vehicleDetails = sampleVehicles.find(
       (vehicle) => vehicle.id === params.id
@@ -37,9 +39,10 @@ export default function Page({ params }: { params: { id: string } }) {
       fullWidth={SCREEN_WIDTH.full}
       isLoading={false}
       hasPadding={false}
-      // bgColor="bg-slate-50"
+      showHeader={false}
+      breadCrumbs={getVehicleBreadCrumbs(loc, "1")}
     >
-      {isLoading ? ( //max-h-[calc(100vh_-_260px)]
+      {isLoading ? (
         <div className="mx-auto fixed inset-0 overscroll-y-none flex items-center justify-center 100vh ">
           <Spinner props={{ label: "Getting Summary.." }} />
         </div>

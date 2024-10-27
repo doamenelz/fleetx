@@ -1,6 +1,6 @@
 "use client";
 import { Lbl, PageLoader, ScrollToTop } from "../../components";
-import { FC, Suspense, useEffect } from "react";
+import { FC, Suspense, useContext, useEffect } from "react";
 import { PageContainerContext } from "./PageContainerContext";
 import { Transition } from "@headlessui/react";
 // import { lineWobble } from "ldrs";
@@ -9,6 +9,7 @@ import { classNames } from "@/lib/utilities/helperFunctions";
 import { FlexLogoFull, FlexLogoFullLight } from "@/assets";
 import { DATE_OPTIONS, formatDate } from "@/lib/utilities/dateHelpers";
 import { LoaderCircle } from "lucide-react";
+import { ModuleContainerContext } from "@/context/ModuleContainerContext";
 
 export const setScreenWidth = (width: SCREEN_WIDTH) => {
   switch (width) {
@@ -25,9 +26,11 @@ export const setScreenWidth = (width: SCREEN_WIDTH) => {
 };
 
 export const PageContainer: FC<PageProperties> = (props) => {
+  const moduleContainerContext = useContext(ModuleContainerContext);
   useEffect(() => {
     document.title = `fleetX | ${props.documentTitle}`;
-    // lineWobble.register();
+    moduleContainerContext.setShowHeader(props.showHeader);
+    moduleContainerContext.setBreadCrumbs(props.breadCrumbs);
   }, []);
 
   const _fullWidth = props.fullWidth;

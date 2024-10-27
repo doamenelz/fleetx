@@ -48,13 +48,31 @@ export const PrimaryNavigation: NavigationProps[] = [
     ],
   },
   {
-    id: "dashboard",
+    id: "service",
     label: "Service",
-    link: "/dashboard",
+    link: "/service",
     description: "",
     category: "personal",
     icon: <Bolt className="w-5 h-5" />,
     searchActions: [],
+    children: [
+      {
+        id: "performance-home",
+        label: "History",
+        link: "/service",
+      },
+
+      {
+        id: "planning",
+        label: "Work Orders",
+        link: "/service/work-orders",
+      },
+      {
+        id: "appraisals",
+        label: "Faults",
+        link: "/service/faults",
+      },
+    ],
   },
   {
     id: "home",
@@ -77,7 +95,7 @@ export const PrimaryNavigation: NavigationProps[] = [
   {
     id: "dashboard",
     label: "Vendors",
-    link: "/dashboard",
+    link: "/vendors",
     description: "",
     category: "personal",
     icon: <Briefcase className="w-5 h-5" />,

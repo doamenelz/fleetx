@@ -41,6 +41,7 @@ import {
   PlusIcon,
 } from "lucide-react";
 import { VehicleAssignmentTable } from "../../components/VehicleAssignmentTable";
+import { getVehicleBreadCrumbs } from "../breadCrumbModel";
 
 export default function Page() {
   const loc = usePathname();
@@ -61,6 +62,8 @@ export default function Page() {
       fullWidth={SCREEN_WIDTH.full}
       isLoading={false}
       hasPadding={false}
+      showHeader={false}
+      breadCrumbs={getVehicleBreadCrumbs(loc, "4")}
     >
       <>
         <div className="sticky top-0">

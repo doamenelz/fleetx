@@ -1,14 +1,20 @@
 import { BreadCrumb } from "@/components";
 import React from "react";
 export const ModuleContainerContext = React.createContext<{
-  headerLabel: string;
+  mainPage: BreadCrumb;
   /** Determines showing if the Page Header or BreadCrumbs should be showed */
   showHeader: boolean;
   breadCrumbs: BreadCrumb[];
   setShowHeader: Function;
+  setBreadCrumbs: Function;
 }>({
-  headerLabel: "",
+  mainPage: {
+    id: "",
+    name: "",
+    href: "",
+  },
   showHeader: true,
   breadCrumbs: [],
   setShowHeader: () => {},
+  setBreadCrumbs: () => {},
 });

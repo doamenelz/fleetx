@@ -1,60 +1,36 @@
 "use client";
 
 import {
-  Accordion,
   Button,
   BUTTON_SKIN,
   CardWithSectionHeader,
-  CustomCardWithTitle,
   GRID_TYPE,
   GridLayout,
   ICON_POSITION,
-  IconDropdown,
   Lbl,
-  ListTable,
   PageContainer,
   SCREEN_WIDTH,
   SearchField,
-  SectionHeader,
-  SlideOutWrapper,
   TextLabel,
   TipDirection,
   ToolTip,
 } from "@/components";
-import ReactDOM from "react-dom";
-import { classNames } from "@/lib/utilities/helperFunctions";
-import { sampleVehicles, Vehicle } from "@/models";
-import { usePathname } from "next/navigation";
-import { FC, useEffect, useState } from "react";
-import { VehicleServiceTableList } from "../../components/VehicleServiceTable";
+import { ChevronLeft, ChevronRight, PlusIcon } from "lucide-react";
+import { VehicleServiceTableList } from "../inventory/components/VehicleServiceTable";
 import { sampleServiceReminders } from "@/models/ServiceAndRecalls/Service";
-import {
-  ChevronLast,
-  ChevronLeft,
-  ChevronRight,
-  Ellipsis,
-  PlusIcon,
-} from "lucide-react";
-import { getVehicleBreadCrumbs } from "../breadCrumbModel";
+import { FC } from "react";
+import { classNames } from "@/lib/utilities/helperFunctions";
+import { sampleVehicles } from "@/models";
 
 export default function Page() {
-  const loc = usePathname();
-  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle>();
-
-  useEffect(() => {
-    const vehicleDetails = sampleVehicles.find(
-      (vehicle) => vehicle.id === String(loc.split("/")[2])
-    );
-    setSelectedVehicle(vehicleDetails);
-  }, []);
   return (
     <PageContainer
-      documentTitle={`Vehicles`}
+      documentTitle="Service"
       fullWidth={SCREEN_WIDTH.full}
       isLoading={false}
-      hasPadding={false}
-      showHeader={false}
-      breadCrumbs={getVehicleBreadCrumbs(loc, "3")}
+      hasPadding={true}
+      showFooter={false}
+      showHeader={true}
     >
       <GridLayout
         type={GRID_TYPE.twoOne}

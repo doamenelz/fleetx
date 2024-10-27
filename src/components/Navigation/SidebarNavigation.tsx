@@ -110,7 +110,11 @@ export const SidebarLayout: FC<{
           )}
         >
           <div className="flex flex-col p-2.5 overflow-y-auto grow bg-slate-50">
-            <img src="/fleetShort.svg" alt="" className="pb-2 w-8 h-8" />
+            <img
+              src="/fleetShort.svg"
+              alt=""
+              className="pb-2 w-8 h-8"
+            />
             <nav className="flex flex-col flex-1 place-items-center pt-2 ">
               <ul
                 className={classNames(
@@ -196,11 +200,14 @@ export const SidebarLayout: FC<{
           </div>
         </div>
         <MobileNav />
-        <SearchPallette open={toggleSearch} setOpen={setToggleSearch} />
+        <SearchPallette
+          open={toggleSearch}
+          setOpen={setToggleSearch}
+        />
         <div
           className={classNames(sidebarIsOpen ? "lg:pl-56" : "lg:pl-12", "")}
         >
-          <main className="overscroll-none pt-12">{props.children}</main>
+          <main className="overscroll-none">{props.children}</main>
         </div>
       </div>
     </>
@@ -290,11 +297,17 @@ const SearchButton: FC<{
 
 const AvatarDropdown: FC<{ employee: Employee }> = ({ employee }) => {
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu
+      as="div"
+      className="relative inline-block text-left"
+    >
       <div>
         <MenuButton className="flex items-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
           <span className="sr-only">Open options</span>
-          <EllipsisVerticalIcon aria-hidden="true" className="h-5 w-5" />
+          <EllipsisVerticalIcon
+            aria-hidden="true"
+            className="h-5 w-5"
+          />
         </MenuButton>
       </div>
 
@@ -327,7 +340,10 @@ const AvatarDropdown: FC<{ employee: Employee }> = ({ employee }) => {
               License
             </a>
           </MenuItem>
-          <form action="#" method="POST">
+          <form
+            action="#"
+            method="POST"
+          >
             <MenuItem>
               <button
                 type="submit"

@@ -11,11 +11,19 @@ export const StatusBadge: FC<{
   label: string;
   /** Always transpose the status from the API contract into one of these based on the context/stage */
   statusType: STATUS_COLORS;
+  style?: "text" | "default";
 }> = (props) => {
   return (
     <>
       {props.statusType === STATUS_COLORS.success && (
-        <span className="inline-flex capitalize items-center px-2 py-1 text-xs font-medium text-green-700 rounded-md bg-green-50 ring-1 ring-inset ring-green-600/20">
+        <span
+          className={classNames(
+            "inline-flex capitalize items-center text-xs  text-green-700 ",
+            props.style === "default" || props.style === undefined
+              ? "px-2 py-1 font-medium rounded-md bg-green-50 ring-1 ring-inset ring-green-600/20"
+              : ""
+          )}
+        >
           {props.label}
         </span>
       )}

@@ -1,3 +1,5 @@
+import { BreadCrumb } from "../BreadCrumbs";
+
 export enum SCREEN_WIDTH {
   ultra,
   full,
@@ -12,4 +14,6 @@ export interface PageProperties {
   bgColor?: string;
   showFooter?: boolean;
   loaderText?: string;
+  breadCrumbs?: BreadCrumb[];
+  showHeader?: boolean;
 }

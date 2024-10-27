@@ -14,7 +14,7 @@ export default function InventoryLayout({
   return (
     <ModuleContainerContext.Provider
       value={{
-        mainPage: { id: "", name: "Inventory", href: "/inventory" },
+        mainPage: { id: "", name: "Vendors", href: "/vendors" },
         setShowHeader: setShowHeader,
         breadCrumbs: breadCrumbs,
         showHeader: showHeader,

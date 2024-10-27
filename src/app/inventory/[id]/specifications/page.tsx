@@ -13,6 +13,7 @@ import {
 import { sampleVehicles, Vehicle } from "@/models";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { getVehicleBreadCrumbs } from "../breadCrumbModel";
 
 export default function Page() {
   const loc = usePathname();
@@ -30,6 +31,8 @@ export default function Page() {
       fullWidth={SCREEN_WIDTH.full}
       isLoading={false}
       hasPadding={false}
+      showHeader={false}
+      breadCrumbs={getVehicleBreadCrumbs(loc, "2")}
     >
       <GridLayout
         type={GRID_TYPE.twoFlex}

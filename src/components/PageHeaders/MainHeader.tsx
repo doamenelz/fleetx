@@ -1,6 +1,7 @@
 import { classNames } from "@/lib/utilities/helperFunctions";
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { BreadCrumbs } from "../BreadCrumbs";
+import { ModuleContainerContext } from "@/context/ModuleContainerContext";
 
 export const MainHeader: FC<{ title: string }> = ({ title }) => {
   return (
@@ -33,6 +34,7 @@ export const MainHeader: FC<{ title: string }> = ({ title }) => {
 };
 
 export const PageHeader = () => {
+  const moduleContext = useContext(ModuleContainerContext);
   return (
     <div
       className={classNames(
@@ -40,16 +42,28 @@ export const PageHeader = () => {
         // sidebarIsOpen ? "lg:pl-56" : "lg:pl-12"
       )}
     >
-      <div className=" w-full top-0 bg-gray-25 py-3.5 items-center flex justify-between border-b">
-        <BreadCrumbs
-          data={[]}
-          mainPage={{ id: "", name: "Inventory", href: "" }}
-        />
+      <div className=" w-full top-0 bg-gray-25 h-12  items-center flex justify-between border-b">
+        {moduleContext.showHeader == true ||
+        moduleContext.showHeader == undefined ? (
+          <p className="font-semibold text-gray-700">
+            {moduleContext.mainPage.name}
+          </p>
+        ) : (
+          <BreadCrumbs
+            data={moduleContext.breadCrumbs}
+            mainPage={{
+              id: "",
+              name: moduleContext.mainPage.name,
+              href: moduleContext.mainPage.href,
+            }}
+          />
+        )}
+
         <div className="flex gap-4 items-center text-xs text-slate-700">
           <div className="border-r h-6 text-slate-700 border-slate-200"></div>
           <div className="">
             <img
-              src="https://demo.hr-flex.com/uploadeddocuments/_assets/companylogo.png"
+              src="/compLogo.svg"
               className="h-6"
               alt=""
             />

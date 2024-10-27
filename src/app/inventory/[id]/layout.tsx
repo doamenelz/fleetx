@@ -9,9 +9,11 @@ import {
   Tabs,
 } from "@/components";
 import { sampleVehicles, Vehicle } from "@/models/Vehicle/Vehicle";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { simulateLoader } from "@/lib/utilities/helperFunctions";
 import { useRouter } from "next/router";
+import { ModuleContainerContext } from "@/context/ModuleContainerContext";
+import { getVehicleBreadCrumbs } from "./breadCrumbModel";
 
 export default function VehicleDetails({
   id,
@@ -32,20 +34,16 @@ export default function VehicleDetails({
     simulateLoader(setIsLoading, 2000);
   }, []);
 
-  const [changes, setChanges] = useState(0);
-
   const [selectedTab, setSelectedTab] = useState<string>(loc);
   useEffect(() => {
-    // console.log(`Route changed to: ${loc}`);
-    // setChanges((prev) => prev + 1);
     setSelectedTab(loc);
   }, [loc]);
 
-  const tabs: Tab[] = [
+  const tabs = [
     {
       name: "Summary",
       href: `/inventory/${loc.split("/")[2]}`,
-      id: "summary",
+      id: "01",
     },
     {
       name: "Specifications",
@@ -77,34 +75,29 @@ export default function VehicleDetails({
       href: `/inventory/${loc.split("/")[2]}/audit`,
       id: "7",
     },
-    // { name: "Fuel & Energy", href: "", id: "5" },
-    // { name: "Expenses", href: "", id: "5" },
-    // { name: "Usage History", href: "", id: "5" },
   ];
 
   const tabHandler = (tabId: string) => {
     setSelectedTab(tabId);
   };
+
   return (
     <PageContainer
       documentTitle={`Inventory - `}
       fullWidth={SCREEN_WIDTH.full}
       isLoading={false}
       hasPadding={true}
+      showHeader={false}
+      breadCrumbs={getVehicleBreadCrumbs(loc, "1")}
     >
-      {isLoading ? ( //max-h-[calc(100vh_-_260px)]
+      {isLoading ? (
         <div className="mx-auto fixed inset-0 overscroll-y-none flex items-center justify-center 100vh ">
           <Spinner props={{ label: "Getting Vehicle Details.." }} />
         </div>
       ) : (
         <>
           <div className="sticky top-12 w-full z-10 bg-white">
-            <BackHeader
-              previousPathName="Inventory"
-              previousPath="/inventory"
-            />
-
-            <div className="">
+            <div className="py-4">
               <p className="text-xs text-slate-500">
                 #{selectedVehicle!.generalInfo.license}
               </p>
@@ -126,11 +119,14 @@ export default function VehicleDetails({
                 <span>{selectedVehicle!.generalInfo.location}</span>
               </p>
             </div>
-            <Tabs tabs={tabs} tabHandler={tabHandler} selectedTab={selectedTab}>
+            <Tabs
+              tabs={tabs}
+              tabHandler={tabHandler}
+              selectedTab={selectedTab}
+            >
               <></>
             </Tabs>
           </div>
-          <></>
           {children}
         </>
       )}

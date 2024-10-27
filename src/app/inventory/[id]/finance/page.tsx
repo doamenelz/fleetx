@@ -46,6 +46,7 @@ import {
 } from "lucide-react";
 import { CostSummaryCard } from "../../components/VehicleCostSummary";
 import { VehicleExpenseList } from "../../components/VehicleExpenseList";
+import { getVehicleBreadCrumbs } from "../breadCrumbModel";
 
 export default function Page() {
   const loc = usePathname();
@@ -63,6 +64,8 @@ export default function Page() {
       fullWidth={SCREEN_WIDTH.full}
       isLoading={false}
       hasPadding={false}
+      showHeader={false}
+      breadCrumbs={getVehicleBreadCrumbs(loc, "6")}
     >
       <div className="space-y-4 pb-4">
         <GridLayout
@@ -86,7 +89,10 @@ export default function Page() {
         <div>
           <SectionHeader title="Expenses" />
           <div className="flex pt-2 justify-between items-center">
-            <SearchField placeholder="Search" setQuery={() => {}} />
+            <SearchField
+              placeholder="Search"
+              setQuery={() => {}}
+            />
 
             <div className="flex gap-2">
               <Lbl label={`5 of ${sampleVehicleExpenses.length} results`} />
