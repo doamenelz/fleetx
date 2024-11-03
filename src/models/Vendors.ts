@@ -20,10 +20,15 @@ export interface Vendor {
   status: string;
   recommendation?: {
     rating: string;
-    notes: string;
-    lastUpdated: string;
+    notes?: string;
+    lastUpdated?: string;
   };
 }
+
+const ratings = ["good", "average", "poor"];
+const random = () => {
+  return Math.floor(Math.random() * ratings.length);
+};
 
 const generateVendor = (serviceClasses: string[]) => {
   return {
@@ -54,6 +59,10 @@ const generateVendor = (serviceClasses: string[]) => {
     website: faker.internet.domainName(),
     notes: faker.lorem.paragraph(),
     serviceClasses: serviceClasses,
+    recommendation: {
+      rating: ratings[random()],
+      notes: faker.lorem.paragraph(),
+    },
   };
 };
 

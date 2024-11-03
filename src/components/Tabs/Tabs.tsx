@@ -44,7 +44,8 @@ export const Tabs: FC<{
                   )}
                   aria-current={selectedTab === tab.id ? "page" : undefined}
                 >
-                  <span className="w-4 h-4">{tab.icon}</span>
+                  {tab.icon && <span className="w-4 h-4">{tab.icon}</span>}
+
                   {tab.name}
                 </Link>
               ))}

@@ -2,6 +2,7 @@ import { FC } from "react";
 import { ListTableData } from "./ListTable.types";
 import Link from "next/link";
 import { classNames } from "@/lib/utilities/helperFunctions";
+import { jsx } from "react/jsx-runtime";
 
 export enum LIST_TABLE_TYPE {
   generic,
@@ -69,9 +70,10 @@ const ListCell: FC<{ data: ListTableData; type: LIST_TABLE_TYPE }> = ({
 export const ListTableCell: FC<{
   url?: string;
   title: string;
-  copy?: string;
-  due: string;
-}> = ({ title, copy, url, due }) => {
+  copy?: string | JSX.Element;
+
+  rowThree?: string | JSX.Element;
+}> = ({ title, copy, url, rowThree }) => {
   return (
     <div className="space-y-0">
       {url && (
@@ -84,9 +86,21 @@ export const ListTableCell: FC<{
       )}
       {!url && <p className="">{title}</p>}
 
-      <p className="text-slate-500 text-[10px]/[10px] normal-case">
-        {copy} | <span>{due}</span>
-      </p>
+      {typeof copy === "string" ? (
+        <p className="text-slate-500 text-[10px]/[10px] normal-case pb-2">
+          {copy}
+        </p>
+      ) : (
+        copy
+      )}
+
+      {typeof rowThree === "string" ? (
+        <p className="text-slate-500 text-[10px]/[10px] normal-case pb-2">
+          {copy}
+        </p>
+      ) : (
+        rowThree
+      )}
     </div>
   );
 };
