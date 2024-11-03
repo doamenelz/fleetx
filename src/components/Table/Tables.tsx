@@ -122,15 +122,16 @@ export const Table: FC<{
   const context = useContext(TableContext);
   return (
     <div className="flow-root">
-      <div className="my-1 overflow-x-auto">
+      <div className="my-1  overflow-x-auto">
         <div
           className={classNames(
             "inline-block min-w-full align-middle",
-            height ? `max-h-[calc(100vh_-_${height})]` : ""
+            height ? `max-h-[calc(100vh_-_${height})]` : "",
+            "min-h-0 pb-10"
           )}
         >
-          <table className="min-w-full divide-y divide-indigo-200">
-            <thead className=" w-full mx-auto sticky top-0 z-10">
+          <table className="min-w-full divide-y  divide-indigo-200">
+            <thead className=" w-full mx-auto sticky top-0">
               <tr>{head}</tr>
             </thead>
             {context.page.totalResults > 0 && <TableBody>{body}</TableBody>}

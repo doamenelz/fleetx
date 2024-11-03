@@ -15,6 +15,7 @@ import {
   AVATAR_SIZES,
   Button,
   BUTTON_SKIN,
+  SectionHeader,
 } from "@/components";
 import { TableContext } from "@/components/Table/TableContext";
 import { ServiceDetails } from "@/app/service/components/ServiceDetails";
@@ -64,6 +65,7 @@ export const VendorTransactionsTable: FC<{ data: VehicleExpenses[] }> = ({
   ];
   return (
     <>
+      {/* <SectionHeader title="Transactions" /> */}
       <TableContext.Provider
         value={{
           updateData: () => {},

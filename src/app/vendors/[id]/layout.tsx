@@ -25,7 +25,7 @@ const tabs = (loc: string) => {
     },
     {
       name: "Files",
-      href: `/vendors/${loc.split("/")[2]}/transactions`,
+      href: `/vendors/${loc.split("/")[2]}/files`,
       id: "2",
     },
   ];

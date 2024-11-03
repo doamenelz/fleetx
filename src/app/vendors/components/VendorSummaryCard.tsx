@@ -1,5 +1,7 @@
 import {
   Accordion,
+  Button,
+  BUTTON_SKIN,
   CardWithSectionHeader,
   GRID_TYPE,
   GridLayout,
@@ -26,10 +28,7 @@ export const VendorSummaryCard: FC<{ vendor: Vendor }> = ({ vendor }) => {
       id: "2",
       key: "Status",
       value: (
-        <StatusBadge
-          label={vendor.status}
-          statusType={STATUS_COLORS.success}
-        />
+        <StatusBadge label={vendor.status} statusType={STATUS_COLORS.success} />
       ),
     },
 
@@ -92,10 +91,7 @@ export const VendorSummaryCard: FC<{ vendor: Vendor }> = ({ vendor }) => {
       value: (
         <div className="">
           {vendor.serviceClasses.map((serviceClass, index) => (
-            <p
-              className="capitalize"
-              key={index}
-            >
+            <p className="capitalize" key={index}>
               • {serviceClass}
             </p>
           ))}
@@ -120,11 +116,12 @@ export const VendorSummaryCard: FC<{ vendor: Vendor }> = ({ vendor }) => {
   ];
 
   return (
-    <Accordion
-      id="01"
-      style="section"
-      title="Profile Summary"
-      body={<ListTable data={data} />}
-    ></Accordion>
+    <CardWithSectionHeader
+      title="Overview"
+      copy="Vendor Summary and Contact Information"
+      button={<Button label="Edit" skin={BUTTON_SKIN.secondary} />}
+    >
+      <ListTable data={data} />
+    </CardWithSectionHeader>
   );
 };

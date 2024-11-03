@@ -79,11 +79,12 @@ export const IconDropdown: FC<{
 
       <MenuItems
         transition
-        className="absolute right-0 z-20 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+        anchor="bottom end"
+        className=" mt-2 w-56 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
       >
         <div className="p-2">
           <ul className="space-y-1">
-            {items.slice(0, 2).map((item) => (
+            {items.map((item) => (
               <MenuItem key={item.id}>
                 <button
                   onClick={item.function}
