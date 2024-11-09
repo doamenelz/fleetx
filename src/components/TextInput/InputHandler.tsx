@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { INPUT_TYPES, TextInputProps } from ".";
+import { CheckBoxInput, INPUT_TYPES, TextInputProps } from ".";
 import { TextLabel, TextInput, TextArea, Dropdown, DatePicker } from "..";
 export const InputHandler: FC<{
   props: TextInputProps;
@@ -13,9 +13,25 @@ export const InputHandler: FC<{
         props.style === INPUT_TYPES.phone) && (
         <>
           {!props.editMode ? (
-            <TextLabel label={props.label} copy={props.copy} />
+            <TextLabel
+              label={props.label}
+              copy={props.copy}
+            />
           ) : (
             <TextInput props={props} />
+          )}
+        </>
+      )}
+
+      {props.style === INPUT_TYPES.checkBox && (
+        <>
+          {!props.editMode ? (
+            <TextLabel
+              label={props.label}
+              copy={props.copy}
+            />
+          ) : (
+            <CheckBoxInput props={props} />
           )}
         </>
       )}
@@ -23,7 +39,10 @@ export const InputHandler: FC<{
       {props.style === INPUT_TYPES.textarea && (
         <>
           {!props.editMode ? (
-            <TextLabel label={props.label} copy={props.copy} />
+            <TextLabel
+              label={props.label}
+              copy={props.copy}
+            />
           ) : (
             <TextArea
               label={props.label}
@@ -31,7 +50,7 @@ export const InputHandler: FC<{
               placeHolder={props.placeHolder}
               disabled={props.disabled}
               span={props.span}
-              defaultValue={props.defaultValue}
+              defaultValue={props.defaultValue as string}
               style={props.style}
               required={props.required}
               setValue={props.setValue}
@@ -63,7 +82,7 @@ export const InputHandler: FC<{
               placeHolder={props.placeHolder}
               disabled={props.disabled}
               span={props.span}
-              defaultValue={props.defaultValue}
+              defaultValue={props.defaultValue as string}
               style={props.style}
               required={props.required}
               setValue={props.setValue}
@@ -75,7 +94,10 @@ export const InputHandler: FC<{
       {props.style === INPUT_TYPES.dropdown && (
         <>
           {!props.editMode ? (
-            <TextLabel label={props.label} copy={props.copy} />
+            <TextLabel
+              label={props.label}
+              copy={props.copy}
+            />
           ) : (
             <Dropdown
               label={props.label}
@@ -83,7 +105,7 @@ export const InputHandler: FC<{
               items={props.items!}
               setValue={props.setValue}
               span={props.span}
-              defaultValue={props.defaultValue}
+              defaultValue={props.defaultValue as string}
               disabled={props.disabled}
               value={props.value!}
               required={props.required}
@@ -98,14 +120,19 @@ export const InputHandler: FC<{
       {props.style === INPUT_TYPES.date && (
         <>
           {!props.editMode ? (
-            <TextLabel label={props.label} copy={props.copy} />
+            <TextLabel
+              label={props.label}
+              copy={props.copy}
+            />
           ) : (
             <DatePicker
               label={props.label}
               id={props.id}
               span={props.span}
               selectedDate={
-                props.defaultValue ? new Date(props.defaultValue) : new Date()
+                props.defaultValue
+                  ? new Date(props.defaultValue as string)
+                  : new Date()
               }
               setValue={props.setValue}
               showError={props.showError}

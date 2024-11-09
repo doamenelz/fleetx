@@ -38,7 +38,7 @@ export const Lbl: FC<TextProps> = (props) => {
     <label
       htmlFor={props.label}
       className={` flex items-center gap-1 ${
-        !props.isLight ? "text-xs  text-slate-600" : "text-xs  text-slate-600"
+        !props.isLight ? "text-xs  text-slate-800" : "text-xs  text-slate-500"
       }`}
     >
       {props.label}
@@ -74,8 +74,14 @@ export const AddressCopy: FC<{ address: Address }> = ({ address }) => {
   return (
     <div>
       <BodyCopy text={address.streetAddress} />
-      <BodyCopy isLight text={address.city} />
-      <BodyCopy isLight text={address.state} />
+      <BodyCopy
+        isLight
+        text={address.city}
+      />
+      <BodyCopy
+        isLight
+        text={address.state}
+      />
     </div>
   );
 };

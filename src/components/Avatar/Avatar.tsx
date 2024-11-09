@@ -51,7 +51,7 @@ export const Avatar: FC<AvatarProps> = ({
       textPadding = "text-lg";
       break;
     case AVATAR_SIZES.xl:
-      sizeClass = "w-16 h-16 shadow-md shadow";
+      sizeClass = "w-16 h-16 ";
       textPadding = "text-xl";
       break;
     case AVATAR_SIZES.xxl:
@@ -74,7 +74,7 @@ export const Avatar: FC<AvatarProps> = ({
           className={classNames(
             sizeClass,
             _hasPadding ? "p-1 shadow-sm ring-2 ring-white" : "",
-            "max-w-none   rounded-full object-cover flex-shrink-0",
+            "max-w-none rounded-full object-cover flex-shrink-0",
             center ? "mx-auto" : ""
           )}
           src={imageUrl}

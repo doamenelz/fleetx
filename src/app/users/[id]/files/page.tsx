@@ -1,20 +1,35 @@
 "use client";
 
-import { sampleDocuments } from "@/models/Document";
-import { VendorDocumentsTable } from "../../components/VendorDocumentsTable";
+import {
+  FileDocument,
+  sampleDocuments,
+  sampleUserDoc,
+} from "@/models/Document";
 import {
   Button,
-  DocCard,
   GRID_TYPE,
   GridLayout,
   Lbl,
   PageContainer,
   SCREEN_WIDTH,
   SearchField,
+  TextLabel,
+  IconDropdown,
+  ICON_POSITION,
+  DocCard,
 } from "@/components";
-import { vendorBreadCrumbs } from "../layout";
+import { userPageBreadcrumbs } from "../layout";
 import { usePathname } from "next/navigation";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Ellipsis,
+  Trash,
+  FileQuestion,
+  File,
+} from "lucide-react";
+import { UserDocumentsTable } from "../../components/UserDocumentsTable";
+import { FC } from "react";
 
 export default function Page() {
   const loc = usePathname();
@@ -25,10 +40,10 @@ export default function Page() {
       isLoading={false}
       hasPadding={false}
       showHeader={false}
-      breadCrumbs={vendorBreadCrumbs(loc, "2")}
+      breadCrumbs={userPageBreadcrumbs(loc, "2")}
       bgColor=""
     >
-      <div className="">
+      <div className="space-y-4">
         <div className="flex pt-2 justify-between items-center">
           <SearchField
             placeholder="Search"
@@ -50,15 +65,15 @@ export default function Page() {
             </div>
           </div>
         </div>
-        {/* <GridLayout type={GRID_TYPE.fourCol}>
-          {sampleDocuments.map((doc) => (
+        {/* <UserDocumentsTable data={sampleDocuments} /> */}
+        <GridLayout type={GRID_TYPE.fourCol}>
+          {sampleUserDoc.map((doc) => (
             <DocCard
               doc={doc}
               key={doc.id}
             />
           ))}
-        </GridLayout> */}
-        <VendorDocumentsTable data={sampleDocuments} />
+        </GridLayout>
       </div>
     </PageContainer>
   );

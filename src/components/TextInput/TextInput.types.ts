@@ -10,7 +10,7 @@ export interface TextInputProps {
   editMode: boolean;
   disabled?: boolean;
   address?: Address;
-  defaultValue?: string;
+  defaultValue?: string | boolean;
   required?: boolean;
   value?: string;
   valueDate?: Date;
@@ -42,11 +42,15 @@ export enum INPUT_TYPES {
   number,
   phone,
   password,
+  checkBox,
+  checkBoxGroup,
+  radio,
 }
 
 export interface InputObject {
   id: string;
   stringValue?: string;
+  boolValue?: boolean;
   dateValue?: Date;
   type: INPUT_TYPES;
   required?: boolean;
@@ -64,6 +68,7 @@ export const inputHelper = (
           ...item,
           stringValue: input.stringValue,
           dataValue: input.dateValue,
+          boolValue: input.boolValue,
         };
       } else {
         return item;

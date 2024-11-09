@@ -2,6 +2,9 @@
 import { usePathname } from "next/navigation";
 import {
   BackHeader,
+  Button,
+  ICON_POSITION,
+  IconDropdown,
   PageContainer,
   SCREEN_WIDTH,
   Spinner,
@@ -16,6 +19,7 @@ import { ModuleContainerContext } from "@/context/ModuleContainerContext";
 
 import { BreadCrumb } from "@/components";
 import { sampleVendors, Vendor } from "@/models/Vendors";
+import { ChevronDown, UserPen, UserRoundMinus } from "lucide-react";
 const tabs = (loc: string) => {
   return [
     {
@@ -82,12 +86,46 @@ export default function VehicleDetails({
       ) : (
         <>
           <div className="sticky top-12 w-full z-10 bg-white">
-            <div className="py-4">
-              <p className="text-xs text-slate-500">#{selectedVendor?.id}</p>
-
-              <p className="items-center flex gap-1 font-semibold text-2xl">
-                {selectedVendor!.name !== "" ? selectedVendor!.name : <></>}
-              </p>
+            <div className="flex justify-between items-center gap-4 py-4 pl-3 pr-4 bg-gradient-to-r from-gray-25 via-gray-50  to-brand-tan">
+              <div className="py-2">
+                <p className="text-xs text-slate-500">#{selectedVendor?.id}</p>
+                <p className="items-center flex gap-1 font-semibold text-2xl">
+                  {selectedVendor!.name !== "" ? selectedVendor!.name : <></>}
+                </p>
+              </div>
+              <IconDropdown
+                items={[
+                  {
+                    id: "1",
+                    label: "Edit Vendor",
+                    function: () => {
+                      // setModalType("edit_user");
+                      // showModalHandler();
+                    },
+                    icon: <UserPen className="w-3 h-3" />,
+                  },
+                  {
+                    id: "2",
+                    label: "Disable Vendor",
+                    function: () => {
+                      // selectedUser?.status === "Active"
+                      //   ? setModalType("deactivate_user")
+                      //   : setModalType("activate_user");
+                      // showModalHandler();
+                    },
+                    icon: <UserRoundMinus className="w-3 h-3" />,
+                  },
+                ]}
+                button={
+                  <Button
+                    label="Manage Vendor"
+                    icon={{
+                      position: ICON_POSITION.trailing,
+                      asset: <ChevronDown className="w-4 h-4" />,
+                    }}
+                  />
+                }
+              />
             </div>
             <Tabs
               tabs={tabs(loc)}

@@ -34,16 +34,16 @@ const ListCell: FC<{ data: ListTableData; type: LIST_TABLE_TYPE }> = ({
     <div
       id={data.id}
       className={classNames(
-        "px-4 text-xs py-2 sm:grid  sm:gap-4 sm:px-3 capitalize",
+        "px-4 text-sm/6 py-2 sm:grid  sm:gap-4 sm:px-3 capitalize",
         type === LIST_TABLE_TYPE.invoice
           ? "sm:grid-cols-3 justify-evenly"
           : "sm:grid-cols-3"
       )}
     >
-      <dt className="text-xs leading-6  text-slate-900">{data.key}</dt>
+      <dt className="text-sm/6 leading-6  text-slate-900">{data.key}</dt>
       <dd
         className={classNames(
-          "mt-1 text-xs leading-6 text-slate-600  sm:mt-0",
+          "mt-1 text-sm/6 leading-6 text-slate-600  sm:mt-0",
           type === LIST_TABLE_TYPE.invoice
             ? "sm:col-span-1 text-right"
             : "sm:col-span-2"
@@ -54,7 +54,7 @@ const ListCell: FC<{ data: ListTableData; type: LIST_TABLE_TYPE }> = ({
       {data.valueTwo && (
         <dd
           className={classNames(
-            "mt-1 text-xs leading-6 text-slate-700  sm:mt-0",
+            "mt-1 text-sm/6 leading-6 text-slate-700  sm:mt-0",
             type === LIST_TABLE_TYPE.invoice
               ? "sm:col-span-1 text-right font-mono"
               : "sm:col-span-2"

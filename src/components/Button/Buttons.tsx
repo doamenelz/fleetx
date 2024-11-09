@@ -61,7 +61,7 @@ export const Button: FC<ButtonProps> = ({
           ? "bg-error-600 border-error-600 focus-visible:outline-error-200 hover:bg-error-700"
           : disabled
           ? "bg-slate-400 border-indigo-400"
-          : " bg-gradient-to-r from-brand-indiGlow to-brand-indiGlow hover:bg-gradient-to-r hover:from-indigo-700 hover:to-indigo-700 focus-visible:outline-indigo-200"
+          : " bg-gradient-to-r from-brand-blueAnchorFish to-brand-blueAnchorFish hover:bg-gradient-to-r hover:from-brand-floppyDisk hover:to-brand-floppyDisk focus-visible:outline-brand-floppyDisk"
       } border text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1`;
       break;
     case BUTTON_SKIN.secondary:

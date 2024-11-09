@@ -86,7 +86,7 @@ export const PrimaryNavigation: NavigationProps[] = [
   {
     id: "dashboard",
     label: "Users",
-    link: "/dashboard",
+    link: "/users",
     description: "",
     category: "personal",
     icon: <UsersRound className="w-5 h-5" />,

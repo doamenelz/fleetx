@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { Person } from "./Person";
+import { generatePerson, Person } from "./Person";
 import { DATE_OPTIONS, formatDate } from "@/lib/utilities/dateHelpers";
 
 export interface FileDocument {
@@ -7,8 +7,23 @@ export interface FileDocument {
   name: string;
   dateUploaded: string;
   uploadedBy?: Person;
-  metaInformation?: {};
+  metaInformation?: {
+    format: string;
+    notes?: string;
+    uploadedType?: string;
+  };
+  docUrl?: string;
 }
+
+const fileFormat = ["csv", "doc", "docx", "pdf", "xls", "xlsx"];
+const randomizeFileFormat = () => {
+  return Math.floor(Math.random() * fileFormat.length);
+};
+
+const uploadedType = ["Drivers License", "Insurance", "Employee ID Card"];
+const randomizeUploadedType = () => {
+  return Math.floor(Math.random() * uploadedType.length);
+};
 
 export const createFileDocument = (name: string) => {
   let _file = {
@@ -23,6 +38,12 @@ export const createFileDocument = (name: string) => {
       ),
       DATE_OPTIONS.dMY
     ),
+    uploadedBy: generatePerson("employee"),
+    metaInformation: {
+      format: fileFormat[randomizeFileFormat()],
+      notes: faker.definitions.metadata.title,
+      uploadedType: uploadedType[randomizeUploadedType()],
+    },
   };
 
   return _file;
@@ -45,4 +66,10 @@ export const sampleDocuments: FileDocument[] = [
   createFileDocument("References"),
   createFileDocument("Service Level Agreement - 2023"),
   createFileDocument("Non Disclosure and Conduct Agreement"),
+];
+
+export const sampleUserDoc: FileDocument[] = [
+  createFileDocument(uploadedType[randomizeUploadedType()]),
+  createFileDocument(uploadedType[randomizeUploadedType()]),
+  createFileDocument(uploadedType[randomizeUploadedType()]),
 ];

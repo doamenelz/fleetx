@@ -41,7 +41,7 @@ export const AvatarCell: FC<{
           className={classNames(
             "text-xs font-medium ",
             props.highlightName
-              ? "text-primary-700 group-hover:text-primary-900"
+              ? "text-brand-blueRoyal group-hover:text-brand-persianBlue"
               : _dark
               ? "text-gray-100"
               : "text-gray-900"

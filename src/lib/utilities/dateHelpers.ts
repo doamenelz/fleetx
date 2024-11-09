@@ -165,6 +165,7 @@ export enum DATE_OPTIONS {
   short,
   dMY,
   dM,
+  dMHrs,
 }
 
 export const formatDate = (date: Date, options: DATE_OPTIONS) => {
@@ -200,6 +201,15 @@ export const formatDate = (date: Date, options: DATE_OPTIONS) => {
       _options = {
         month: "short",
         day: "numeric",
+      };
+      break;
+    case DATE_OPTIONS.dMHrs:
+      _options = {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "numeric",
       };
       break;
 

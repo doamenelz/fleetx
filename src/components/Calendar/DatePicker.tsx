@@ -46,11 +46,20 @@ export const DatePicker: FC<{
   };
 
   return (
-    <div className={props.span}>
-      {props.label && <Lbl label={props.label} required={props.required} />}
+    <div
+      className={classNames(
+        "rounded-md px-3 pb-1.5 pt-2.5  ring-1 ring-inset ring-gray-200 focus-within:ring-1 focus-within:ring-brand-persianBlue"
+      )}
+    >
+      {props.label && (
+        <Lbl
+          label={props.label}
+          required={props.required}
+        />
+      )}
       <Popover className={classNames("relative  tracking-tighter min-w-input")}>
         <div>
-          <Popover.Button className="block peer border-slate-300 bg-white w-full min-w-input border pl-2 focus:border-violet-600  py-1.5 text-gray-900 focus:outline-none sm:text-sm sm:leading-6 rounded-md ">
+          <Popover.Button className="block w-full border-0 pt-1 font-medium text-gray-600 placeholder:text-gray-400 focus:ring-0 sm:text-xs focus:outline-none">
             <div className="flex items-center justify-between gap-1 mr-3 text-left">
               <p>
                 {_valueDate.toLocaleDateString(undefined, {
