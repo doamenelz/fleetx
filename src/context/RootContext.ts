@@ -1,5 +1,6 @@
 import React from "react";
 import { Company } from "@/models/Company";
+import { UserStore } from "@/models/UserStore";
 export const RootContext = React.createContext<{
   company?: Company;
   documentTitle: string;
@@ -14,6 +15,9 @@ export const RootContext = React.createContext<{
   setNotificationHeader: Function;
   setNotificationCopy?: Function;
   setNotificationType: Function;
+  store?: UserStore;
+  updateStore: Function;
+  envVar: { baseURL: string };
   // browserStore: StoredItems;
   // updateStore: Function;
 }>({
@@ -28,4 +32,7 @@ export const RootContext = React.createContext<{
   setNotificationHeader: () => {},
   notificationCopy: "",
   setNotificationType: () => {},
+  updateStore: () => {},
+  envVar: { baseURL: "" },
+  store: { isLoggedIn: false, lastLoginDate: "" },
 });

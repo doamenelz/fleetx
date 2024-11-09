@@ -76,11 +76,7 @@ export const TextInput: FC<{ props: TextInputProps }> = ({ props }) => {
       )}
     >
       {props.label && (
-        <Lbl
-          label={props.label}
-          required={props.required}
-          isLight={true}
-        />
+        <Lbl label={props.label} required={props.required} isLight={true} />
       )}
       <div className=" ">
         <input
@@ -146,12 +142,7 @@ export const TextArea: FC<{
   };
   return (
     <div className={props.span}>
-      {props.label && (
-        <Lbl
-          label={props.label}
-          required={props.required}
-        />
-      )}
+      {props.label && <Lbl label={props.label} required={props.required} />}
 
       <div className="relative ">
         <textarea
@@ -327,11 +318,7 @@ export const CheckBoxInput: FC<{ props: TextInputProps }> = ({ props }) => {
 
   return (
     <Field className="flex gap-2">
-      <Checkbox
-        checked={enabled}
-        onChange={toggleHandler}
-        as={Fragment}
-      >
+      <Checkbox checked={enabled} onChange={toggleHandler} as={Fragment}>
         {({ checked, disabled }) => (
           <span
             className={classNames(
@@ -361,10 +348,7 @@ export const CheckBoxInput: FC<{ props: TextInputProps }> = ({ props }) => {
       </Checkbox>
       {props.label && (
         <div>
-          <Label
-            htmlFor={props.name}
-            className="font-medium text-gray-600"
-          >
+          <Label htmlFor={props.name} className="font-medium text-gray-600">
             {props.label}
           </Label>
           {props.copy && (

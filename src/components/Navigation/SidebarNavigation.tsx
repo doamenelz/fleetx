@@ -9,43 +9,18 @@ import { usePathname } from "next/navigation";
 import { AVATAR_SIZES, Avatar } from "../Avatar";
 import { Employee, sampleEmployee } from "../../models";
 import { MobileNav } from "./MobileNavigation";
-import { FlexIcon, FlexLogoFullLight } from "@/assets";
 import { RootContext } from "@/context/RootContext";
-import {
-  ToolTip,
-  TipDirection,
-  SecondaryNavigation,
-  MainNavigationNotification,
-  SearchPallette,
-  MenuDropdown,
-  MenuDropdownItemProp,
-  BodyCopy,
-  Lbl,
-  BreadCrumbs,
-} from "..";
+import { SecondaryNavigation, SearchPallette, MenuDropdownItemProp } from "..";
 import { PrimaryNavigation } from "..";
-import {
-  Bars3Icon,
-  BellAlertIcon,
-  MagnifyingGlassCircleIcon,
-  MoonIcon,
-} from "@heroicons/react/20/solid";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import { Icon, ICON_SIZES } from "../Icons";
-import { IconList } from "@/assets/IconList";
-import {
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
-  Transition,
-} from "@headlessui/react";
+
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import {
   EllipsisVerticalIcon,
   PanelLeftClose,
   PanelLeftOpen,
   Search,
 } from "lucide-react";
+import { getUserStore } from "@/models/UserStore";
 
 export const SidebarLayout: FC<{
   children?: React.ReactNode;
@@ -54,6 +29,7 @@ export const SidebarLayout: FC<{
   const [toggleSearch, setToggleSearch] = useState(false);
   const [switchColor, setSwitchColor] = useState(false);
   const [profile, setProfile] = useState("admin");
+  const loc = usePathname();
 
   const filterNavigation = (type: string) => {
     var base = PrimaryNavigation.filter((item) => item.category === "personal");
@@ -64,24 +40,7 @@ export const SidebarLayout: FC<{
     ];
   };
   const router = useRouter();
-  const items: MenuDropdownItemProp[] = [
-    {
-      id: "01",
-      label: "Switch to Executive View",
-      function: () => {
-        setProfile("executive");
-        router.push("/home", { scroll: false });
-      },
-    },
-    {
-      id: "02",
-      label: "Switch to Regular View",
-      function: () => {
-        setProfile("admin");
-        router.push("/home", { scroll: false });
-      },
-    },
-  ];
+
   useEffect(() => {
     const keyDownHandler = (event: KeyboardEvent) => {
       console.log("User pressed: ", event.key);
@@ -98,6 +57,18 @@ export const SidebarLayout: FC<{
     };
   }, [sidebarIsOpen]);
 
+  // useEffect(() => {
+  //   var userStore = getUserStore();
+  //   if (!userStore?.isLoggedIn) {
+  //     router.push("/login");
+  //     window.location.reload();
+
+  //     console.log("Im routing to login from SideNav");
+  //   }
+
+  //   console.log(`User Logged in status is ${userStore.isLoggedIn}`);
+  // }, [loc]);
+
   const rootContext = useContext(RootContext);
   return (
     <>
@@ -110,11 +81,7 @@ export const SidebarLayout: FC<{
           )}
         >
           <div className="flex flex-col p-2.5 overflow-y-auto grow bg-slate-50">
-            <img
-              src="/fleetShort.svg"
-              alt=""
-              className="pb-2 w-8 h-8"
-            />
+            <img src="/fleetShort.svg" alt="" className="pb-2 w-8 h-8" />
             <nav className="flex flex-col flex-1 place-items-center pt-2 ">
               <ul
                 className={classNames(
@@ -200,10 +167,7 @@ export const SidebarLayout: FC<{
           </div>
         </div>
         <MobileNav />
-        <SearchPallette
-          open={toggleSearch}
-          setOpen={setToggleSearch}
-        />
+        <SearchPallette open={toggleSearch} setOpen={setToggleSearch} />
         <div
           className={classNames(sidebarIsOpen ? "lg:pl-56" : "lg:pl-12", "")}
         >
@@ -230,6 +194,7 @@ const NavItem: FC<NavigationProps> = ({
       <Link
         key={id}
         href={link!}
+        scroll={false}
         onClick={() => rootContext.updateNavTitle(label)}
         className=""
       >
@@ -297,17 +262,11 @@ const SearchButton: FC<{
 
 const AvatarDropdown: FC<{ employee: Employee }> = ({ employee }) => {
   return (
-    <Menu
-      as="div"
-      className="relative inline-block text-left"
-    >
+    <Menu as="div" className="relative inline-block text-left">
       <div>
         <MenuButton className="flex items-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
           <span className="sr-only">Open options</span>
-          <EllipsisVerticalIcon
-            aria-hidden="true"
-            className="h-5 w-5"
-          />
+          <EllipsisVerticalIcon aria-hidden="true" className="h-5 w-5" />
         </MenuButton>
       </div>
 
@@ -340,10 +299,7 @@ const AvatarDropdown: FC<{ employee: Employee }> = ({ employee }) => {
               License
             </a>
           </MenuItem>
-          <form
-            action="#"
-            method="POST"
-          >
+          <form action="#" method="POST">
             <MenuItem>
               <button
                 type="submit"

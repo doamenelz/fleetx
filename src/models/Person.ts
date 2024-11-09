@@ -13,6 +13,7 @@ export interface Person {
   phone?: string;
   lastLogin?: string;
   status?: string;
+  class: string;
   licenseInformation?: {
     number: string;
     class: string;
@@ -22,6 +23,11 @@ export interface Person {
 
 const roles = ["Technician", "Employee", "Back Office"];
 const random = () => {
+  return Math.floor(Math.random() * roles.length);
+};
+
+const userClass = ["Technician", "Employee", "Back Office"];
+const randomizeUserClass = () => {
   return Math.floor(Math.random() * roles.length);
 };
 
@@ -41,7 +47,7 @@ export const generatePerson = (role: string) => {
     name: faker.person.fullName(),
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
-
+    class: userClass[randomizeUserClass()],
     role: roles[random()],
     avatar: faker.image.avatarGitHub(),
     email: faker.internet.email(),

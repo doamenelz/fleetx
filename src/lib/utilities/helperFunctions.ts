@@ -44,7 +44,7 @@ export const setInputs = (inputs: TextInputProps[], setInputs: Function) => {
   inputs.forEach((item) => {
     let _inputObject: InputObject = {
       id: item.id,
-      stringValue: item.defaultValue ?? "",
+      stringValue: item.defaultValue,
       type: item.style,
       required: item.required,
     };
