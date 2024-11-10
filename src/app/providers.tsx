@@ -23,7 +23,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const [notificationCopy, setNotificationCopy] = useState("");
   const [showNotification, setShowNotification] = useState(false);
   const [envVar, setEnvVar] = useState<{ baseURL: string }>({
-    baseURL: "http://192.168.2.203:8080",
+    // baseURL: "http://192.168.2.203:8080",
+    baseURL: "http://localhost:8080",
   });
   const [notificationType, setNotificationType] = useState<"success" | "error">(
     "success"
@@ -78,7 +79,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
     >
       {store === undefined ? (
         <>
-          <PageLoader size="lg" label="Loading..xx" />
+          <PageLoader
+            size="lg"
+            label="Loading..xx"
+          />
         </>
       ) : (
         <>

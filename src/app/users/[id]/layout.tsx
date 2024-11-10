@@ -15,9 +15,14 @@ import {
   ModalBackdrop,
   SlideOutWrapper,
   CenterCardModal,
+  NOTIFICATION_TYPE,
+  SectionHeader,
 } from "@/components";
 import { useContext, useEffect, useState } from "react";
-import { simulateLoader } from "@/lib/utilities/helperFunctions";
+import {
+  showNotification,
+  simulateLoader,
+} from "@/lib/utilities/helperFunctions";
 import { useRouter } from "next/navigation";
 import { ModuleContainerContext } from "@/context/ModuleContainerContext";
 
@@ -32,6 +37,9 @@ import {
   UserRoundMinus,
 } from "lucide-react";
 import { EditUserFormView } from "../components/EditUserFormView";
+import { RootContext } from "@/context/RootContext";
+import { API_HEADERS, apiHandler } from "@/lib/utilities/apiHelper";
+import { UserContext } from "./userContext";
 const tabs = (loc: string) => {
   return [
     {
@@ -73,11 +81,40 @@ export default function UserDetailsLayout({
   const [selectedUser, setSelectedUser] = useState<Person>();
 
   const [selectedTab, setSelectedTab] = useState<string>(loc);
+  const rootContext = useContext(RootContext);
+
+  const getUserInformation = async () => {
+    console.log(rootContext.envVar.baseURL);
+
+    const api = await apiHandler({
+      url: `${rootContext.envVar.baseURL}/users/${loc.split("/")[2]}`,
+      method: "GET",
+      headers: API_HEADERS.baseHeaders,
+    });
+
+    console.log(loc.split("/")[2]);
+
+    if (api.success) {
+      console.log(api);
+      const apiCompletion = (await api.data.user) as Person;
+      console.log(`Completion is ${apiCompletion.avatar}`);
+      setSelectedUser(apiCompletion);
+
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+      console.log("Failed");
+      showNotification(
+        NOTIFICATION_TYPE.error,
+        "Something went wrong",
+        api.errorMessage ?? "",
+        rootContext
+      );
+    }
+  };
   useEffect(() => {
     setSelectedTab(loc);
-    const userDetails = sampleUsers[0];
-    setSelectedUser(userDetails);
-    simulateLoader(setIsLoading, 2000);
+    getUserInformation();
   }, [loc]);
 
   const tabHandler = (tabId: string) => {
@@ -95,7 +132,7 @@ export default function UserDetailsLayout({
 
   return (
     <PageContainer
-      documentTitle={`Users - `}
+      documentTitle={`Users - ${loc.split("/")[2]}`}
       fullWidth={SCREEN_WIDTH.full}
       isLoading={false}
       hasPadding={true}
@@ -107,7 +144,12 @@ export default function UserDetailsLayout({
           <Spinner props={{ label: "Getting User Details.." }} />
         </div>
       ) : (
-        <>
+        <UserContext.Provider
+          value={{
+            setUser: setSelectedUser,
+            details: selectedUser,
+          }}
+        >
           <div className="sticky top-12 w-full bg-white z-10">
             <div className="flex justify-between items-center gap-4 py-3 pl-3 pr-4 bg-gradient-to-r from-gray-25 via-gray-50  to-brand-tan">
               <div className="flex items-center gap-4">
@@ -187,7 +229,7 @@ export default function UserDetailsLayout({
             </Tabs>
           </div>
           {children}
-        </>
+        </UserContext.Provider>
       )}
       <>
         <ModalBackdrop selector="modal">
@@ -288,8 +330,9 @@ export default function UserDetailsLayout({
               openControl={showModal}
               size="max"
             >
-              <div className="">
-                <EditUserFormView />
+              <div className="p-4">
+                <SectionHeader title={`Edit ${selectedUser?.id}`} />
+                <EditUserFormView user={selectedUser!} />
               </div>
             </SlideOutWrapper>
           )}

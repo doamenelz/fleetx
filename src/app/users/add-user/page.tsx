@@ -28,7 +28,6 @@ import { ChevronLast, ChevronLeft, ChevronRight } from "lucide-react";
 import { sampleUsers } from "../page";
 import { Person } from "@/models/Person";
 import { UserSummaryCard } from "../components/UserCardSummary";
-import { userPageBreadcrumbs } from "../[id]/layout";
 import { EditUserFormView } from "../components/EditUserFormView";
 
 export default function Page() {

@@ -1,0 +1,67 @@
+[
+  {
+    "'type": "EDIT_USER",
+    "sections": [
+      {
+        "id": "001",
+        "label": "Other Information",
+        "description": "",
+        "type": "GROUP",
+        "fields": [
+          {
+            "id": "001",
+            "label": "Employee ID",
+            "inputType": "text",
+            "description": "",
+            "isRequired": true
+          },
+          {
+            "id": "002",
+            "label": "Job Title",
+            "inputType": "text",
+            "description": "",
+            "isRequired": true
+          },
+          {
+            "id": "003",
+            "label": "Email",
+            "inputType": "email",
+            "description": "",
+            "isRequired": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "'type": "USER_ROLES",
+    "sections": [
+      {
+        "id": "001",
+        "label": "Roles Configurations",
+        "description": "",
+        "type": "GROUP",
+        "fields": [
+          {
+            "id": "001",
+            "label": "Employee",
+            "inputType": "checkbox",
+            "description": "Gives the user general access to Vehicle requests"
+          },
+          {
+            "id": "002",
+            "label": "Technician",
+            "inputType": "checkbox",
+            "description": "Enables the user create and complete Work Orders"
+          },
+          {
+            "id": "003",
+            "label": "Operator",
+            "inputType": "checkbox",
+            "description": "Allows the user posses a vehicle"
+          }
+        ]
+      }
+    ]
+  }
+]

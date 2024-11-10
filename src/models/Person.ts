@@ -1,5 +1,6 @@
 import { DATE_OPTIONS, formatDate } from "@/lib/utilities/dateHelpers";
 import { faker } from "@faker-js/faker";
+import { FileDocument } from "./Document";
 faker.seed(123);
 
 export interface Person {
@@ -19,6 +20,7 @@ export interface Person {
     class: string;
     expirationDate: string;
   };
+  files?: FileDocument[];
 }
 
 const roles = ["Technician", "Employee", "Back Office"];

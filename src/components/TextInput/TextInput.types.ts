@@ -80,3 +80,15 @@ export const inputHelper = (
 export const findInputById = (objects: TextInputProps[], id: string) => {
   return objects.find((item) => item.id === id);
 };
+
+export const parseFieldTypes = (type: string) => {
+  switch (type) {
+    case "text":
+      return INPUT_TYPES.text;
+    case "checkbox":
+      return INPUT_TYPES.checkBox;
+
+    default:
+      return INPUT_TYPES.text;
+  }
+};
