@@ -188,15 +188,18 @@ const ButtonLabel: FC<{
   );
 };
 
-export const IconButton: FC<{ onClick: () => void; skin: string }> = (
-  props
-) => {
+export const IconButton: FC<{
+  onClick: () => void;
+  skin: string;
+  icon: JSX.Element;
+}> = (props) => {
   return (
     <button
       type="button"
       onClick={props.onClick}
       className={`${props.skin} p-2 rounded-full shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600`}
     >
+      {props.icon}
       {/* <Icon size={ICON_SIZES.md} icon={IconList.xMark} /> */}
     </button>
   );

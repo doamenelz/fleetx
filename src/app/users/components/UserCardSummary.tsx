@@ -10,6 +10,7 @@ import {
 import { FC } from "react";
 import { Person } from "@/models/Person";
 import { classNames } from "@/lib/utilities/helperFunctions";
+import { parseRoleDisplay } from "@/models/Modules";
 
 export const UserSummaryCard: FC<{ person: Person }> = ({ person }) => {
   // Fetch person data and populate the data array here
@@ -51,7 +52,15 @@ export const UserSummaryCard: FC<{ person: Person }> = ({ person }) => {
     {
       id: "role",
       key: "Role",
-      value: person.role,
+      value: (
+        <ul>
+          {person.role.map((role, index) => (
+            <li key={index}>
+              <p>• {parseRoleDisplay(role)}</p>
+            </li>
+          ))}
+        </ul>
+      ),
     },
 
     {

@@ -17,6 +17,8 @@ import {
   CenterCardModal,
   NOTIFICATION_TYPE,
   SectionHeader,
+  ModalHeader,
+  IconButton,
 } from "@/components";
 import { useContext, useEffect, useState } from "react";
 import {
@@ -31,10 +33,13 @@ import { Person } from "@/models/Person";
 import { sampleUsers } from "../page";
 import {
   ChevronDown,
+  CircleX,
+  Icon,
   UserCog,
   UserPen,
   UserRoundCheck,
   UserRoundMinus,
+  X,
 } from "lucide-react";
 import { EditUserFormView } from "../components/EditUserFormView";
 import { RootContext } from "@/context/RootContext";
@@ -330,8 +335,22 @@ export default function UserDetailsLayout({
               openControl={showModal}
               size="max"
             >
-              <div className="p-4">
-                <SectionHeader title={`Edit ${selectedUser?.id}`} />
+              <div className="">
+                <ModalHeader
+                  title={`Edit User`}
+                  copy={selectedUser?.id}
+                  button={
+                    <IconButton
+                      onClick={() => {
+                        setShowModal(false);
+                      }}
+                      skin=""
+                      icon={
+                        <X className="h-8 w-8 p-2 hover:bg-gray-100 hover:text-gray-800 rounded-full bg-white/20 backdrop-blur-sm text-white" />
+                      }
+                    />
+                  }
+                />
                 <EditUserFormView user={selectedUser!} />
               </div>
             </SlideOutWrapper>

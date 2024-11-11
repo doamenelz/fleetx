@@ -7,14 +7,19 @@ export interface Person {
   name: string;
   firstName: string;
   lastName: string;
+  middleName?: string;
   id: string;
-  role: string;
+  role: string[];
   avatar: string;
   email: string;
   phone?: string;
   lastLogin?: string;
   status?: string;
   class: string;
+  customProperties?: {
+    id: string;
+    value: string | boolean;
+  }[];
   licenseInformation?: {
     number: string;
     class: string;

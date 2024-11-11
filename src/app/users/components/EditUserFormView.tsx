@@ -12,24 +12,20 @@ import {
   InputHandler,
   InputObject,
   parseFieldTypes,
-  SectionHeader,
   Spinner,
   TEXT_INPUT_SIZE,
   TextInputProps,
 } from "@/components";
 import { setInputs } from "@/lib/utilities/helperFunctions";
-import { generatePerson, Person } from "@/models/Person";
 import { FC, useContext, useEffect, useState } from "react";
 import { UserInputModel } from "../models/userInputModel";
 import { UserCircle } from "lucide-react";
 import { RootContext } from "@/context/RootContext";
 import { API_HEADERS, apiHandler } from "@/lib/utilities/apiHelper";
-import { CustomFormSection } from "@/models";
-import { UserContext } from "../[id]/userContext";
+import { CustomFormSection, checkIfUserHasRole, Person } from "@/models";
 
 export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
   const rootContext = useContext(RootContext);
-  const userContext = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(true);
   const [fetchComplete, setFetchComplete] = useState(false);
   const [defaultFields, setDefaultFields] = useState<TextInputProps[]>();
@@ -76,7 +72,8 @@ export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
           style: INPUT_TYPES.checkBox,
           copy: role.description,
           span: TEXT_INPUT_SIZE.span1,
-          defaultValue: true,
+          defaultValue: checkIfUserHasRole(role.id, user.role),
+          // defaultValue: true,
           editMode: true,
           placeHolder: "",
           disabled: false,
@@ -112,7 +109,9 @@ export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
           style: parseFieldTypes(field.inputType),
           copy: field.description,
           span: TEXT_INPUT_SIZE.span1,
-          defaultValue: "",
+          defaultValue: user.customProperties?.find(
+            (val) => val.id === field.id
+          )?.value,
           editMode: true,
           placeHolder: "",
           disabled: false,
@@ -132,8 +131,6 @@ export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
   const getFields = async () => {
     const roles = await getRolesFormFields();
     const otherInfo = await getOtherInformation();
-
-    console.log(userContext.details);
 
     if (roles.isSuccess && otherInfo.isSuccess) {
       const _defaultFields: TextInputProps[] = UserInputModel(user).map(
@@ -157,7 +154,6 @@ export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
   };
 
   useEffect(() => {
-    // setDefaultFields(UserInputModel(user));
     getFields();
   }, []);
 
@@ -295,6 +291,7 @@ export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
                                 placeHolder: "",
                                 disabled: false,
                                 required: false,
+
                                 ...role,
                                 setValue: inputHelper,
                               }}
@@ -350,3 +347,5 @@ export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
     </>
   );
 };
+
+//TODO: Parse per sections

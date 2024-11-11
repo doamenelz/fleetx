@@ -29,7 +29,7 @@ export const UserInputModel = (person?: Person) => {
       copy: "",
       setValue: () => {},
       setShowError: () => {},
-      // defaultValue: person?.firstName,
+      defaultValue: person?.middleName,
       required: true,
       placeholder: "Enter your Middle Name",
     },

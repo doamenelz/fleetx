@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import { apiHandler } from "@/lib/utilities/apiHelper";
 import { RootContext } from "@/context/RootContext";
+import { parseRoleDisplay } from "@/models/Modules";
 
 export const UsersList: FC<{ data: Person[] }> = ({ data }) => {
   const rootContext = useContext(RootContext);
@@ -140,7 +141,15 @@ export const UsersList: FC<{ data: Person[] }> = ({ data }) => {
                         />
 
                         <TableCell
-                          label={person.role}
+                          label={
+                            <ul>
+                              {person.role.map((role, index) => (
+                                <li key={index}>
+                                  <p>• {parseRoleDisplay(role)}</p>
+                                </li>
+                              ))}
+                            </ul>
+                          }
                           mainCell={false}
                           hideOnMobile={false}
                         />
