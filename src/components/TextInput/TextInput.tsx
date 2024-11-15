@@ -71,12 +71,17 @@ export const TextInput: FC<{ props: TextInputProps }> = ({ props }) => {
   return (
     <div
       className={classNames(
-        "rounded-md px-3 pb-1.5 pt-2.5  ring-1 ring-inset ring-gray-200 focus-within:ring-1 focus-within:ring-brand-persianBlue",
-        props.span
+        "rounded-md px-3 pb-1.5 pt-2.5  ring-1 ring-inset  focus-within:ring-1 focus-within:ring-brand-persianBlue",
+        props.span,
+        props.showError == true ? "ring-red-500" : "ring-gray-200"
       )}
     >
       {props.label && (
-        <Lbl label={props.label} required={props.required} isLight={true} />
+        <Lbl
+          label={props.label}
+          required={props.required}
+          isLight={true}
+        />
       )}
       <div className=" ">
         <input
@@ -142,7 +147,12 @@ export const TextArea: FC<{
   };
   return (
     <div className={props.span}>
-      {props.label && <Lbl label={props.label} required={props.required} />}
+      {props.label && (
+        <Lbl
+          label={props.label}
+          required={props.required}
+        />
+      )}
 
       <div className="relative ">
         <textarea
@@ -318,7 +328,11 @@ export const CheckBoxInput: FC<{ props: TextInputProps }> = ({ props }) => {
 
   return (
     <Field className="flex gap-2">
-      <Checkbox checked={enabled} onChange={toggleHandler} as={Fragment}>
+      <Checkbox
+        checked={enabled}
+        onChange={toggleHandler}
+        as={Fragment}
+      >
         {({ checked, disabled }) => (
           <span
             className={classNames(
@@ -348,7 +362,10 @@ export const CheckBoxInput: FC<{ props: TextInputProps }> = ({ props }) => {
       </Checkbox>
       {props.label && (
         <div>
-          <Label htmlFor={props.name} className="font-medium text-gray-600">
+          <Label
+            htmlFor={props.name}
+            className="font-medium text-gray-600"
+          >
             {props.label}
           </Label>
           {props.copy && (

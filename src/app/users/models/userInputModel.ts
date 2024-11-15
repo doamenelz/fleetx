@@ -30,7 +30,7 @@ export const UserInputModel = (person?: Person) => {
       setValue: () => {},
       setShowError: () => {},
       defaultValue: person?.middleName,
-      required: true,
+      required: false,
       placeholder: "Enter your Middle Name",
     },
     {
@@ -69,6 +69,7 @@ export const UserInputModel = (person?: Person) => {
       copy: "",
       setShowError: () => {},
       defaultValue: person?.email,
+      disabled: true,
     },
     {
       id: "licenseNumber",
@@ -80,7 +81,7 @@ export const UserInputModel = (person?: Person) => {
       copy: "",
       setShowError: () => {},
       defaultValue: person?.licenseInformation?.number,
-      required: true,
+      required: false,
     },
     {
       id: "licenseClass",
@@ -92,7 +93,7 @@ export const UserInputModel = (person?: Person) => {
       copy: "",
       setShowError: () => {},
       defaultValue: person?.licenseInformation?.class,
-      required: true,
+      required: false,
     },
     {
       id: "licenseStart",
@@ -104,7 +105,7 @@ export const UserInputModel = (person?: Person) => {
       copy: "",
       setShowError: () => {},
       defaultValue: person?.licenseInformation?.expirationDate,
-      required: true,
+      required: false,
     },
     {
       id: "licenseEnd",
@@ -116,7 +117,7 @@ export const UserInputModel = (person?: Person) => {
       copy: "",
       setShowError: () => {},
       defaultValue: person?.licenseInformation?.expirationDate,
-      required: true,
+      required: false,
     },
     {
       id: "licenseEnd",
@@ -128,7 +129,7 @@ export const UserInputModel = (person?: Person) => {
       copy: "",
       setShowError: () => {},
       defaultValue: person?.licenseInformation?.expirationDate,
-      required: true,
+      required: false,
     },
     {
       id: "staffID",
@@ -140,7 +141,7 @@ export const UserInputModel = (person?: Person) => {
       copy: "",
       setShowError: () => {},
       defaultValue: person?.licenseInformation?.expirationDate,
-      required: true,
+      required: false,
     },
     {
       id: "jobTitle",
@@ -152,7 +153,7 @@ export const UserInputModel = (person?: Person) => {
       copy: "",
       setShowError: () => {},
       defaultValue: person?.phone,
-      required: true,
+      required: false,
     },
   ];
 };

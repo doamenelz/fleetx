@@ -23,6 +23,7 @@ import { UserCircle } from "lucide-react";
 import { RootContext } from "@/context/RootContext";
 import { API_HEADERS, apiHandler } from "@/lib/utilities/apiHelper";
 import { CustomFormSection, checkIfUserHasRole, Person } from "@/models";
+import { emailRegex } from "@/lib/utilities/regex";
 
 export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
   const rootContext = useContext(RootContext);
@@ -34,6 +35,67 @@ export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
   const [roleSectionFields, setRoleSectionFields] =
     useState<TextInputProps[]>();
   const [userInfoInput, setUserInfoInput] = useState<InputObject[]>([]);
+  const [showErrors, setShowErrors] = useState(true);
+
+  const checkFormRequiredFields = () => {
+    return userInfoInput.find(
+      (input) => input.required === true && input.stringValue!.length < 3
+    );
+  };
+
+  const checkGenericRequiredFields = () => {};
+
+  const validateRequiredField = (
+    id: string,
+    textProps: TextInputProps[] | undefined
+  ) => {
+    if (showErrors) {
+      const _input = userInfoInput.find((input) => input.id === id);
+
+      const _textProp = textProps?.find((prop) => prop.id === id);
+
+      switch (_textProp?.type) {
+        case "text":
+          if (_input?.required && _input.stringValue === "") {
+            return true;
+          } else {
+            return false;
+          }
+
+        case "email":
+          if (
+            _input?.required &&
+            (_input.stringValue === "" || emailRegex(_input.stringValue!))
+          ) {
+            return true;
+          } else {
+            return false;
+          }
+
+        // case "checkbox":
+        //   if (_input?.required && _input.boolValue === "") {
+        //     return true;
+        //   } else {
+        //     return false;
+        //   }
+
+        case "password":
+          if (
+            _input?.required &&
+            (_input.stringValue === "" || _input.stringValue!.length < 5)
+          ) {
+            return true;
+          } else {
+            return false;
+          }
+
+        default:
+          return false;
+      }
+    } else {
+      return false;
+    }
+  };
 
   const inputHelper = (input: InputObject) => {
     setUserInfoInput(
@@ -166,7 +228,12 @@ export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
       ) : (
         <>
           {fetchComplete ? (
-            <form className="px-4 pb-4">
+            <form
+              className="px-4 pb-4"
+              // onSubmit={checkRequiredLoginFields}
+              encType="multipart/form-data"
+              id="loginForm"
+            >
               <FormSectionLayout>
                 <>
                   <FormSection label="Basic Information">
@@ -176,6 +243,9 @@ export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
                           props={{
                             ...findInputById(defaultFields!, "firstName")!,
                             setValue: inputHelper,
+                            showError: false,
+                            // setShowError: () => checkRequiredLoginFields,
+                            errorLabel: "First Name is required",
                           }}
                         />
                       </FormCell>
@@ -192,6 +262,12 @@ export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
                           props={{
                             ...findInputById(defaultFields!, "lastName")!,
                             setValue: inputHelper,
+                            showError: validateRequiredField(
+                              "email",
+                              defaultFields
+                            )
+                              ? true
+                              : false,
                           }}
                         />
                       </FormCell>
@@ -200,6 +276,12 @@ export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
                           props={{
                             ...findInputById(defaultFields!, "email")!,
                             setValue: inputHelper,
+                            showError: validateRequiredField(
+                              "email",
+                              defaultFields
+                            )
+                              ? true
+                              : false,
                           }}
                         />
                       </FormCell>
@@ -208,6 +290,12 @@ export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
                           props={{
                             ...findInputById(defaultFields!, "phone")!,
                             setValue: inputHelper,
+                            showError: validateRequiredField(
+                              "phone",
+                              defaultFields
+                            )
+                              ? true
+                              : false,
                           }}
                         />
                       </FormCell>
@@ -336,7 +424,11 @@ export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
                   }}
                   skin={BUTTON_SKIN.secondaryColor}
                 />
-                <Button label="Save Changes" />
+                <Button
+                  label="Save Changes"
+                  type="submit"
+                  disabled={checkFormRequiredFields() ? true : false}
+                />
               </div>
             </form>
           ) : (
