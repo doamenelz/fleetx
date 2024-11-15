@@ -20,6 +20,8 @@ import { ModuleContainerContext } from "@/context/ModuleContainerContext";
 import { BreadCrumb } from "@/components";
 import { sampleVendors, Vendor } from "@/models/Vendors";
 import { ChevronDown, UserPen, UserRoundMinus } from "lucide-react";
+import { apiHandler } from "@/lib/utilities/apiHelper";
+import { RootContext } from "@/context/RootContext";
 const tabs = (loc: string) => {
   return [
     {
@@ -44,7 +46,7 @@ export const vendorBreadCrumbs = (loc: string, id: string) => {
   return _breadCrumbs;
 };
 
-export default function VehicleDetails({
+export default function VendorDetailsLayout({
   id,
   children,
 }: {
@@ -55,15 +57,33 @@ export default function VehicleDetails({
   const loc = usePathname();
   const [isLoading, setIsLoading] = useState(true);
   const [selectedVendor, setSelectedVendor] = useState<Vendor>();
+  const rootContext = useContext(RootContext);
 
   const [selectedTab, setSelectedTab] = useState<string>(loc);
+  const getVendorDetails = async () => {
+    console.log(`Calling Get Vendor ${loc.split("/")[2]}`);
+    const api = await apiHandler({
+      url: `${rootContext.envVar.baseURL}/vendors/${loc.split("/")[2]}`,
+      method: "GET",
+    });
+    if (api.success) {
+      let response = api.data.data as Vendor;
+      console.log(response);
+      setSelectedVendor(response);
+      setIsLoading(false);
+    } else {
+      //TODO: Show Error Component
+      console.log("Getting State");
+    }
+  };
   useEffect(() => {
+    getVendorDetails();
     setSelectedTab(loc);
-    const vendorDetails = sampleVendors.find(
-      (vendor) => vendor.id === loc.split("/")[2]
-    );
-    setSelectedVendor(vendorDetails);
-    simulateLoader(setIsLoading, 2000);
+    // const vendorDetails = sampleVendors.find(
+    //   (vendor) => vendor.id === loc.split("/")[2]
+    // );
+    // setSelectedVendor(vendorDetails);
+    // simulateLoader(setIsLoading, 2000);
   }, [loc]);
 
   const tabHandler = (tabId: string) => {

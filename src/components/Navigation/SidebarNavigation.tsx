@@ -20,7 +20,7 @@ import {
   PanelLeftOpen,
   Search,
 } from "lucide-react";
-import { getUserStore } from "@/models/UserStore";
+import { getUserStore, UserStore } from "@/models/UserStore";
 
 export const SidebarLayout: FC<{
   children?: React.ReactNode;
@@ -30,6 +30,7 @@ export const SidebarLayout: FC<{
   const [switchColor, setSwitchColor] = useState(false);
   const [profile, setProfile] = useState("admin");
   const loc = usePathname();
+  const [user, setUser] = useState<UserStore>();
 
   const filterNavigation = (type: string) => {
     var base = PrimaryNavigation.filter((item) => item.category === "personal");
@@ -50,6 +51,9 @@ export const SidebarLayout: FC<{
         setSidebarIsOpen(!sidebarIsOpen);
       }
     };
+
+    const _user = getUserStore();
+    setUser(_user);
 
     document.addEventListener("keydown", keyDownHandler);
     return () => {
@@ -144,24 +148,27 @@ export const SidebarLayout: FC<{
 
             <div
               className={classNames(
-                " border-slate-700 border-t mt-2 py-2 flex  gap-2",
+                " border-slate-400  mt-2  flex  gap-2",
                 sidebarIsOpen
-                  ? " text-left items-center"
-                  : "justify-center items-center"
+                  ? " text-left items-center bg-brand-whiteLuster rounded-md p-2"
+                  : "justify-center items-center py-2"
               )}
             >
               {/* <FlexIcon /> */}
               <Avatar
                 size={AVATAR_SIZES.sm}
-                firstName={sampleEmployee.bioData.firstName}
-                lastName={sampleEmployee.bioData.lastName}
-                imageUrl={sampleEmployee.bioData.avatar}
+                firstName={user?.user?.firstName ?? ""}
+                lastName={user?.user?.lastName ?? ""}
+                imageUrl={user?.user?.avatar}
                 hasPadding={false}
               />
               {sidebarIsOpen && (
-                <p className="text-xs text-slate-300">
-                  {sampleEmployee.bioData.fullName}
-                </p>
+                <div>
+                  <p className="text-xs text-slate-700 font-medium">
+                    {user?.user?.name}
+                  </p>
+                  <p className="text-xs text-slate-600">{user?.user?.id}</p>
+                </div>
               )}
             </div>
           </div>

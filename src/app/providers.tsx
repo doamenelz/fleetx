@@ -13,6 +13,7 @@ import { NextUIProvider } from "@nextui-org/react";
 import { getUserStore, UserStore } from "@/models/UserStore";
 import { TemplateLayout } from "@/components/TemplateLayout";
 import { usePathname, useRouter } from "next/navigation";
+import { apiHandler } from "@/lib/utilities/apiHelper";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const pathName = usePathname();
@@ -22,9 +23,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const [navTitle, setNavTitle] = useState("");
   const [notificationCopy, setNotificationCopy] = useState("");
   const [showNotification, setShowNotification] = useState(false);
+  const [generalConfig, setGeneralConfig] = useState();
   const [envVar, setEnvVar] = useState<{ baseURL: string }>({
-    // baseURL: "http://192.168.2.203:8080",
-    baseURL: "http://localhost:8080",
+    baseURL: "http://192.168.2.203:8080",
+    // baseURL: "http://localhost:8080",
   });
   const [notificationType, setNotificationType] = useState<"success" | "error">(
     "success"
@@ -44,6 +46,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   async function getStoreProps() {
     var userStore = getUserStore();
+    // getConfigurations();
     setStore(userStore);
     if (!userStore?.isLoggedIn) {
       router.push("/login");
@@ -51,9 +54,27 @@ export function Providers({ children }: { children: React.ReactNode }) {
     }
   }
 
+  const getConfigurations = async () => {
+    const api = await apiHandler({
+      url: `${envVar.baseURL}/configurations`,
+      method: "GET",
+    });
+
+    console.log("Calling Configurations");
+    if (api.success) {
+      let response = api.data.data as any;
+      sessionStorage.setItem("configurations", JSON.stringify(response));
+    } else {
+      //TODO: Show Error Component
+      console.log("Getting Config List Failed");
+    }
+  };
+
   useEffect(() => {
+    getConfigurations();
     ref.current = document.getElementById("modal");
     setNavTitle(getBaseURL());
+
     getStoreProps();
   }, []);
 
@@ -75,14 +96,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
         store: store,
         updateStore: setStore,
         envVar: envVar,
+        configuration: generalConfig,
       }}
     >
       {store === undefined ? (
         <>
-          <PageLoader
-            size="lg"
-            label="Loading..xx"
-          />
+          <PageLoader size="lg" label="Loading..xx" />
         </>
       ) : (
         <>

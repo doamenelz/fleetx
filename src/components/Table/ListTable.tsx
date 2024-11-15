@@ -16,10 +16,7 @@ export const ListTable: FC<{
     <div className=" border-gray-100">
       <dl className="divide-y divide-slate-100 [&>*:nth-child(even)]:bg-indigo-50/20">
         {data.map((item) => (
-          <ListCell
-            data={item}
-            type={type ?? LIST_TABLE_TYPE.generic}
-          />
+          <ListCell data={item} type={type ?? LIST_TABLE_TYPE.generic} />
         ))}
       </dl>
     </div>
@@ -34,7 +31,7 @@ const ListCell: FC<{ data: ListTableData; type: LIST_TABLE_TYPE }> = ({
     <div
       id={data.id}
       className={classNames(
-        "px-4 text-xs py-2 sm:grid  sm:gap-4 sm:px-3 capitalize",
+        "px-4 text-xs py-2 sm:grid  sm:gap-4 sm:px-3 ",
         type === LIST_TABLE_TYPE.invoice
           ? "sm:grid-cols-3 justify-evenly"
           : "sm:grid-cols-3"
@@ -77,10 +74,7 @@ export const ListTableCell: FC<{
   return (
     <div className="space-y-0">
       {url && (
-        <Link
-          href={url}
-          className="text-brand-blueRoyal hover:underline"
-        >
+        <Link href={url} className="text-brand-blueRoyal hover:underline">
           {title}
         </Link>
       )}

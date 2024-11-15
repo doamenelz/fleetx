@@ -18,7 +18,7 @@ import {
   SectionHeader,
 } from "@/components";
 import { sampleVehicles, Vehicle } from "@/models/Vehicle/Vehicle";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { simulateLoader } from "@/lib/utilities/helperFunctions";
 import { usePathname } from "next/navigation";
 import { vendorBreadCrumbs } from "./layout";
@@ -27,14 +27,36 @@ import { VendorSummaryCard } from "../components/VendorSummaryCard";
 import { VendorTransactionsTable } from "../components/VendorTransactions";
 import { sampleVehicleExpenses } from "@/models";
 import { ChevronLast, ChevronLeft, ChevronRight } from "lucide-react";
+import { apiHandler } from "@/lib/utilities/apiHelper";
+import { RootContext } from "@/context/RootContext";
 
 export default function Page({ params }: { params: { id: string } }) {
+  const rootContext = useContext(RootContext);
   // const _leaveDetails = sampleBalances.find((p) => p.type === params.id);
   const loc = usePathname();
+
+  const getVendorDetails = async () => {
+    console.log(`Calling Get Vendor ${params.id}`);
+    const api = await apiHandler({
+      url: `${rootContext.envVar.baseURL}/vendors/${params.id}`,
+      method: "GET",
+    });
+    if (api.success) {
+      let response = api.data.data as Vendor;
+      console.log(response);
+      setSelectedVendor(response);
+      setIsLoading(false);
+    } else {
+      //TODO: Show Error Component
+      console.log("Getting State");
+    }
+  };
+
   useEffect(() => {
-    const vendorDetails = sampleVendors[0];
-    setSelectedVendor(vendorDetails);
-    simulateLoader(setIsLoading, 2000);
+    getVendorDetails();
+    // const vendorDetails = sampleVendors[0];
+    // setSelectedVendor(vendorDetails);
+    // simulateLoader(setIsLoading, 2000);
   }, []);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedVendor, setSelectedVendor] = useState<Vendor>();

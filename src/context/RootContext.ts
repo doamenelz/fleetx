@@ -18,6 +18,7 @@ export const RootContext = React.createContext<{
   store?: UserStore;
   updateStore: Function;
   envVar: { baseURL: string };
+  configuration: any;
   // browserStore: StoredItems;
   // updateStore: Function;
 }>({
@@ -35,4 +36,5 @@ export const RootContext = React.createContext<{
   updateStore: () => {},
   envVar: { baseURL: "" },
   store: { isLoggedIn: false, lastLoginDate: "" },
+  configuration: "",
 });

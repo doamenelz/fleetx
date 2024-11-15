@@ -1,5 +1,35 @@
 import { faker } from "@faker-js/faker";
 import { Address } from "./Address";
+import { VendorClass } from "./Configurations";
+
+export enum VENDOR_CLASS {
+  FUEL,
+  PARTS,
+  SERVICE,
+}
+
+export const VENDOR_CLASSES = [
+  {
+    type: VENDOR_CLASS.FUEL,
+    id: "FUEL",
+    description: "Fuel",
+  },
+];
+
+export const getVendorClass = () => {
+  const _config = sessionStorage.getItem("configurations");
+
+  if (_config !== null) {
+    const parseConfig = JSON.parse(_config);
+    const parsedVendorClass = parseConfig.find(
+      (item: { type: string }) => item.type === "VENDOR_CLASSES"
+    ) as VendorClass;
+    console.log(parsedVendorClass?.classes[0]);
+    return parsedVendorClass;
+  }
+
+  //TODO: Call API if Configuration hasn't loaded
+};
 
 export interface Vendor {
   id: string;

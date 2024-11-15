@@ -17,26 +17,53 @@ import {
   MenuDropdownItemProp,
   IconDropdown,
   PageLoader,
+  SearchField,
+  Button,
+  BUTTON_SKIN,
+  ICON_POSITION,
 } from "@/components";
 import { TableContext } from "@/components/Table/TableContext";
 import { Person } from "@/models/Person";
 import {
+  ChevronLeft,
   Ellipsis,
   UserCog,
   UserPen,
   UserRound,
   UserRoundMinus,
+  PlusIcon,
+  Upload,
+  Download,
+  ChevronRight,
+  SlidersHorizontal,
+  Filter,
+  UserRoundPlus,
 } from "lucide-react";
 import { apiHandler } from "@/lib/utilities/apiHelper";
 import { RootContext } from "@/context/RootContext";
 import { parseRoleDisplay } from "@/models/Modules";
 
-export const UsersList: FC<{ data: Person[] }> = ({ data }) => {
+export const UsersList: FC<{}> = () => {
   const rootContext = useContext(RootContext);
   const router = useRouter();
   const [users, setUserList] = useState<Person[]>([]);
   const [loadComplete, setLoadComplete] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  const vehicleControlItems: MenuDropdownItemProp[] = [
+    {
+      id: "1",
+      label: "Import from CSV",
+      function: () => {},
+      icon: <Upload className="w-3 h-3" />,
+    },
+    {
+      id: "2",
+      label: "Download to CSV",
+      function: () => {},
+      icon: <Download className="w-3 h-3" />,
+    },
+  ];
 
   const getUsers = async () => {
     console.log("Calling Get User");
@@ -63,13 +90,51 @@ export const UsersList: FC<{ data: Person[] }> = ({ data }) => {
 
   return (
     <>
+      <div className="flex justify-between gap-2 items-center pt-2 w-full">
+        <SearchField placeholder="Search" setQuery={() => {}} />
+        <div className="flex gap-2">
+          <Lbl label={`${users.length} results`} />
+          <div className="border-r pr-2">
+            <button className="border p-2 rounded-l hover:bg-slate-50 hover:text-brand-blueRoyal">
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button className="border p-2 rounded-r hover:bg-slate-50 hover:text-brand-blueRoyal">
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+          <button className="border p-2 rounded hover:bg-slate-50 hover:text-brand-blueRoyal">
+            <Filter className="w-4 h-4" />
+          </button>
+          <div className="items-center flex gap-2">
+            <IconDropdown
+              items={vehicleControlItems}
+              button={
+                <div className="p-2 rounded-sm border hover:bg-slate-50 hover:text-brand-blueRoyal">
+                  <Ellipsis className="w-4 h-4" />
+                </div>
+              }
+            />
+            <Button
+              onClick={() => {}}
+              label="New User"
+              componentType="link"
+              link="users/add-user"
+              skin={BUTTON_SKIN.primary}
+              icon={{
+                position: ICON_POSITION.trailing,
+                asset: <UserRoundPlus className="w-3 h-3" />,
+              }}
+            />
+          </div>
+        </div>
+      </div>
       {loadComplete ? (
         <TableContext.Provider
           value={{
             updateData: () => {},
             updatePageDetails: () => {},
-            data: data,
-            page: { totalResults: data.length, tableMax: 8 },
+            data: users,
+            page: { totalResults: users.length, tableMax: 8 },
           }}
         >
           <TableContainer

@@ -12,10 +12,30 @@ import {
   StatusBadge,
 } from "@/components";
 import { Vendor } from "@/models/Vendors";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { VendorRating } from "./VendorRating";
+import { VendorClass } from "@/models/Configurations";
 
 export const VendorSummaryCard: FC<{ vendor: Vendor }> = ({ vendor }) => {
+  const [vendorClass, setVendorClass] = useState<VendorClass>();
+  const getVendorClass = () => {
+    const _config = sessionStorage.getItem("configurations");
+
+    if (_config !== null) {
+      const parseConfig = JSON.parse(_config);
+      const parsedVendorClass = parseConfig.find(
+        (item: { type: string }) => item.type === "VENDOR_CLASSES"
+      ) as VendorClass;
+      console.log(`Vendor C ${parsedVendorClass?.classes[0]}`);
+      setVendorClass(parsedVendorClass);
+    }
+
+    //TODO: Call API if Configuration hasn't loaded
+  };
+
+  useEffect(() => {
+    getVendorClass();
+  }, []);
   // Fetch vendor data and populate the data array here
 
   const data: ListTableData[] = [
@@ -92,7 +112,11 @@ export const VendorSummaryCard: FC<{ vendor: Vendor }> = ({ vendor }) => {
         <div className="">
           {vendor.serviceClasses.map((serviceClass, index) => (
             <p className="capitalize" key={index}>
-              • {serviceClass}
+              •{" "}
+              {
+                vendorClass?.classes.find((item) => item.id === serviceClass)!
+                  .description
+              }
             </p>
           ))}
         </div>

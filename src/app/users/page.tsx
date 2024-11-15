@@ -43,14 +43,14 @@ const vehicleControlItems: MenuDropdownItemProp[] = [
 ];
 
 export const sampleUsers: Person[] = [
-  generatePerson("employee"),
-  generatePerson("employee"),
-  generatePerson("employee"),
-  generatePerson("employee"),
-  generatePerson("employee"),
-  generatePerson("employee"),
-  generatePerson("employee"),
-  generatePerson("employee"),
+  //   generatePerson("employee"),
+  //   generatePerson("employee"),
+  //   generatePerson("employee"),
+  //   generatePerson("employee"),
+  //   generatePerson("employee"),
+  //   generatePerson("employee"),
+  //   generatePerson("employee"),
+  //   generatePerson("employee"),
 ];
 
 export default function Page() {
@@ -64,13 +64,10 @@ export default function Page() {
       showHeader={true}
     >
       <div>
-        <div className="flex justify-between gap-2 items-center pt-2">
-          <SearchField
-            placeholder="Search"
-            setQuery={() => {}}
-          />
+        {/* <div className="flex justify-between gap-2 items-center pt-2">
+          <SearchField placeholder="Search" setQuery={() => {}} />
           <div className="flex gap-2">
-            <Lbl label={`15 results`} />
+            <Lbl label={`${users} results`} />
             <div className="border-r pr-2">
               <button className="border p-2 rounded-l hover:bg-slate-50 hover:text-brand-blueRoyal">
                 <ChevronLeft className="w-4 h-4" />
@@ -104,8 +101,8 @@ export default function Page() {
               />
             </div>
           </div>
-        </div>
-        <UsersList data={sampleUsers} />
+        </div> */}
+        <UsersList />
       </div>
     </PageContainer>
   );

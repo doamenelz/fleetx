@@ -14,9 +14,13 @@ import {
 } from "@/components";
 import { TableContext } from "@/components/Table/TableContext";
 import Link from "next/link";
-import { Vendor } from "@/models/Vendors";
+import { Vendor, VENDOR_CLASSES } from "@/models/Vendors";
+import { VendorClass } from "@/models/Configurations";
 
-export const VendorTableList: FC<{ data: Vendor[] }> = ({ data }) => {
+export const VendorTableList: FC<{
+  data: Vendor[];
+  vendorClass: VendorClass;
+}> = ({ data, vendorClass }) => {
   return (
     <>
       <TableContext.Provider
@@ -137,11 +141,13 @@ export const VendorTableList: FC<{ data: Vendor[] }> = ({ data }) => {
                           <div className="">
                             {vendor.serviceClasses.map(
                               (serviceClass, index) => (
-                                <p
-                                  className="capitalize"
-                                  key={index}
-                                >
-                                  • {serviceClass}
+                                <p className="capitalize" key={index}>
+                                  •{" "}
+                                  {
+                                    vendorClass.classes.find(
+                                      (item) => item.id === serviceClass
+                                    )!.description
+                                  }
                                 </p>
                               )
                             )}
