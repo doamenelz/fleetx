@@ -4,7 +4,7 @@ import { BreadCrumb, PageHeader } from "@/components";
 import { ModuleContainerContext } from "@/context/ModuleContainerContext";
 import { useState } from "react";
 
-export default function InventoryLayout({
+export default function UsersLayout({
   children,
 }: {
   children: React.ReactNode;

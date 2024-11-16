@@ -13,7 +13,19 @@ import {
   testWholeNumbers,
   validatePhoneNumber,
 } from "@/lib/utilities/regex";
-import { Checkbox, Description, Field, Label } from "@headlessui/react";
+import {
+  Checkbox,
+  Combobox,
+  ComboboxButton,
+  ComboboxInput,
+  ComboboxOption,
+  ComboboxOptions,
+  Description,
+  Field,
+  Label,
+} from "@headlessui/react";
+import { CheckIcon } from "lucide-react";
+import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 const testForMobile = (value: string) => {
   const regex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
@@ -101,7 +113,7 @@ export const TextInput: FC<{ props: TextInputProps }> = ({ props }) => {
           className={classNames(
             props.disabled === true ? "cursor-not-allowed " : "",
             props.showError ? "border-red-500" : "",
-            "block w-full border-0 pt-1 font-medium text-gray-600 placeholder:text-gray-400 focus:ring-0 sm:text-xs focus:outline-none"
+            "block w-full border-0 py-1 font-medium text-gray-600 placeholder:text-gray-400 focus:ring-0 sm:text-xs focus:outline-none"
           )}
         />
       </div>
@@ -246,7 +258,7 @@ export const NumberInput: FC<{
           //   autoComplete="given-name"
           className={classNames(
             props.disabled === true ? "cursor-not-allowed " : "",
-            "block peer w-full min-w-input border-0 pl-2  py-1.5 text-gray-900 focus:outline-none sm:text-sm sm:leading-6"
+            "block peer w-full min-w-input border-0 pl-2  py-1 text-gray-900 focus:outline-none sm:text-sm sm:leading-6"
           )}
         />
         <div
@@ -310,21 +322,21 @@ export const CheckBoxInput: FC<{ props: TextInputProps }> = ({ props }) => {
     console.log(inputObject);
   };
 
-  const onChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
-    const inputObject: InputObject = {
-      id: props.id,
-      stringValue: event.currentTarget?.value,
-      // boolValue: event.currentTarget.checked,
-      // boolValue: enabled,
-      type: INPUT_TYPES.checkBox,
-      required: props.required,
-    };
+  // const onChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
+  //   const inputObject: InputObject = {
+  //     id: props.id,
+  //     stringValue: event.currentTarget?.value,
+  //     // boolValue: event.currentTarget.checked,
+  //     // boolValue: enabled,
+  //     type: INPUT_TYPES.checkBox,
+  //     required: props.required,
+  //   };
 
-    props.setShowError(false);
-    _setValue(event.currentTarget.checked);
-    props.setValue(inputObject);
-    console.log(inputObject);
-  };
+  //   props.setShowError(false);
+  //   _setValue(event.currentTarget.checked);
+  //   props.setValue(inputObject);
+  //   console.log(inputObject);
+  // };
 
   return (
     <Field className="flex gap-2">

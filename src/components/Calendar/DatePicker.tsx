@@ -59,7 +59,7 @@ export const DatePicker: FC<{
       )}
       <Popover className={classNames("relative  tracking-tighter min-w-input")}>
         <div>
-          <Popover.Button className="block w-full border-0 pt-1 font-medium text-gray-600 placeholder:text-gray-400 focus:ring-0 sm:text-xs focus:outline-none">
+          <Popover.Button className="block w-full border-0 py-1 font-medium text-gray-600 placeholder:text-gray-400 focus:ring-0 sm:text-xs focus:outline-none">
             <div className="flex items-center justify-between gap-1 mr-3 text-left">
               <p>
                 {_valueDate.toLocaleDateString(undefined, {

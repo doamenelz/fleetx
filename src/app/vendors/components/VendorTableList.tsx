@@ -102,14 +102,10 @@ export const VendorTableList: FC<{
                         label={
                           <div className="text-xs space-y-1">
                             <p className="font-medium text-slate-800">
-                              {vendor.contacts[0].name}
+                              {vendor.name}
                             </p>
-                            <p className="text-slate-500">
-                              {vendor.contacts[0].phoneNumber}
-                            </p>
-                            <p className="text-slate-500">
-                              {vendor.contacts[0].email}
-                            </p>
+                            <p className="text-slate-500">{vendor.phone}</p>
+                            <p className="text-slate-500">{vendor.email}</p>
                           </div>
                         }
                         mainCell={false}
@@ -141,7 +137,10 @@ export const VendorTableList: FC<{
                           <div className="">
                             {vendor.serviceClasses.map(
                               (serviceClass, index) => (
-                                <p className="capitalize" key={index}>
+                                <p
+                                  className="capitalize"
+                                  key={index}
+                                >
                                   •{" "}
                                   {
                                     vendorClass.classes.find(

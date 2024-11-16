@@ -117,6 +117,8 @@ export default function Page() {
                   />
                   <Button
                     onClick={() => {}}
+                    componentType="link"
+                    link="/inventory/new"
                     label="New Vehicle"
                     skin={BUTTON_SKIN.primary}
                     icon={{

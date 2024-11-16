@@ -1,6 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { Address } from "./Address";
 import { VendorClass } from "./Configurations";
+import { FileDocument } from "./Document";
 
 export enum VENDOR_CLASS {
   FUEL,
@@ -53,6 +54,7 @@ export interface Vendor {
     notes?: string;
     lastUpdated?: string;
   };
+  files?: FileDocument[];
 }
 
 const ratings = ["good", "average", "poor"];
