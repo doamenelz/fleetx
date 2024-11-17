@@ -45,6 +45,7 @@ export enum INPUT_TYPES {
   checkBox,
   checkBoxGroup,
   radio,
+  combo,
 }
 
 export interface InputObject {

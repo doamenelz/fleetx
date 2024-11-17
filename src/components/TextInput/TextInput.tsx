@@ -89,11 +89,7 @@ export const TextInput: FC<{ props: TextInputProps }> = ({ props }) => {
       )}
     >
       {props.label && (
-        <Lbl
-          label={props.label}
-          required={props.required}
-          isLight={true}
-        />
+        <Lbl label={props.label} required={props.required} isLight={true} />
       )}
       <div className=" ">
         <input
@@ -159,12 +155,7 @@ export const TextArea: FC<{
   };
   return (
     <div className={props.span}>
-      {props.label && (
-        <Lbl
-          label={props.label}
-          required={props.required}
-        />
-      )}
+      {props.label && <Lbl label={props.label} required={props.required} />}
 
       <div className="relative ">
         <textarea
@@ -307,7 +298,7 @@ export const DatePickerInput: FC<{
 };
 
 export const CheckBoxInput: FC<{ props: TextInputProps }> = ({ props }) => {
-  const [_value, _setValue] = useState(props.defaultValue);
+  // const [_value, _setValue] = useState(props.defaultValue);
   const [enabled, setEnabled] = useState(props.defaultValue as boolean);
 
   const toggleHandler = () => {
@@ -322,29 +313,9 @@ export const CheckBoxInput: FC<{ props: TextInputProps }> = ({ props }) => {
     console.log(inputObject);
   };
 
-  // const onChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
-  //   const inputObject: InputObject = {
-  //     id: props.id,
-  //     stringValue: event.currentTarget?.value,
-  //     // boolValue: event.currentTarget.checked,
-  //     // boolValue: enabled,
-  //     type: INPUT_TYPES.checkBox,
-  //     required: props.required,
-  //   };
-
-  //   props.setShowError(false);
-  //   _setValue(event.currentTarget.checked);
-  //   props.setValue(inputObject);
-  //   console.log(inputObject);
-  // };
-
   return (
     <Field className="flex gap-2">
-      <Checkbox
-        checked={enabled}
-        onChange={toggleHandler}
-        as={Fragment}
-      >
+      <Checkbox checked={enabled} onChange={toggleHandler} as={Fragment}>
         {({ checked, disabled }) => (
           <span
             className={classNames(
@@ -374,10 +345,7 @@ export const CheckBoxInput: FC<{ props: TextInputProps }> = ({ props }) => {
       </Checkbox>
       {props.label && (
         <div>
-          <Label
-            htmlFor={props.name}
-            className="font-medium text-gray-600"
-          >
+          <Label htmlFor={props.name} className="font-medium text-gray-600">
             {props.label}
           </Label>
           {props.copy && (

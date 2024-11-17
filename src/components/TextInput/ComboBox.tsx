@@ -1,47 +1,37 @@
 "use client";
 import { FC, Fragment, useRef, useState } from "react";
-import {
-  TEXT_INPUT_SIZE,
-  INPUT_TYPES,
-  InputObject,
-  TextInputProps,
-} from "./TextInput.types";
+import { INPUT_TYPES, InputObject, TextInputProps } from "./TextInput.types";
 import { classNames } from "@/lib/utilities/helperFunctions";
 import { Lbl } from "../Typography";
+
 import {
-  emailRegex,
-  testWholeNumbers,
-  validatePhoneNumber,
-} from "@/lib/utilities/regex";
-import {
-  Checkbox,
   Combobox,
   ComboboxButton,
   ComboboxInput,
   ComboboxOption,
   ComboboxOptions,
-  Description,
   Field,
-  Label,
 } from "@headlessui/react";
-import { CheckIcon } from "lucide-react";
 import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
-const people = [
-  { id: 1, name: "Durward Reynolds" },
-  { id: 2, name: "Kenton Towne" },
-  { id: 3, name: "Therese Wunsch" },
-  { id: 4, name: "Benedict Kessler" },
-  { id: 5, name: "Katelyn Rohan" },
-];
+
 export const ComboBoxInput: FC<{ props: TextInputProps }> = ({ props }) => {
   const [query, setQuery] = useState("");
-  const [selectedPerson, setSelectedPerson] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(props.defaultValue);
 
-  const filteredPeople =
+  const onChangeHandler = (event: string) => {
+    const inputObject: InputObject = {
+      id: props.id,
+      stringValue: event,
+      type: INPUT_TYPES.combo,
+      required: props.required,
+    };
+    props.setValue(inputObject);
+  };
+  const filteredItems =
     query === ""
-      ? people
-      : people.filter((person) => {
-          return person.name.toLowerCase().includes(query.toLowerCase());
+      ? props.items
+      : props.items?.filter((item) => {
+          return item.toLowerCase().includes(query.toLowerCase());
         });
 
   return (
@@ -53,24 +43,24 @@ export const ComboBoxInput: FC<{ props: TextInputProps }> = ({ props }) => {
       )}
     >
       {props.label && (
-        <Lbl
-          label={props.label}
-          required={props.required}
-          isLight={true}
-        />
+        <Lbl label={props.label} required={props.required} isLight={true} />
       )}
       <Combobox
         as="div"
-        value={selectedPerson}
-        onChange={(person) => {
-          setQuery("");
-          setSelectedPerson(person);
-        }}
+        // value={selectedItem}
+        defaultValue={props.defaultValue}
+        onClose={() => setQuery("")}
+        onChange={onChangeHandler}
+        // onChange={(item) => {
+        //   setQuery("");
+        //   setSelectedItem(item as string | undefined);
+        //   onChangeHandler()
+        // }}
       >
         <div className="relative">
           <ComboboxInput
             aria-label="Assignee"
-            displayValue={(person) => person?.name}
+            displayValue={(item) => item as string}
             onChange={(event) => setQuery(event.target.value)}
             className={classNames(
               props.disabled === true ? "cursor-not-allowed " : "",
@@ -78,16 +68,6 @@ export const ComboBoxInput: FC<{ props: TextInputProps }> = ({ props }) => {
               "block w-full border-0 py-1 font-medium text-gray-600 placeholder:text-gray-400 focus:ring-0 sm:text-xs focus:outline-none"
             )}
           />
-          {/* <ComboboxInput
-            className={classNames(
-              props.disabled === true ? "cursor-not-allowed " : "",
-              props.showError ? "border-red-500" : "",
-              "block w-full border-0 py-1 font-medium text-gray-600 placeholder:text-gray-400 focus:ring-0 sm:text-xs focus:outline-none"
-            )}
-            onChange={(event) => setQuery(event.target.value)}
-            onBlur={() => setQuery("")}
-            // displayValue={(person) => person?.name}
-          /> */}
           <ComboboxButton className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
             <ChevronUpDownIcon
               className="size-5 text-gray-400"
@@ -99,13 +79,13 @@ export const ComboBoxInput: FC<{ props: TextInputProps }> = ({ props }) => {
             anchor="bottom start"
             className="border empty:invisible w-[var(--input-width)]"
           >
-            {filteredPeople.map((person) => (
+            {filteredItems?.map((item, index) => (
               <ComboboxOption
-                key={person.id}
-                value={person}
+                key={index}
+                value={item}
                 className="cursor-default select-none py-2 pl-3 pr-9 text-xs text-gray-900 data-[focus]:bg-brand-indiGlow data-[focus]:text-white data-[focus]:outline-none bg-white"
               >
-                {person.name}
+                {item}
               </ComboboxOption>
             ))}
           </ComboboxOptions>
