@@ -20,7 +20,7 @@ import {
   TextInputProps,
 } from "@/components";
 import { setInputs, showNotification } from "@/lib/utilities/helperFunctions";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { DefaultVehicleInputFields } from "../models/defaultVehicleInputFields";
 import { FormVehicleGenInfo } from "./components/FormVehicleGeneralInformation";
@@ -31,6 +31,7 @@ import { API_HEADERS, apiHandler } from "@/lib/utilities/apiHelper";
 export default function Page() {
   const loc = usePathname();
   const rootContext = useContext(RootContext);
+  const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   const formSteps: FormProgressStep[] = [
     {
@@ -393,19 +394,31 @@ export default function Page() {
       url: `${rootContext.envVar.baseURL}/inventory`,
       method: "POST",
       body: JSON.stringify({
-        username: userInfoInput.find((input) => input.id === "username")
+        manufacturer: vehicleInput.find((input) => input.id === "manufacturer")
           ?.stringValue,
-        password: userInfoInput.find((input) => input.id === "password")
+        model: vehicleInput.find((input) => input.id === "model")?.stringValue,
+        trim: vehicleInput.find((input) => input.id === "trim")?.stringValue,
+        type: vehicleInput.find((input) => input.id === "type")?.stringValue,
+        year: vehicleInput.find((input) => input.id === "year")?.stringValue,
+        name: vehicleInput.find((input) => input.id === "name")?.stringValue,
+        licenseNumber: vehicleInput.find(
+          (input) => input.id === "licenseNumber"
+        )?.stringValue,
+        vin: vehicleInput.find((input) => input.id === "vin")?.stringValue,
+        color: vehicleInput.find((input) => input.id === "color")?.stringValue,
+        energyType: vehicleInput.find((input) => input.id === "energyType")
           ?.stringValue,
+        baseMileage: vehicleInput.find((input) => input.id === "baseMileage")
+          ?.stringValue,
+        createdBy: rootContext.store?.user?.id,
       }),
       headers: API_HEADERS.baseHeaders,
     });
-
     if (api.success) {
       console.log(api);
-      const apiCompletion = (await api.data.message) as string;
+      const apiCompletion = (await api.data.data) as string;
       console.log(`Completion is ${apiCompletion}`);
-
+      router.replace(`${apiCompletion}`);
       // setShowModal(false);
     } else {
       setShowModal(false);

@@ -16,22 +16,24 @@ interface PurchaseDetails {
 
 export interface Vehicle {
   id: string;
-  generalInfo: {
-    type: string;
-    manufacturer: string;
-    name: string;
-    model: string;
-    year: string;
-    odometer: string;
-    location: string;
-    trim: string;
-    fuel: string;
-    contractOwnership: string;
-    sn: string;
-    license: string;
-    color: string;
-    activeSince: string;
-  };
+  type: string;
+  manufacturer: string;
+  name: string;
+  model: string;
+  year: string;
+  vin?: string;
+  baseMileage: string;
+  odometer?: string;
+  location?: string;
+  trim: string;
+  energyType: string;
+  contractOwnership?: string;
+  sn?: string;
+  license?: string;
+  licenseNumber: string;
+  color: string;
+  createdDate: string;
+  createdBy?: string;
   status: string;
   purchaseDetails?: {};
   operator?: Person;
@@ -79,36 +81,34 @@ const features = [
 export const generateVehicleDetails = (status: string, id: string) => {
   return {
     id: id,
-    generalInfo: {
-      type: faker.vehicle.type(),
-      name: faker.vehicle.model(),
-      manufacturer: faker.vehicle.manufacturer(),
-      model: faker.vehicle.model(),
-      year: faker.date
-        .between({
+    type: faker.vehicle.type(),
+    name: faker.vehicle.model(),
+    manufacturer: faker.vehicle.manufacturer(),
+    model: faker.vehicle.model(),
+    year: faker.date
+      .between({
+        from: "2010-01-01T00:00:00.000Z",
+        to: "2025-01-01T00:00:00.000Z",
+      })
+      .getFullYear()
+      .toString(),
+    odometer: "125,555km",
+    location: "Lagos, Nigeria",
+    trim: "XLE",
+    fuel: faker.vehicle.fuel(),
+    contractOwnership: "Lease",
+    sn: faker.vehicle.vin(),
+    license: faker.vehicle.vrm(),
+    color: faker.vehicle.color(),
+    activeSince: formatDate(
+      new Date(
+        faker.date.between({
           from: "2010-01-01T00:00:00.000Z",
           to: "2025-01-01T00:00:00.000Z",
         })
-        .getFullYear()
-        .toString(),
-      odometer: "125,555km",
-      location: "Lagos, Nigeria",
-      trim: "XLE",
-      fuel: faker.vehicle.fuel(),
-      contractOwnership: "Lease",
-      sn: faker.vehicle.vin(),
-      license: faker.vehicle.vrm(),
-      color: faker.vehicle.color(),
-      activeSince: formatDate(
-        new Date(
-          faker.date.between({
-            from: "2010-01-01T00:00:00.000Z",
-            to: "2025-01-01T00:00:00.000Z",
-          })
-        ),
-        DATE_OPTIONS.dMY
-      ).toString(),
-    },
+      ),
+      DATE_OPTIONS.dMY
+    ).toString(),
     operator: generatePerson("operator"),
     status: status,
 
@@ -273,22 +273,22 @@ export const generateVehicleDetails = (status: string, id: string) => {
 };
 
 export const sampleVehicles: Vehicle[] = [
-  generateVehicleDetails("active", "id00101"),
-  generateVehicleDetails("active", "id00102"),
-  generateVehicleDetails("active", "id00103"),
-  generateVehicleDetails("active", "id00104"),
-  generateVehicleDetails("active", "id00105"),
-  generateVehicleDetails("active", "id00106"),
-  generateVehicleDetails("active", "id00107"),
-  generateVehicleDetails("active", "id00108"),
-  generateVehicleDetails("active", "id00109"),
-  generateVehicleDetails("active", "id00110"),
-  generateVehicleDetails("active", "id00111"),
-  generateVehicleDetails("active", "id00112"),
-  generateVehicleDetails("active", "id00113"),
-  generateVehicleDetails("active", "id00114"),
-  generateVehicleDetails("active", "id00115"),
-  generateVehicleDetails("active", "id00116"),
-  generateVehicleDetails("active", "id00117"),
-  generateVehicleDetails("active", "id00118"),
+  // generateVehicleDetails("active", "id00101"),
+  // generateVehicleDetails("active", "id00102"),
+  // generateVehicleDetails("active", "id00103"),
+  // generateVehicleDetails("active", "id00104"),
+  // generateVehicleDetails("active", "id00105"),
+  // generateVehicleDetails("active", "id00106"),
+  // generateVehicleDetails("active", "id00107"),
+  // generateVehicleDetails("active", "id00108"),
+  // generateVehicleDetails("active", "id00109"),
+  // generateVehicleDetails("active", "id00110"),
+  // generateVehicleDetails("active", "id00111"),
+  // generateVehicleDetails("active", "id00112"),
+  // generateVehicleDetails("active", "id00113"),
+  // generateVehicleDetails("active", "id00114"),
+  // generateVehicleDetails("active", "id00115"),
+  // generateVehicleDetails("active", "id00116"),
+  // generateVehicleDetails("active", "id00117"),
+  // generateVehicleDetails("active", "id00118"),
 ];

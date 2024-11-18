@@ -128,7 +128,7 @@ export const DefaultVehicleInputFields = (vehicle?: Vehicle) => {
       copy: "",
       setShowError: () => {},
       // defaultValue: person?.licenseInformation?.expirationDate,
-      required: false,
+      required: true,
     },
     {
       id: "energyType",

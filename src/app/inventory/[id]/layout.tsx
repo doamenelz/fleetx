@@ -14,6 +14,8 @@ import { simulateLoader } from "@/lib/utilities/helperFunctions";
 import { useRouter } from "next/router";
 import { ModuleContainerContext } from "@/context/ModuleContainerContext";
 import { getVehicleBreadCrumbs } from "./breadCrumbModel";
+import { apiHandler } from "@/lib/utilities/apiHelper";
+import { RootContext } from "@/context/RootContext";
 
 export default function VehicleDetails({
   id,
@@ -23,15 +25,32 @@ export default function VehicleDetails({
   children: React.ReactNode;
 }) {
   //   const loc = location.pathname.split("/");
+  const rootContext = useContext(RootContext);
   const loc = usePathname();
   const [isLoading, setIsLoading] = useState(true);
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle>();
+
+  const getVehicleInformation = async () => {
+    console.log(`Calling Get Vendor ${loc.split("/")[2]}`);
+    const api = await apiHandler({
+      url: `${rootContext.envVar.baseURL}/inventory/${loc.split("/")[2]}`,
+      method: "GET",
+    });
+    if (api.success) {
+      console.log(api.data);
+      let response = api.data.vehicle as Vehicle;
+      console.log(response);
+      setSelectedVehicle(response);
+      setIsLoading(false);
+    } else {
+      //TODO: Show Error Component
+      console.log(api.errorMessage);
+    }
+  };
+
   useEffect(() => {
-    const vehicleDetails = sampleVehicles.find(
-      (vehicle) => vehicle.id === String(loc.split("/")[2])
-    );
-    setSelectedVehicle(vehicleDetails);
-    simulateLoader(setIsLoading, 2000);
+    setIsLoading(true);
+    getVehicleInformation();
   }, []);
 
   const [selectedTab, setSelectedTab] = useState<string>(loc);
@@ -96,38 +115,44 @@ export default function VehicleDetails({
         </div>
       ) : (
         <>
-          <div className="sticky top-12 w-full z-10 bg-white">
-            <div className="py-4">
-              <p className="text-xs text-slate-500">
-                #{selectedVehicle!.generalInfo.license}
-              </p>
+          {selectedVehicle !== undefined ? (
+            <>
+              <div className="sticky top-12 w-full z-10 bg-white">
+                <div className="py-4">
+                  <p className="text-xs text-slate-500">
+                    #{selectedVehicle.licenseNumber}
+                  </p>
 
-              <p className="items-center flex gap-1 font-semibold text-2xl">
-                {selectedVehicle!.generalInfo.name !== "" ? (
-                  selectedVehicle!.generalInfo.name
-                ) : (
-                  <>
-                    {selectedVehicle!.generalInfo.manufacturer}
-                    <span>{selectedVehicle!.generalInfo.model}</span>
-                    <span>{selectedVehicle!.generalInfo.trim},</span>
-                    <span>{selectedVehicle!.generalInfo.year}</span>
-                  </>
-                )}
-              </p>
-              <p className="text-xs text-slate-500 flex items-center gap-2">
-                <span>{selectedVehicle!.generalInfo.odometer}</span> •
-                <span>{selectedVehicle!.generalInfo.location}</span>
-              </p>
-            </div>
-            <Tabs
-              tabs={tabs}
-              tabHandler={tabHandler}
-              selectedTab={selectedTab}
-            >
-              <></>
-            </Tabs>
-          </div>
-          {children}
+                  <p className="items-center flex gap-1 font-semibold text-2xl">
+                    {selectedVehicle.name !== "" ? (
+                      selectedVehicle.name
+                    ) : (
+                      <>
+                        {selectedVehicle.manufacturer}
+                        <span>{selectedVehicle.model}</span>
+                        <span>{selectedVehicle.trim},</span>
+                        <span>{selectedVehicle.year}</span>
+                      </>
+                    )}
+                  </p>
+                  <p className="text-xs text-slate-500 flex items-center gap-2">
+                    <span>{selectedVehicle.odometer}</span> •
+                    <span>{selectedVehicle.location}</span>
+                  </p>
+                </div>
+                <Tabs
+                  tabs={tabs}
+                  tabHandler={tabHandler}
+                  selectedTab={selectedTab}
+                >
+                  <></>
+                </Tabs>
+              </div>
+              {children}
+            </>
+          ) : (
+            <>Show Error for no vehicle found</>
+          )}
         </>
       )}
     </PageContainer>
