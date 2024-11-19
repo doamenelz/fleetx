@@ -208,10 +208,12 @@ const NavItem: FC<NavigationProps> = ({
         <div
           className={classNames(
             "group flex p-2 border-l-2 group-hover:text-indigo-800 group-hover:bg-indigo-50",
-            pathName.includes(link!)
+            pathName.split("/")[1] === link.split("/")[1]
               ? "border-brand-oceanicNoir text-brand-oceanicNoir "
               : "  border-slate-50 text-neutral-500 ",
-            sideBarIsOpen && pathName.includes(link!) ? "" : "",
+            sideBarIsOpen && pathName.split("/")[1] === link.split("/")[1]
+              ? ""
+              : "",
             sideBarIsOpen
               ? "items-center text-left gap-2"
               : "items-center justify-center "

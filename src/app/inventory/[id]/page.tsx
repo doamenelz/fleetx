@@ -12,45 +12,29 @@ import {
   Tabs,
 } from "@/components";
 import { sampleVehicles, Vehicle } from "@/models/Vehicle/Vehicle";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { VehicleTableList } from "../components/VehicleTableList";
 import { VehicleSummaryView } from "../components/VehicleSummaryView";
 import { simulateLoader } from "@/lib/utilities/helperFunctions";
 import { getVehicleBreadCrumbs } from "./breadCrumbModel";
 import { usePathname } from "next/navigation";
+import { VehicleDetailsContext } from "../contexts/VehicleDetailsContext";
 
 //TODO: Update the Document Title
 export default function Page({ params }: { params: { id: string } }) {
-  // const _leaveDetails = sampleBalances.find((p) => p.type === params.id);
+  const vehicleContext = useContext(VehicleDetailsContext);
   const loc = usePathname();
-  useEffect(() => {
-    const vehicleDetails = sampleVehicles.find(
-      (vehicle) => vehicle.id === params.id
-    );
-    setSelectedVehicle(vehicleDetails);
-    simulateLoader(setIsLoading, 2000);
-  }, []);
-  const [isLoading, setIsLoading] = useState(true);
-  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle>();
 
   return (
     <PageContainer
-      documentTitle={`Vehicles - ${selectedVehicle?.generalInfo.name}`}
+      documentTitle={`Vehicles - ${vehicleContext.vehicle?.name}`}
       fullWidth={SCREEN_WIDTH.full}
       isLoading={false}
       hasPadding={false}
       showHeader={false}
       breadCrumbs={getVehicleBreadCrumbs(loc, "1")}
     >
-      {isLoading ? (
-        <div className="mx-auto fixed inset-0 overscroll-y-none flex items-center justify-center 100vh ">
-          <Spinner props={{ label: "Getting Summary.." }} />
-        </div>
-      ) : (
-        <>
-          <VehicleSummaryView vehicle={selectedVehicle!} />
-        </>
-      )}
+      <VehicleSummaryView vehicle={vehicleContext.vehicle!} />
     </PageContainer>
   );
 }

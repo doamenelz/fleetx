@@ -22,6 +22,7 @@ import { FC, useEffect, useState } from "react";
 import { CostSummaryCard } from "./VehicleCostSummary";
 import { Archive, Delete, Edit, FileWarning, Trash } from "lucide-react";
 import { VehicleFuelSummaryCard } from "./VehicleFuelSummaryCard";
+import { DATE_OPTIONS, formatDate } from "@/lib/utilities/dateHelpers";
 
 export const VehicleSummaryView: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
   useEffect(() => {
@@ -110,28 +111,38 @@ const OverviewCard: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
         />
       ),
     },
-    { id: "2", key: "SN / VIN", value: vehicle.generalInfo.sn },
-    { id: "3", key: "License #", value: vehicle.generalInfo.license },
+    { id: "2", key: "SN / VIN", value: vehicle.vin },
+    { id: "3", key: "License #", value: vehicle.licenseNumber },
 
-    { id: "4", key: "Manufacturer", value: vehicle.generalInfo.manufacturer },
-    { id: "5", key: "Model", value: vehicle.generalInfo.model },
-    { id: "6", key: "Trim", value: vehicle.generalInfo.trim },
-    { id: "7", key: "Year", value: vehicle.generalInfo.year },
-    { id: "8", key: "Type", value: vehicle.generalInfo.type },
-    { id: "9", key: "Color", value: vehicle.generalInfo.color },
-    { id: "10", key: "Mileage", value: vehicle.generalInfo.odometer },
-    { id: "11", key: "Fuel (Energy) Type", value: vehicle.generalInfo.fuel },
+    { id: "4", key: "Manufacturer", value: vehicle.manufacturer },
+    { id: "5", key: "Model", value: vehicle.model },
+    { id: "6", key: "Trim", value: vehicle.trim },
+    { id: "7", key: "Year", value: vehicle.year },
+    { id: "8", key: "Type", value: vehicle.type },
+    {
+      id: "18",
+      key: "Name",
+      value: vehicle.name,
+    },
+    { id: "9", key: "Color", value: vehicle.color },
+    {
+      id: "10",
+      key: "Mileage",
+      value:
+        vehicle.odometer !== undefined ? vehicle.odometer : vehicle.baseMileage,
+    },
+    { id: "11", key: "Fuel (Energy) Type", value: vehicle.energyType },
 
-    { id: "12", key: "Location", value: vehicle.generalInfo.location },
+    { id: "12", key: "Location", value: vehicle.location },
     {
       id: "13",
       key: "Ownership",
-      value: vehicle.generalInfo.contractOwnership,
+      value: vehicle.contractOwnership,
     },
     {
       id: "15",
       key: "Active Since",
-      value: vehicle.generalInfo.activeSince,
+      value: formatDate(new Date(vehicle.createdDate), DATE_OPTIONS.dMHrs),
     },
     {
       id: "14",
@@ -173,8 +184,8 @@ const OverviewCard: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
 
   return (
     <CardWithSectionHeader
-      title="Vehicle Overview"
-      //   copy="Specifications of the Vehicle"
+      title="Details"
+      copy="General specifications of the Vehicle"
     >
       <ListTable data={data} />
     </CardWithSectionHeader>

@@ -124,7 +124,7 @@ export const PrimaryNavigation: NavigationProps[] = [
 export const SecondaryNavigation: NavigationProps[] = [
   {
     id: "administration",
-    label: "Configurations",
+    label: "Administration",
     link: "/administration",
     description: "",
     category: "personal",

@@ -16,6 +16,7 @@ import { ModuleContainerContext } from "@/context/ModuleContainerContext";
 import { getVehicleBreadCrumbs } from "./breadCrumbModel";
 import { apiHandler } from "@/lib/utilities/apiHelper";
 import { RootContext } from "@/context/RootContext";
+import { VehicleDetailsContext } from "../contexts/VehicleDetailsContext";
 
 export default function VehicleDetails({
   id,
@@ -116,7 +117,12 @@ export default function VehicleDetails({
       ) : (
         <>
           {selectedVehicle !== undefined ? (
-            <>
+            <VehicleDetailsContext.Provider
+              value={{
+                vehicle: selectedVehicle,
+                setVehicle: setSelectedVehicle,
+              }}
+            >
               <div className="sticky top-12 w-full z-10 bg-white">
                 <div className="py-4">
                   <p className="text-xs text-slate-500">
@@ -149,7 +155,7 @@ export default function VehicleDetails({
                 </Tabs>
               </div>
               {children}
-            </>
+            </VehicleDetailsContext.Provider>
           ) : (
             <>Show Error for no vehicle found</>
           )}
