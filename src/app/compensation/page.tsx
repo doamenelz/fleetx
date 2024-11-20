@@ -109,9 +109,21 @@ const HelpfulLinksSection = () => {
       title="Helpful Links"
       body={
         <div className="p-2 space-y-2">
-          <QuickLink id="" label="Understanding Your Pay" url="" />
-          <QuickLink id="" label="Reimbursement Policy" url="" />
-          <QuickLink id="" label="Overtime Policy" url="" />
+          <QuickLink
+            id=""
+            label="Understanding Your Pay"
+            url=""
+          />
+          <QuickLink
+            id=""
+            label="Reimbursement Policy"
+            url=""
+          />
+          <QuickLink
+            id=""
+            label="Overtime Policy"
+            url=""
+          />
         </div>
       }
     />

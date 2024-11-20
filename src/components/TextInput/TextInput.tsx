@@ -8,24 +8,8 @@ import {
 } from "./TextInput.types";
 import { classNames } from "@/lib/utilities/helperFunctions";
 import { Lbl } from "../Typography";
-import {
-  emailRegex,
-  testWholeNumbers,
-  validatePhoneNumber,
-} from "@/lib/utilities/regex";
-import {
-  Checkbox,
-  Combobox,
-  ComboboxButton,
-  ComboboxInput,
-  ComboboxOption,
-  ComboboxOptions,
-  Description,
-  Field,
-  Label,
-} from "@headlessui/react";
-import { CheckIcon } from "lucide-react";
-import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { testWholeNumbers } from "@/lib/utilities/regex";
+import { Checkbox, Field, Label } from "@headlessui/react";
 
 const testForMobile = (value: string) => {
   const regex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
@@ -63,14 +47,6 @@ export const TextInput: FC<{ props: TextInputProps }> = ({ props }) => {
         }
 
         break;
-      // case INPUT_TYPES.email:
-      //   if (emailRegex(event.currentTarget.value)) {
-      //     props.setShowError(false);
-      //     _setValue(event.currentTarget.value);
-      //     props.setValue(inputObject);
-      //   }
-
-      //   break;
 
       default:
         props.setShowError(false);
@@ -89,20 +65,20 @@ export const TextInput: FC<{ props: TextInputProps }> = ({ props }) => {
       )}
     >
       {props.label && (
-        <Lbl label={props.label} required={props.required} isLight={true} />
+        <Lbl
+          label={props.label}
+          required={props.required}
+          isLight={true}
+        />
       )}
       <div className=" ">
         <input
           value={_value}
           onChange={onChangeHandler}
-          // ref={refValue}
           type={props.type}
-          name={props.name}
+          name={props.id}
           id={props.id}
-          // pattern={props.pattern}
-          // defaultValue={props.defaultValue}
           placeholder={props.placeHolder}
-          // placeholder={"Joshua"}
           disabled={props.disabled}
           required={props.required}
           autoComplete={props.autoComplete}
@@ -155,7 +131,12 @@ export const TextArea: FC<{
   };
   return (
     <div className={props.span}>
-      {props.label && <Lbl label={props.label} required={props.required} />}
+      {props.label && (
+        <Lbl
+          label={props.label}
+          required={props.required}
+        />
+      )}
 
       <div className="relative ">
         <textarea
@@ -315,7 +296,11 @@ export const CheckBoxInput: FC<{ props: TextInputProps }> = ({ props }) => {
 
   return (
     <Field className="flex gap-2">
-      <Checkbox checked={enabled} onChange={toggleHandler} as={Fragment}>
+      <Checkbox
+        checked={enabled}
+        onChange={toggleHandler}
+        as={Fragment}
+      >
         {({ checked, disabled }) => (
           <span
             className={classNames(
@@ -345,7 +330,10 @@ export const CheckBoxInput: FC<{ props: TextInputProps }> = ({ props }) => {
       </Checkbox>
       {props.label && (
         <div>
-          <Label htmlFor={props.name} className="font-medium text-gray-600">
+          <Label
+            htmlFor={props.name}
+            className="font-medium text-gray-600"
+          >
             {props.label}
           </Label>
           {props.copy && (

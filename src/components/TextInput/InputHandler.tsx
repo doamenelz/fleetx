@@ -13,7 +13,10 @@ export const InputHandler: FC<{
         props.style === INPUT_TYPES.phone) && (
         <>
           {!props.editMode ? (
-            <TextLabel label={props.label} copy={props.copy} />
+            <TextLabel
+              label={props.label}
+              copy={props.copy}
+            />
           ) : (
             <TextInput props={props} />
           )}
@@ -23,7 +26,10 @@ export const InputHandler: FC<{
       {props.style === INPUT_TYPES.checkBox && (
         <>
           {!props.editMode ? (
-            <TextLabel label={props.label} copy={props.copy} />
+            <TextLabel
+              label={props.label}
+              copy={props.copy}
+            />
           ) : (
             <CheckBoxInput props={props} />
           )}
@@ -33,7 +39,10 @@ export const InputHandler: FC<{
       {props.style === INPUT_TYPES.textarea && (
         <>
           {!props.editMode ? (
-            <TextLabel label={props.label} copy={props.copy} />
+            <TextLabel
+              label={props.label}
+              copy={props.copy}
+            />
           ) : (
             <TextArea
               label={props.label}
@@ -85,7 +94,10 @@ export const InputHandler: FC<{
       {props.style === INPUT_TYPES.dropdown && (
         <>
           {!props.editMode ? (
-            <TextLabel label={props.label} copy={props.copy} />
+            <TextLabel
+              label={props.label}
+              copy={props.copy}
+            />
           ) : (
             <Dropdown
               label={props.label}
@@ -108,7 +120,10 @@ export const InputHandler: FC<{
       {props.style === INPUT_TYPES.date && (
         <>
           {!props.editMode ? (
-            <TextLabel label={props.label} copy={props.copy} />
+            <TextLabel
+              label={props.label}
+              copy={props.copy}
+            />
           ) : (
             <DatePicker
               label={props.label}
@@ -131,7 +146,10 @@ export const InputHandler: FC<{
       {props.style === INPUT_TYPES.combo && (
         <>
           {!props.editMode ? (
-            <TextLabel label={props.label} copy={props.copy} />
+            <TextLabel
+              label={props.label}
+              copy={props.copy}
+            />
           ) : (
             <ComboBoxInput props={props} />
           )}

@@ -122,7 +122,10 @@ export default function Page() {
     <div className="">
       <div className="flex items-center h-screen justify-center  p-4  bg-[conic-gradient(var(--tw-gradient-stops))] from-black via-brand-black to-brand-black fixed inset-0">
         <div className="bg-white p-4 backdrop-blur-sm rounded-md shadow w-96 ">
-          <img src="./fleetShort.svg" className="h-16 w-16 mx-auto" />
+          <img
+            src="./fleetShort.svg"
+            className="h-16 w-16 mx-auto"
+          />
           <form
             className=" p-4 w-full space-y-4"
             onSubmit={loginHandler}
@@ -141,7 +144,11 @@ export default function Page() {
                 setValue: inputHelper,
               }}
             />
-            <Button label="Login" fillWidth type="submit" />
+            <Button
+              label="Login"
+              fillWidth
+              type="submit"
+            />
           </form>
         </div>
       </div>

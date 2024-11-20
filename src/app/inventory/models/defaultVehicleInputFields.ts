@@ -58,6 +58,7 @@ export const DefaultVehicleInputFields = (vehicle?: Vehicle) => {
       // defaultValue: person?.phone,
       required: true,
     },
+
     {
       id: "name",
       label: "Name (Optional)",

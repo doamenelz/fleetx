@@ -34,9 +34,7 @@ export const TableContainer: FC<TableContainerProps> = (props) => {
         <SectionHeader
           title={props.sectionHeader.header}
           copy={props.sectionHeader.copy}
-          button={
-            <>{props.sectionHeader.button ? props.sectionHeader.copy : <></>}</>
-          }
+          button={<>{props.sectionHeader.button}</>}
         />
       )}
 
@@ -127,7 +125,7 @@ export const Table: FC<{
           className={classNames(
             "inline-block min-w-full align-middle",
             height ? `max-h-[calc(100vh_-_${height})]` : "",
-            "min-h-0 pb-10"
+            "min-h-0"
           )}
         >
           <table className="min-w-full divide-y  divide-indigo-200">
@@ -167,7 +165,10 @@ export const TablePagination: FC<{
             onClick={() => context.page.previousPage}
             className="inline-flex hover:bg-slate-900 rounded-md items-center border  px-3 py-2 text-sm font-medium text-slate-600 hover:border-slate-300 hover:text-slate-100"
           >
-            <ArrowLongLeftIcon className="mr-3 h-5 w-5 " aria-hidden="true" />
+            <ArrowLongLeftIcon
+              className="mr-3 h-5 w-5 "
+              aria-hidden="true"
+            />
             Previous
           </button>
         )}

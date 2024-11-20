@@ -7,8 +7,10 @@ import {
   Lbl,
   MainHeader,
   MenuDropdownItemProp,
+  NOTIFICATION_TYPE,
   PageContainer,
   PageHeader,
+  PlainCard,
   SCREEN_WIDTH,
   SearchField,
   SectionHeader,
@@ -16,7 +18,7 @@ import {
   SummaryCardHeader,
   SummaryCardObject,
 } from "@/components";
-import { classNames } from "@/lib/utilities/helperFunctions";
+import { classNames, showNotification } from "@/lib/utilities/helperFunctions";
 import { VehicleTableList } from "./components/VehicleTableList";
 import { sampleVehicles, Vehicle } from "@/models/Vehicle/Vehicle";
 import {
@@ -27,8 +29,10 @@ import {
   PlusIcon,
   Upload,
 } from "lucide-react";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ModuleContainerContext } from "@/context/ModuleContainerContext";
+import { API_HEADERS, apiHandler } from "@/lib/utilities/apiHelper";
+import { RootContext } from "@/context/RootContext";
 
 const summaryStats: SummaryCardObject[] = [
   {
@@ -58,21 +62,37 @@ const summaryStats: SummaryCardObject[] = [
 ];
 
 export default function Page() {
+  const rootContext = useContext(RootContext);
   const [vehicleList, setVehicleList] = useState<Vehicle[]>([]);
-  const vehicleControlItems: MenuDropdownItemProp[] = [
-    {
-      id: "1",
-      label: "Import from CSV",
-      function: () => {},
-      icon: <Upload className="w-3 h-3" />,
-    },
-    {
-      id: "2",
-      label: "Download to CSV",
-      function: () => {},
-      icon: <Download className="w-3 h-3" />,
-    },
-  ];
+
+  const getInventory = async () => {
+    const api = await apiHandler({
+      url: `${rootContext.envVar.baseURL}/inventory`,
+      method: "GET",
+      headers: API_HEADERS.baseHeaders,
+    });
+
+    if (api.success) {
+      console.log(api);
+      const results = (await api.data.data) as Vehicle[];
+      setVehicleList(results);
+    } else {
+      // setShowModal(false);
+      //TODO: Resolve
+      console.log("Failed");
+      showNotification(
+        NOTIFICATION_TYPE.error,
+        "Something went wrong",
+        api.errorMessage ?? "",
+        rootContext
+      );
+    }
+  };
+
+  useEffect(() => {
+    getInventory();
+  }, []);
+
   return (
     <PageContainer
       documentTitle="Inventory"
@@ -86,52 +106,9 @@ export default function Page() {
         className={classNames("space-y-4", setScreenWidth(SCREEN_WIDTH.full))}
       >
         <SummaryCardHeader stats={summaryStats} />
-        <div>
-          <SectionHeader
-            title="All Vehicles"
-            copy="Manage your Next of vehicle, Beneficiaries and Dependents"
-            button={
-              <div className="flex gap-2 items-center">
-                <SearchField
-                  placeholder="Search"
-                  setQuery={() => {}}
-                />
-                <Lbl label={`5 of ${sampleVehicles.length} results`} />
-                <div className="border-r pr-2">
-                  <button className="border p-2 rounded-l hover:bg-slate-50 hover:text-brand-blueRoyal">
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-                  <button className="border p-2 rounded-r hover:bg-slate-50 hover:text-brand-blueRoyal">
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-
-                <div className="items-center flex gap-2">
-                  <IconDropdown
-                    items={vehicleControlItems}
-                    button={
-                      <div className="p-2 rounded-sm border hover:bg-slate-50 hover:text-brand-blueRoyal">
-                        <Ellipsis className="w-4 h-4" />
-                      </div>
-                    }
-                  />
-                  <Button
-                    onClick={() => {}}
-                    componentType="link"
-                    link="/inventory/new"
-                    label="New Vehicle"
-                    skin={BUTTON_SKIN.primary}
-                    icon={{
-                      position: ICON_POSITION.trailing,
-                      asset: <PlusIcon className="w-3 h-3" />,
-                    }}
-                  />
-                </div>
-              </div>
-            }
-          />
-          <VehicleTableList data={sampleVehicles} />
-        </div>
+        <PlainCard>
+          <VehicleTableList data={vehicleList} />
+        </PlainCard>
       </div>
     </PageContainer>
   );

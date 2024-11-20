@@ -6,6 +6,7 @@ import {
   FormCell,
   FormSection,
   InputHandler,
+  InputObject,
   TextInputProps,
 } from "@/components";
 import { Manufacturer } from "@/models/Vehicle/Manufacturer";
@@ -20,6 +21,7 @@ export const FormVehicleGenInfo: FC<{
   selectedModel?: string;
   selectedTrim?: string;
   colors: string[];
+  defaultValueHelper: Function;
   energyTypes: { id: string; name: string; unit: string }[] | undefined;
 }> = ({
   defaultFields,
@@ -31,6 +33,7 @@ export const FormVehicleGenInfo: FC<{
   selectedTrim,
   colors,
   energyTypes,
+  defaultValueHelper,
 }) => {
   return (
     <>
@@ -142,6 +145,7 @@ export const FormVehicleGenInfo: FC<{
                   props={{
                     ...findInputById(defaultFields!, "year")!,
                     setValue: inputHelper,
+                    defaultValue: defaultValueHelper("year"),
                   }}
                 />
               </FormCell>
@@ -150,6 +154,7 @@ export const FormVehicleGenInfo: FC<{
                   props={{
                     ...findInputById(defaultFields!, "name")!,
                     setValue: inputHelper,
+                    defaultValue: defaultValueHelper("name"),
                   }}
                 />
               </FormCell>
@@ -158,6 +163,7 @@ export const FormVehicleGenInfo: FC<{
                   props={{
                     ...findInputById(defaultFields!, "licenseNumber")!,
                     setValue: inputHelper,
+                    defaultValue: defaultValueHelper("licenseNumber"),
                   }}
                 />
               </FormCell>
@@ -166,6 +172,7 @@ export const FormVehicleGenInfo: FC<{
                   props={{
                     ...findInputById(defaultFields!, "vin")!,
                     setValue: inputHelper,
+                    defaultValue: defaultValueHelper("vin"),
                   }}
                 />
               </FormCell>
@@ -176,6 +183,7 @@ export const FormVehicleGenInfo: FC<{
                       ...findInputById(defaultFields!, "color")!,
                       setValue: inputHelper,
                       items: colors,
+                      defaultValue: defaultValueHelper("color"),
                     }}
                   />
                   <button className="flex gap-2 pt-1 pl-2 text-brand-indiGlow hover:text-brand-persianBlue">
@@ -192,6 +200,7 @@ export const FormVehicleGenInfo: FC<{
                     ...findInputById(defaultFields!, "energyType")!,
                     setValue: inputHelper,
                     items: energyTypes?.map((energy) => energy.name),
+                    defaultValue: defaultValueHelper("energyType"),
                   }}
                 />
               </FormCell>
@@ -200,6 +209,7 @@ export const FormVehicleGenInfo: FC<{
                   props={{
                     ...findInputById(defaultFields!, "baseMileage")!,
                     setValue: inputHelper,
+                    defaultValue: defaultValueHelper("baseMileage"),
                   }}
                 />
               </FormCell>

@@ -91,6 +91,16 @@ export default function Page() {
     );
   };
 
+  const defaultValues = (id: string) => {
+    let _value = "";
+    vehicleInput.find((item) => {
+      if (item.id === id) {
+        _value = item.stringValue ?? "";
+      }
+    });
+    return _value;
+  };
+
   const getManufacturer = () => {
     const _config = sessionStorage.getItem("configurations");
     if (_config !== null) {
@@ -386,6 +396,18 @@ export default function Page() {
     parsePreviousStep(currentStep);
   };
 
+  const showCreateButton = () => {
+    let showButton = true;
+    vehicleInput.forEach((input) => {
+      if (
+        input.required &&
+        (input.stringValue === undefined || input.stringValue === "")
+      ) {
+        showButton = false;
+      }
+    });
+    return showButton;
+  };
   const submitVehicle = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setShowModal(true);
@@ -479,7 +501,7 @@ export default function Page() {
                   onClick={() => {
                     console.log(vehicleInput);
                   }}
-                  skin={BUTTON_SKIN.secondaryColor}
+                  skin={BUTTON_SKIN.secondary}
                 />
                 {currentStep !== 0 && (
                   <Button
@@ -489,20 +511,21 @@ export default function Page() {
                   />
                 )}
 
-                <Button
-                  label="Next"
-                  // type="submit"
-                  onClick={() => nextStep(currentStep)}
-                  disabled={enableNextButton()}
-                  //   disabled={checkFormRequiredFields() ? true : false}
-                />
-                <Button
-                  label="Create Vehicle"
-                  type="submit"
-                  // onClick={() => nextStep(currentStep)}
-                  // disabled={enableNextButton()}
-                  //   disabled={checkFormRequiredFields() ? true : false}
-                />
+                {currentStep !== 3 && (
+                  <Button
+                    label="Next"
+                    // type="submit"
+                    onClick={() => nextStep(currentStep)}
+                    disabled={enableNextButton()}
+                    //   disabled={checkFormRequiredFields() ? true : false}
+                  />
+                )}
+                {showCreateButton() && currentStep === 3 && (
+                  <Button
+                    label="Create Vehicle"
+                    type="submit"
+                  />
+                )}
               </div>
             }
           />
@@ -523,6 +546,7 @@ export default function Page() {
                   selectedTrim={allSteps[2].description}
                   colors={colors}
                   energyTypes={energyTypes}
+                  defaultValueHelper={defaultValues}
                 />
               </>
             </FormSectionLayout>
@@ -530,7 +554,12 @@ export default function Page() {
         )}
         {/* <SectionHeader title="Create Vehicle" /> */}
       </form>
-      {showModal && <PageLoader size="md" label="Creating Vehicle..." />}
+      {showModal && (
+        <PageLoader
+          size="md"
+          label="Creating Vehicle..."
+        />
+      )}
     </PageContainer>
   );
 }

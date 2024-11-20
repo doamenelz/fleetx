@@ -11,12 +11,40 @@ import {
   StatusBadge,
   STATUS_COLORS,
   Lbl,
+  SearchField,
+  IconDropdown,
+  Button,
+  BUTTON_SKIN,
+  ICON_POSITION,
+  MenuDropdownItemProp,
 } from "@/components";
 import { TableContext } from "@/components/Table/TableContext";
 import { Vehicle } from "@/models/Vehicle/Vehicle";
 import Link from "next/link";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Download,
+  Ellipsis,
+  PlusIcon,
+  Upload,
+} from "lucide-react";
 
 export const VehicleTableList: FC<{ data: Vehicle[] }> = ({ data }) => {
+  const vehicleControlItems: MenuDropdownItemProp[] = [
+    {
+      id: "1",
+      label: "Import from CSV",
+      function: () => {},
+      icon: <Upload className="w-3 h-3" />,
+    },
+    {
+      id: "2",
+      label: "Download to CSV",
+      function: () => {},
+      icon: <Download className="w-3 h-3" />,
+    },
+  ];
   return (
     <>
       <TableContext.Provider
@@ -28,10 +56,49 @@ export const VehicleTableList: FC<{ data: Vehicle[] }> = ({ data }) => {
         }}
       >
         <TableContainer
-          //   sectionHeader={{
-          //     header: "All Vehicles",
-          //     copy: "Manage your Next of vehicle, Beneficiaries and Dependents",
-          //   }}
+          sectionHeader={{
+            header: "All Vehicles",
+            copy: "Manage your Next of vehicle, Beneficiaries and Dependents",
+            button: (
+              <div className="flex gap-2 items-center">
+                <SearchField
+                  placeholder="Search"
+                  setQuery={() => {}}
+                />
+                <Lbl label={`5 of ${data.length} results`} />
+                <div className="border-r pr-2">
+                  <button className="border p-2 rounded-l hover:bg-slate-50 hover:text-brand-blueRoyal">
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <button className="border p-2 rounded-r hover:bg-slate-50 hover:text-brand-blueRoyal">
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+
+                <div className="items-center flex gap-2">
+                  <IconDropdown
+                    items={vehicleControlItems}
+                    button={
+                      <div className="p-2 rounded-sm border hover:bg-slate-50 hover:text-brand-blueRoyal">
+                        <Ellipsis className="w-4 h-4" />
+                      </div>
+                    }
+                  />
+                  <Button
+                    onClick={() => {}}
+                    componentType="link"
+                    link="/inventory/new"
+                    label="New Vehicle"
+                    skin={BUTTON_SKIN.primary}
+                    icon={{
+                      position: ICON_POSITION.trailing,
+                      asset: <PlusIcon className="w-3 h-3" />,
+                    }}
+                  />
+                </div>
+              </div>
+            ),
+          }}
           mainContent={
             <Table
               head={
@@ -87,19 +154,19 @@ export const VehicleTableList: FC<{ data: Vehicle[] }> = ({ data }) => {
                             href={`inventory/${vehicle.id}`}
                             className="hover:text-indigo-700 font-semibold text-indigo-800"
                           >
-                            <p>{vehicle.generalInfo.name}</p>
+                            <p>{vehicle.name}</p>
                           </Link>
                         }
                         mainCell={false}
                         hideOnMobile={false}
                       />
                       <TableCell
-                        label={vehicle.generalInfo.license}
+                        label={vehicle.licenseNumber}
                         mainCell={false}
                         hideOnMobile={false}
                       />
                       <TableCell
-                        label={vehicle.generalInfo.type}
+                        label={vehicle.type}
                         mainCell={false}
                         hideOnMobile={false}
                       />
@@ -116,12 +183,12 @@ export const VehicleTableList: FC<{ data: Vehicle[] }> = ({ data }) => {
                         hideOnMobile={false}
                       />
                       <TableCell
-                        label={vehicle.specifications?.year}
+                        label={vehicle.year}
                         mainCell={false}
                         hideOnMobile={false}
                       />
                       <TableCell
-                        label={vehicle.specifications?.make}
+                        label={vehicle?.manufacturer}
                         mainCell={false}
                         hideOnMobile={false}
                       />

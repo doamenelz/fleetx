@@ -43,7 +43,11 @@ export const ComboBoxInput: FC<{ props: TextInputProps }> = ({ props }) => {
       )}
     >
       {props.label && (
-        <Lbl label={props.label} required={props.required} isLight={true} />
+        <Lbl
+          label={props.label}
+          required={props.required}
+          isLight={true}
+        />
       )}
       <Combobox
         as="div"

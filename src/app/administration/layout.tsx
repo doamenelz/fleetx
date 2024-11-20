@@ -62,7 +62,6 @@ const navProps: AdministrationNavProps[] = [
       { id: "service", label: "Service", link: "" },
       { id: "parts", label: "Parts", link: "" },
       { id: "vendors", label: "Vendors", link: "" },
-      { id: "service", label: "Service", link: "" },
     ],
   },
 
@@ -110,7 +109,10 @@ export default function ConfigurationsLayout({
           <p className="font-lg font-semibold p-3">Administration</p>
           <ul className="space-y-8 p-4">
             {navProps.map((item) => (
-              <NavSection item={item} key={item.id} />
+              <NavSection
+                item={item}
+                key={item.id}
+              />
             ))}
           </ul>
         </div>
@@ -134,7 +136,10 @@ const NavSection: FC<{ item: AdministrationNavProps }> = ({ item }) => {
       </p>
       <ul className="space-y-1">
         {item.items.map((item) => (
-          <Link href={item.link}>
+          <Link
+            href={item.link}
+            key={item.id}
+          >
             <p
               className={classNames(
                 "p-2 rounded-sm text-xs font-medium ",
@@ -142,7 +147,6 @@ const NavSection: FC<{ item: AdministrationNavProps }> = ({ item }) => {
                   ? "bg-brand-oceanicNoir text-gray-25 hover:bg-brand-grayBlue "
                   : "text-gray-600 hover:bg-gray-200"
               )}
-              key={item.id}
             >
               {item.label}
             </p>

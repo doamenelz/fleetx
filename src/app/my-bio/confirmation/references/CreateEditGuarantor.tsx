@@ -41,7 +41,10 @@ export const CreateEditGuarantor: FC<{
   //   };
   return (
     <ModalBackdrop selector="modal">
-      <CenterCardModal closeControl={setShowModal} openControl={showModal}>
+      <CenterCardModal
+        closeControl={setShowModal}
+        openControl={showModal}
+      >
         <div className="px-4">
           <div>
             <SectionHeader
@@ -71,7 +74,10 @@ export const CreateEditGuarantor: FC<{
             />
           </div>
           <div className="py-4">
-            <GridLayout verticalPadding={true} type={GRID_TYPE.twoCol}>
+            <GridLayout
+              verticalPadding={true}
+              type={GRID_TYPE.twoCol}
+            >
               <InputHandler
                 props={{
                   id: "fullName",

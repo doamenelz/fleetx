@@ -1,8 +1,8 @@
-import { INPUT_TYPES, TEXT_INPUT_SIZE } from "@/components";
+import { INPUT_TYPES, TEXT_INPUT_SIZE, TextInputProps } from "@/components";
 export const VehicleCategoryDefaultFieldsModel = () => {
   return [
     {
-      id: "categoryName",
+      id: "name",
       label: "Name",
       span: TEXT_INPUT_SIZE.span1,
       style: INPUT_TYPES.text,
@@ -10,12 +10,12 @@ export const VehicleCategoryDefaultFieldsModel = () => {
       copy: "",
       setValue: () => {},
       setShowError: () => {},
-      defaultValue: "",
+      // defaultValue: person?.firstName,
       required: true,
       placeHolder: "e.g., Car, Motorbikes, ATV",
     },
     {
-      id: "type",
+      id: "cat",
       label: "Type",
       span: TEXT_INPUT_SIZE.span1,
       style: INPUT_TYPES.text,
@@ -23,9 +23,9 @@ export const VehicleCategoryDefaultFieldsModel = () => {
       copy: "",
       setValue: () => {},
       setShowError: () => {},
-      defaultValue: "",
+      // defaultValue: person?.firstName,
       required: true,
-      placeHolder: "e.g., Sedan, Hatchback, SUV",
+      placeHolder: "e.g., SUV, Sedan",
     },
   ];
 };

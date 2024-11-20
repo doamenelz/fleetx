@@ -26,6 +26,7 @@ import {
   InputHandler,
   InputObject,
   findInputById,
+  TextInputProps,
 } from "@/components";
 import { TableContext } from "@/components/Table/TableContext";
 import { Person } from "@/models/Person";
@@ -45,11 +46,13 @@ import {
   UserRoundPlus,
   SquarePlus,
   PackagePlus,
+  Trash,
 } from "lucide-react";
 import { apiHandler } from "@/lib/utilities/apiHelper";
 import { RootContext } from "@/context/RootContext";
 import { parseRoleDisplay } from "@/models/Modules";
 import { setInputs } from "@/lib/utilities/helperFunctions";
+import { UserInputModel } from "@/app/users/models/userInputModel";
 import { VehicleCategoryDefaultFieldsModel } from "@/app/administration/models/vehicleCategoryInput";
 
 export const CategoryTable: FC<{}> = () => {
@@ -59,7 +62,6 @@ export const CategoryTable: FC<{}> = () => {
   const [loadComplete, setLoadComplete] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [categoryInput, setCategoryInput] = useState<InputObject[]>([]);
 
   const vehicleControlItems: MenuDropdownItemProp[] = [
     {
@@ -76,22 +78,6 @@ export const CategoryTable: FC<{}> = () => {
     },
   ];
 
-  const inputHelper = (input: InputObject) => {
-    setCategoryInput(
-      categoryInput.map((item) => {
-        if (item.id === input.id) {
-          return {
-            ...item,
-            stringValue: input.stringValue,
-            boolValue: input.boolValue,
-            // dateValue: input.dateValue,
-          };
-        } else {
-          return item;
-        }
-      })
-    );
-  };
   const getUsers = async () => {
     console.log("Calling Get User");
     const api = await apiHandler({
@@ -112,14 +98,17 @@ export const CategoryTable: FC<{}> = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    setInputs(VehicleCategoryDefaultFieldsModel(), setCategoryInput);
+
     getUsers();
   }, []);
 
   return (
     <>
       <div className="flex justify-between gap-2 items-center pt-2 w-full">
-        <SearchField placeholder="Search" setQuery={() => {}} />
+        <SearchField
+          placeholder="Search"
+          setQuery={() => {}}
+        />
         <div className="flex gap-2">
           <Lbl label={`${users.length} results`} />
           <div className="border-r pr-2">
@@ -306,33 +295,144 @@ export const CategoryTable: FC<{}> = () => {
         closeControl={setShowModal}
         openControl={showModal}
         size="lg"
+        showDismissButton
       >
         <>
-          <ModalHeader title="Edit Category" />
-          <div></div>
-          <form>
-            <InputHandler
-              props={{
-                ...findInputById(
-                  VehicleCategoryDefaultFieldsModel(),
-                  "categoryName"
-                )!,
-                setValue: () => {},
-              }}
-            />
-            <InputHandler
-              props={{
-                ...findInputById(VehicleCategoryDefaultFieldsModel(), "type")!,
-                setValue: () => {},
-              }}
-            />
-          </form>
-          <div>
-            <p>New Category</p>
-            <p>Add New</p>
-          </div>
+          <EditModalControls />
         </>
       </SlideOutWrapper>
+    </>
+  );
+};
+
+const EditModalControls = () => {
+  const [defaultFields, setDefaultFields] = useState<TextInputProps[]>([]);
+
+  const [categoryInput, setCategoryInput] = useState<InputObject[]>([]);
+  const [categoryType, categorySetType] = useState<InputObject>();
+  const [allCategoryTypes, allCategorySetTypes] = useState<InputObject[]>([]);
+  const [showTypeError, setShowTypeError] = useState(false);
+  const inputHelper = (input: InputObject) => {
+    setCategoryInput(
+      categoryInput.map((item) => {
+        if (item.id === input.id) {
+          return {
+            ...item,
+            stringValue: input.stringValue,
+            boolValue: input.boolValue,
+            // dateValue: input.dateValue,
+          };
+        } else {
+          return item;
+        }
+      })
+    );
+  };
+
+  const typeHelper = (input: InputObject) => {
+    categorySetType({
+      ...input,
+      stringValue: input.stringValue,
+    });
+  };
+
+  const dismissModalHandler = () => {
+    allCategorySetTypes([]);
+  };
+
+  useEffect(() => {
+    const _defaultFields: TextInputProps[] =
+      VehicleCategoryDefaultFieldsModel().map((item) => {
+        return item;
+      });
+    setDefaultFields(_defaultFields);
+    setInputs(VehicleCategoryDefaultFieldsModel(), setCategoryInput);
+  }, []);
+  return (
+    <>
+      {" "}
+      <div className="z-10 sticky top-0">
+        <ModalHeader title="New Category" />
+      </div>
+      <form className="p-4 space-y-4 relative">
+        {/* <InputHandler
+              props={{
+                ...findInputById(defaultFields, "categoryName")!,
+                setValue: inputHelper,
+              }}
+            /> */}
+        <InputHandler
+          props={{
+            ...findInputById(VehicleCategoryDefaultFieldsModel(), "name")!,
+            setValue: typeHelper,
+          }}
+        />
+        <div className="space-y-1">
+          <InputHandler
+            props={{
+              ...findInputById(VehicleCategoryDefaultFieldsModel(), "cat")!,
+              setValue: typeHelper,
+              showError: showTypeError,
+              errorLabel: "Value already exists",
+            }}
+          />
+
+          <Button
+            label="Add Type"
+            skin={BUTTON_SKIN.secondary}
+            onClick={() => {
+              const validateEntry = allCategoryTypes.find(
+                (entry) => entry.stringValue === categoryType?.stringValue
+              );
+
+              if (validateEntry || validateEntry !== "") {
+                setShowTypeError(false);
+                allCategorySetTypes([...allCategoryTypes, categoryType!]);
+              } else if (validateEntry === "") {
+                // categorySetType({ ...categoryType!, stringValue: "" });
+              } else {
+                setShowTypeError(false);
+              }
+            }}
+          />
+        </div>
+        {allCategoryTypes.length >= 1 && (
+          <div className="border p-4 space-y-2 mt-4">
+            <p className="text-[10px] font-semibold text-gray-400">
+              ADDED TYPES
+            </p>
+            <ul>
+              {allCategoryTypes.map((cat, index) => (
+                <p
+                  key={index}
+                  className="w-full text-xs font-medium flex items-center justify-between p-2 border-b ring-gray-200"
+                >
+                  {cat.stringValue}
+                  <span>
+                    <button
+                      onClick={() => {
+                        allCategorySetTypes(
+                          allCategoryTypes.filter(
+                            (category) => category.id !== cat.id
+                          )
+                        );
+                      }}
+                    >
+                      <Trash className="size-4 hover:text-red-600" />
+                    </button>
+                  </span>
+                </p>
+              ))}
+            </ul>
+          </div>
+        )}
+        <div className="fixed bottom-8 right-12">
+          <Button
+            label="Create Category"
+            disabled={allCategoryTypes.length >= 1 ? false : true}
+          />
+        </div>
+      </form>
     </>
   );
 };

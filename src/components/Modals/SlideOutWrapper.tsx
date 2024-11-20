@@ -109,7 +109,12 @@ export const SlideOutWrapper: FC<SlideOutProps> = ({
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                   >
-                    <div className="flex gap-2 h-full">
+                    <div
+                      className={classNames(
+                        "flex h-full",
+                        size === "max" ? "" : "md:m-2"
+                      )}
+                    >
                       {showDismissButton && (
                         <XCircleIcon
                           className=" w-12 h-12 text-gray-200 hover:text-gray-25 cursor-pointer"
@@ -117,11 +122,11 @@ export const SlideOutWrapper: FC<SlideOutProps> = ({
                         />
                       )}
 
-                      <div className="flex flex-col h-full w-full ">
+                      <div className="flex flex-col w-full ">
                         <div
                           className={classNames(
                             " h-full flex-col overflow-y-scroll bg-white shadow-xl",
-                            size === "max" ? "" : "md:m-4 md:rounded-lg"
+                            size === "max" ? "" : "md:rounded-lg md:mb-2"
                           )}
                         >
                           {children}
