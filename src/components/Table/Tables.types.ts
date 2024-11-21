@@ -9,7 +9,7 @@ export interface TableCellProps {
 
 export interface TableContainerProps {
   sectionHeader?: {
-    header: string;
+    header: string | JSX.Element;
     copy?: string;
     button?: React.ReactNode;
     isEmpty?: boolean;

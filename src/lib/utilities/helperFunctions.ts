@@ -53,3 +53,16 @@ export const setInputs = (inputs: TextInputProps[], setInputs: Function) => {
   });
   setInputs(formItems);
 };
+
+export const SessionStore = {
+  configurations: "configurations",
+};
+export const getSessionStorageInfo = (key: string, type: string) => {
+  const store = sessionStorage.getItem(key);
+  if (store !== null) {
+    const parseConfig = JSON.parse(store);
+    return parseConfig;
+  } else {
+    //TODO: Call API
+  }
+};

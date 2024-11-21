@@ -275,10 +275,7 @@ export default function UserDetailsLayout({
                 </div>
                 <div className="mt-5 sm:mt-4 sm:flex gap-2 sm:flex-row-reverse">
                   {modalType === "deactivate_user" ? (
-                    <Button
-                      label={"Deactivate User"}
-                      destructive
-                    />
+                    <Button label={"Deactivate User"} destructive />
                   ) : (
                     <Button label={"Activate User"} />
                   )}

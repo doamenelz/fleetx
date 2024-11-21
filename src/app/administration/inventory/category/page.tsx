@@ -26,6 +26,10 @@ export default function Page() {
       isLoading={false}
       hasPadding={true}
       showHeader={false}
+      breadCrumbs={[
+        { id: "001", name: loc.split("/")[2], href: "" },
+        { id: "002", name: "Category", href: "" },
+      ]}
     >
       <>
         <CategoryTable />

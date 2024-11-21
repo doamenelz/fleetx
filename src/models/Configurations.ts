@@ -4,3 +4,9 @@ export interface VendorClass {
 }
 
 export interface EnergyType {}
+
+export interface VehicleCategories {
+  name: string;
+  class: string[];
+  canEdit: boolean;
+}

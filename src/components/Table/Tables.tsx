@@ -29,7 +29,7 @@ import { BodyCopy, SectionHeader } from "..";
 export const TableContainer: FC<TableContainerProps> = (props) => {
   const context = useContext(TableContext);
   return (
-    <div className="w-full space-y-2">
+    <div className="w-full">
       {props.sectionHeader && (
         <SectionHeader
           title={props.sectionHeader.header}
@@ -120,7 +120,7 @@ export const Table: FC<{
   const context = useContext(TableContext);
   return (
     <div className="flow-root">
-      <div className="my-1  overflow-x-auto">
+      <div className=" overflow-x-auto">
         <div
           className={classNames(
             "inline-block min-w-full align-middle",
@@ -165,10 +165,7 @@ export const TablePagination: FC<{
             onClick={() => context.page.previousPage}
             className="inline-flex hover:bg-slate-900 rounded-md items-center border  px-3 py-2 text-sm font-medium text-slate-600 hover:border-slate-300 hover:text-slate-100"
           >
-            <ArrowLongLeftIcon
-              className="mr-3 h-5 w-5 "
-              aria-hidden="true"
-            />
+            <ArrowLongLeftIcon className="mr-3 h-5 w-5 " aria-hidden="true" />
             Previous
           </button>
         )}

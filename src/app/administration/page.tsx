@@ -20,13 +20,13 @@ export default function Page({ params }: { params: { id: string } }) {
 
   return (
     <PageContainer
-      documentTitle={`Vehicles -`}
+      documentTitle={`Administration -`}
       fullWidth={SCREEN_WIDTH.regular}
       isLoading={false}
       hasPadding={false}
-      showHeader={false}
+      showHeader={true}
     >
-      <p>Page Content</p>
+      <p>Base PGEs</p>
     </PageContainer>
   );
 }

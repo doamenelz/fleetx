@@ -25,6 +25,10 @@ export default function Page({ params }: { params: { id: string } }) {
       isLoading={false}
       hasPadding={false}
       showHeader={false}
+      breadCrumbs={[
+        { id: "001", name: loc.split("/")[2], href: "" },
+        { id: "002", name: "manufacturers", href: "" },
+      ]}
     >
       <p>Manufacturer</p>
     </PageContainer>

@@ -2,6 +2,7 @@
 
 import {
   BackHeader,
+  BreadCrumb,
   NavigationProps,
   PageContainer,
   PageHeader,
@@ -14,11 +15,12 @@ import {
   Tab,
   Tabs,
 } from "@/components";
+import { ModuleContainerContext } from "@/context/ModuleContainerContext";
 import { classNames } from "@/lib/utilities/helperFunctions";
 import Link from "next/link";
 
 import { usePathname } from "next/navigation";
-import { FC } from "react";
+import { FC, useState } from "react";
 
 interface AdministrationNavProps {
   id: string;
@@ -96,6 +98,9 @@ export default function ConfigurationsLayout({
     (nav) => nav.id === loc.split("/")[1]
   );
 
+  const [showHeader, setShowHeader] = useState(true);
+  const [breadCrumbs, setBreadCrumbs] = useState<BreadCrumb[]>([]);
+
   return (
     <PageContainer
       documentTitle={`Conf -`}
@@ -104,25 +109,36 @@ export default function ConfigurationsLayout({
       hasPadding={false}
       showHeader={false}
     >
-      <div className="flex">
-        <div className="w-56 bg-white border-r flex-col flex h-screen overflow-auto">
-          <p className="font-lg font-semibold p-3">Administration</p>
-          <ul className="space-y-8 p-4">
-            {navProps.map((item) => (
-              <NavSection
-                item={item}
-                key={item.id}
-              />
-            ))}
-          </ul>
+      <ModuleContainerContext.Provider
+        value={{
+          mainPage: {
+            id: "",
+            name: "Administration",
+            href: "/administration",
+          },
+          setShowHeader: setShowHeader,
+          breadCrumbs: breadCrumbs,
+          showHeader: showHeader,
+          setBreadCrumbs: setBreadCrumbs,
+        }}
+      >
+        <div className="flex">
+          <div className="w-56 bg-white border-r flex-col flex h-screen overflow-auto">
+            <p className="font-lg font-semibold p-3">Administration</p>
+            <ul className="space-y-8 p-4">
+              {navProps.map((item) => (
+                <NavSection item={item} key={item.id} />
+              ))}
+            </ul>
+          </div>
+          <div className="mx-auto w-full">
+            <>
+              <PageHeader />
+              {children}
+            </>
+          </div>
         </div>
-        <div className="mx-auto w-full">
-          <>
-            <PageHeader />
-            {children}
-          </>
-        </div>
-      </div>
+      </ModuleContainerContext.Provider>
     </PageContainer>
   );
 }
@@ -136,10 +152,7 @@ const NavSection: FC<{ item: AdministrationNavProps }> = ({ item }) => {
       </p>
       <ul className="space-y-1">
         {item.items.map((item) => (
-          <Link
-            href={item.link}
-            key={item.id}
-          >
+          <Link href={item.link} key={item.id}>
             <p
               className={classNames(
                 "p-2 rounded-sm text-xs font-medium ",

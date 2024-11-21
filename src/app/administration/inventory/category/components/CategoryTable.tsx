@@ -33,32 +33,28 @@ import { Person } from "@/models/Person";
 import {
   ChevronLeft,
   Ellipsis,
-  UserCog,
-  UserPen,
-  UserRound,
-  UserRoundMinus,
-  PlusIcon,
   Upload,
   Download,
   ChevronRight,
-  SlidersHorizontal,
-  Filter,
-  UserRoundPlus,
-  SquarePlus,
   PackagePlus,
   Trash,
+  Lock,
 } from "lucide-react";
 import { apiHandler } from "@/lib/utilities/apiHelper";
 import { RootContext } from "@/context/RootContext";
-import { parseRoleDisplay } from "@/models/Modules";
-import { setInputs } from "@/lib/utilities/helperFunctions";
-import { UserInputModel } from "@/app/users/models/userInputModel";
+import {
+  getSessionStorageInfo,
+  SessionStore,
+  setInputs,
+} from "@/lib/utilities/helperFunctions";
 import { VehicleCategoryDefaultFieldsModel } from "@/app/administration/models/vehicleCategoryInput";
+import { VehicleCategories } from "@/models/Configurations";
 
 export const CategoryTable: FC<{}> = () => {
   const rootContext = useContext(RootContext);
   const router = useRouter();
   const [users, setUserList] = useState<Person[]>([]);
+  const [categories, setCategories] = useState<VehicleCategories[]>([]);
   const [loadComplete, setLoadComplete] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -78,93 +74,87 @@ export const CategoryTable: FC<{}> = () => {
     },
   ];
 
-  const getUsers = async () => {
-    console.log("Calling Get User");
-    const api = await apiHandler({
-      url: `${rootContext.envVar.baseURL}/users`,
-      method: "GET",
-    });
-    if (api.success) {
-      let response = api.data.data as Person[];
-      console.log(response);
-      setUserList(response);
+  const getTypes = () => {
+    const store = getSessionStorageInfo(
+      SessionStore.configurations,
+      "VEHICLE_CATEGORIES"
+    );
+
+    if (store !== null || store !== undefined) {
+      const parsedTypes = store!.find(
+        (item: { type: string }) => item.type === "VEHICLE_CATEGORIES"
+      ) as { type: string; types: VehicleCategories[] };
+      setCategories(parsedTypes.types);
       setLoadComplete(true);
       setIsLoading(false);
+      console.log(parsedTypes);
     } else {
-      //TODO: Show Error Component
-      console.log("Getting State");
+      //TODO: Call API
     }
   };
 
   useEffect(() => {
     setIsLoading(true);
 
-    getUsers();
+    getTypes();
   }, []);
 
   return (
     <>
-      <div className="flex justify-between gap-2 items-center pt-2 w-full">
-        <SearchField
-          placeholder="Search"
-          setQuery={() => {}}
-        />
-        <div className="flex gap-2">
-          <Lbl label={`${users.length} results`} />
-          <div className="border-r pr-2">
-            <button className="border p-2 rounded-l hover:bg-slate-50 hover:text-brand-blueRoyal">
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <button className="border p-2 rounded-r hover:bg-slate-50 hover:text-brand-blueRoyal">
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-          <div className="items-center flex gap-2">
-            <IconDropdown
-              items={vehicleControlItems}
-              button={
-                <div className="p-2 rounded-sm border hover:bg-slate-50 hover:text-brand-blueRoyal">
-                  <Ellipsis className="w-4 h-4" />
-                </div>
-              }
-            />
-            <Button
-              onClick={() => {
-                setShowModal(true);
-              }}
-              label="New Category"
-              skin={BUTTON_SKIN.primary}
-              icon={{
-                position: ICON_POSITION.trailing,
-                asset: <PackagePlus className="w-3 h-3" />,
-              }}
-            />
-          </div>
-        </div>
-      </div>
       {loadComplete ? (
         <TableContext.Provider
           value={{
             updateData: () => {},
             updatePageDetails: () => {},
             data: users,
-            page: { totalResults: users.length, tableMax: 8 },
+            page: { totalResults: categories.length, tableMax: 8 },
           }}
         >
           <TableContainer
-            //   sectionHeader={{
-            //     header: "All vendors",
-            //     copy: "Manage your Next of vendor, Beneficiaries and Dependents",
-            //   }}
+            sectionHeader={{
+              header: <SearchField placeholder="Search" setQuery={() => {}} />,
+              copy: "",
+              button: (
+                <div className="flex justify-between gap-2 items-center w-full">
+                  <div className="flex gap-2">
+                    {/* <Lbl label={`${categories.length} results`} /> */}
+                    {/* <div className="border-r pr-2">
+                      <button className="border p-2 rounded-l hover:bg-slate-50 hover:text-brand-blueRoyal">
+                        <ChevronLeft className="w-4 h-4" />
+                      </button>
+                      <button className="border p-2 rounded-r hover:bg-slate-50 hover:text-brand-blueRoyal">
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    </div> */}
+                    <div className="items-center flex gap-2">
+                      {/* <IconDropdown
+                        items={vehicleControlItems}
+                        button={
+                          <div className="p-2 rounded-sm border hover:bg-slate-50 hover:text-brand-blueRoyal">
+                            <Ellipsis className="w-4 h-4" />
+                          </div>
+                        }
+                      /> */}
+                      <Button
+                        onClick={() => {
+                          setShowModal(true);
+                        }}
+                        label="New Category"
+                        skin={BUTTON_SKIN.primary}
+                        icon={{
+                          position: ICON_POSITION.trailing,
+                          asset: <PackagePlus className="w-3 h-3" />,
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              ),
+            }}
             mainContent={
               <Table
                 head={
                   <>
-                    <TableHeadCell
-                      label={"#"}
-                      mainCell={true}
-                      hideOnMobile={false}
-                    />
                     <TableHeadCell
                       label={"Name"}
                       mainCell={false}
@@ -180,29 +170,18 @@ export const CategoryTable: FC<{}> = () => {
                       mainCell={false}
                       hideOnMobile={false}
                     />
-                    {/* <TableHeadCell
-                      label={"Status"}
-                      mainCell={false}
-                      hideOnMobile={false}
-                    />
-                    <TableHeadCell
-                      label={""}
-                      mainCell={false}
-                      hideOnMobile={false}
-                    /> */}
                   </>
                 }
                 body={
                   <>
-                    {users.map((person, index) => (
-                      <TableRow key={person.id}>
+                    {categories.map((category, index) => (
+                      <TableRow key={index}>
                         <TableCell
-                          label="#2FDJF"
-                          mainCell={false}
-                          hideOnMobile={false}
-                        />
-                        <TableCell
-                          label={"Car"}
+                          label={
+                            <p className="capitalize font-semibold">
+                              {category.name}
+                            </p>
+                          }
                           mainCell={false}
                           hideOnMobile={false}
                         />
@@ -210,9 +189,9 @@ export const CategoryTable: FC<{}> = () => {
                         <TableCell
                           label={
                             <ul>
-                              {person.role.map((role, index) => (
+                              {category.class.map((type, index) => (
                                 <li key={index}>
-                                  <p>• {parseRoleDisplay(role)}</p>
+                                  <p>• {type}</p>
                                 </li>
                               ))}
                             </ul>
@@ -220,61 +199,22 @@ export const CategoryTable: FC<{}> = () => {
                           mainCell={false}
                           hideOnMobile={false}
                         />
-                        {/* <TableCell
-                          label={person.phone}
-                          mainCell={false}
-                          hideOnMobile={false}
-                        />
+
                         <TableCell
                           label={
-                            <StatusBadge
-                              // style="text"
-                              label={person.status ?? ""}
-                              statusType={
-                                person.status === "Active"
-                                  ? STATUS_COLORS.success
-                                  : person.status === "Deactivated"
-                                  ? STATUS_COLORS.declined
-                                  : STATUS_COLORS.pending
-                              }
-                            />
-                          }
-                          mainCell={true}
-                          hideOnMobile={false}
-                        /> */}
-                        <TableCell
-                          label={
-                            <IconDropdown
-                              items={[
-                                {
-                                  id: "1",
-                                  label: "View User",
-                                  function: () => {
-                                    router.push(`users/${person.id}`);
-                                  },
-                                  icon: <UserRound className="w-3 h-3" />,
-                                  // type: "link",
-                                  href: `users/${person.id}`,
-                                },
-                                {
-                                  id: "2",
-                                  label: "Disable User",
-                                  function: () => {},
-                                  icon: <UserRoundMinus className="w-3 h-3" />,
-                                },
-                                {
-                                  id: "2",
-                                  label: "Reset User Password",
-                                  function: () => {},
-                                  icon: <UserCog className="w-3 h-3" />,
-                                },
-                              ]}
-                              button={
-                                <div className="p-2 rounded-sm border hover:border-slate-300 hover:bg-slate-50 hover:text-brand-persianBlue">
-                                  <Ellipsis className="w-4 h-4" />
-                                </div>
-                              }
-                            />
+                            category.canEdit ? (
+                              <p className="flex gap-1 items-center text-gray-500 hover:cursor-not-allowed">
+                                <span>
+                                  <Lock className="size-3 " />
+                                </span>
+                                Edit{" "}
+                              </p>
+                            ) : (
+                              <Button
+                                label="Edit"
+                                skin={BUTTON_SKIN.secondary}
+                              />
+                            )
                           }
                           mainCell={false}
                           hideOnMobile={false}
@@ -355,12 +295,6 @@ const EditModalControls = () => {
         <ModalHeader title="New Category" />
       </div>
       <form className="p-4 space-y-4 relative">
-        {/* <InputHandler
-              props={{
-                ...findInputById(defaultFields, "categoryName")!,
-                setValue: inputHelper,
-              }}
-            /> */}
         <InputHandler
           props={{
             ...findInputById(VehicleCategoryDefaultFieldsModel(), "name")!,
@@ -385,13 +319,13 @@ const EditModalControls = () => {
                 (entry) => entry.stringValue === categoryType?.stringValue
               );
 
-              if (validateEntry || validateEntry !== "") {
-                setShowTypeError(false);
-                allCategorySetTypes([...allCategoryTypes, categoryType!]);
+              if (validateEntry) {
+                setShowTypeError(true);
               } else if (validateEntry === "") {
                 // categorySetType({ ...categoryType!, stringValue: "" });
               } else {
                 setShowTypeError(false);
+                allCategorySetTypes([...allCategoryTypes, categoryType!]);
               }
             }}
           />
@@ -411,9 +345,11 @@ const EditModalControls = () => {
                   <span>
                     <button
                       onClick={() => {
+                        console.log(allCategoryTypes);
                         allCategorySetTypes(
                           allCategoryTypes.filter(
-                            (category) => category.id !== cat.id
+                            (category) =>
+                              category.stringValue !== cat.stringValue
                           )
                         );
                       }}
