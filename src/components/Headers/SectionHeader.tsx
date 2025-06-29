@@ -18,14 +18,14 @@ export const SectionHeader: FC<{
           title
         )}
 
-        {(props.copy !== undefined || props.copy !== "") && (
+        {props.copy && (
           <p className="mb-2 text-xs text-slate-500 tracking-normal">
             {props.copy}
           </p>
         )}
       </div>
 
-      <div>{props.button}</div>
+      <div className="">{props.button}</div>
     </div>
   );
 };

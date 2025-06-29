@@ -3,12 +3,16 @@ import {
   Book,
   Briefcase,
   CalendarRange,
+  Car,
   CarFront,
   ChartPie,
   CircleHelp,
   House,
   IdCard,
   LayoutPanelLeft,
+  Luggage,
+  Map,
+  Package2,
   Settings,
   UsersRound,
 } from "lucide-react";
@@ -16,16 +20,25 @@ import { NavigationProps } from ".";
 
 export const PrimaryNavigation: NavigationProps[] = [
   {
-    id: "dashboard",
+    id: "home",
     label: "Home",
-    link: "/dashboard",
+    link: "/home",
     description: "",
     category: "personal",
     icon: <House className="w-5 h-5" />,
     searchActions: [],
   },
   {
-    id: "Inventory",
+    id: "planner",
+    label: "Schedule",
+    link: "/schedule-planner",
+    description: "",
+    category: "personal",
+    icon: <CalendarRange className="w-5 h-5" />,
+    searchActions: [],
+  },
+  {
+    id: "inventory",
     label: "Inventory",
     link: "/inventory",
     description: "",
@@ -74,17 +87,9 @@ export const PrimaryNavigation: NavigationProps[] = [
       },
     ],
   },
+
   {
-    id: "home",
-    label: "Planner",
-    link: "/home",
-    description: "",
-    category: "personal",
-    icon: <CalendarRange className="w-5 h-5" />,
-    searchActions: [],
-  },
-  {
-    id: "dashboard",
+    id: "users",
     label: "Users",
     link: "/users",
     description: "",
@@ -93,7 +98,7 @@ export const PrimaryNavigation: NavigationProps[] = [
     searchActions: [],
   },
   {
-    id: "dashboard",
+    id: "vendors",
     label: "Vendors",
     link: "/vendors",
     description: "",
@@ -102,7 +107,7 @@ export const PrimaryNavigation: NavigationProps[] = [
     searchActions: [],
   },
   {
-    id: "dashboard",
+    id: "analytics",
     label: "Reports",
     link: "/dashboard",
     description: "",

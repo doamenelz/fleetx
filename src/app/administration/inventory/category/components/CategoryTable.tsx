@@ -14,8 +14,6 @@ import {
   STATUS_COLORS,
   Lbl,
   AvatarCell,
-  MenuDropdownItemProp,
-  IconDropdown,
   PageLoader,
   SearchField,
   Button,
@@ -23,10 +21,6 @@ import {
   ICON_POSITION,
   SlideOutWrapper,
   ModalHeader,
-  InputHandler,
-  InputObject,
-  findInputById,
-  TextInputProps,
 } from "@/components";
 import { TableContext } from "@/components/Table/TableContext";
 import { Person } from "@/models/Person";
@@ -59,20 +53,20 @@ export const CategoryTable: FC<{}> = () => {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const vehicleControlItems: MenuDropdownItemProp[] = [
-    {
-      id: "1",
-      label: "Import from CSV",
-      function: () => {},
-      icon: <Upload className="w-3 h-3" />,
-    },
-    {
-      id: "2",
-      label: "Download to CSV",
-      function: () => {},
-      icon: <Download className="w-3 h-3" />,
-    },
-  ];
+  // const vehicleControlItems: MenuDropdownItemProp[] = [
+  //   {
+  //     id: "1",
+  //     label: "Import from CSV",
+  //     function: () => {},
+  //     icon: <Upload className="w-3 h-3" />,
+  //   },
+  //   {
+  //     id: "2",
+  //     label: "Download to CSV",
+  //     function: () => {},
+  //     icon: <Download className="w-3 h-3" />,
+  //   },
+  // ];
 
   const getTypes = () => {
     const store = getSessionStorageInfo(
@@ -112,7 +106,12 @@ export const CategoryTable: FC<{}> = () => {
         >
           <TableContainer
             sectionHeader={{
-              header: <SearchField placeholder="Search" setQuery={() => {}} />,
+              header: (
+                <SearchField
+                  placeholder="Search"
+                  setQuery={() => {}}
+                />
+              ),
               copy: "",
               button: (
                 <div className="flex justify-between gap-2 items-center w-full">
@@ -246,55 +245,55 @@ export const CategoryTable: FC<{}> = () => {
 };
 
 const EditModalControls = () => {
-  const [defaultFields, setDefaultFields] = useState<TextInputProps[]>([]);
+  // const [defaultFields, setDefaultFields] = useState<TextInputProps[]>([]);
 
-  const [categoryInput, setCategoryInput] = useState<InputObject[]>([]);
-  const [categoryType, categorySetType] = useState<InputObject>();
-  const [allCategoryTypes, allCategorySetTypes] = useState<InputObject[]>([]);
-  const [showTypeError, setShowTypeError] = useState(false);
-  const inputHelper = (input: InputObject) => {
-    setCategoryInput(
-      categoryInput.map((item) => {
-        if (item.id === input.id) {
-          return {
-            ...item,
-            stringValue: input.stringValue,
-            boolValue: input.boolValue,
-            // dateValue: input.dateValue,
-          };
-        } else {
-          return item;
-        }
-      })
-    );
-  };
+  // const [categoryInput, setCategoryInput] = useState<InputObject[]>([]);
+  // const [categoryType, categorySetType] = useState<InputObject>();
+  // const [allCategoryTypes, allCategorySetTypes] = useState<InputObject[]>([]);
+  // const [showTypeError, setShowTypeError] = useState(false);
+  // const inputHelper = (input: InputObject) => {
+  //   setCategoryInput(
+  //     categoryInput.map((item) => {
+  //       if (item.id === input.id) {
+  //         return {
+  //           ...item,
+  //           stringValue: input.stringValue,
+  //           boolValue: input.boolValue,
+  //           // dateValue: input.dateValue,
+  //         };
+  //       } else {
+  //         return item;
+  //       }
+  //     })
+  //   );
+  // };
 
-  const typeHelper = (input: InputObject) => {
-    categorySetType({
-      ...input,
-      stringValue: input.stringValue,
-    });
-  };
+  // const typeHelper = (input: InputObject) => {
+  //   categorySetType({
+  //     ...input,
+  //     stringValue: input.stringValue,
+  //   });
+  // };
 
-  const dismissModalHandler = () => {
-    allCategorySetTypes([]);
-  };
+  // const dismissModalHandler = () => {
+  //   allCategorySetTypes([]);
+  // };
 
-  useEffect(() => {
-    const _defaultFields: TextInputProps[] =
-      VehicleCategoryDefaultFieldsModel().map((item) => {
-        return item;
-      });
-    setDefaultFields(_defaultFields);
-    setInputs(VehicleCategoryDefaultFieldsModel(), setCategoryInput);
-  }, []);
+  // useEffect(() => {
+  //   const _defaultFields: TextInputProps[] =
+  //     VehicleCategoryDefaultFieldsModel().map((item) => {
+  //       return item;
+  //     });
+  //   setDefaultFields(_defaultFields);
+  //   setInputs(VehicleCategoryDefaultFieldsModel(), setCategoryInput);
+  // }, []);
   return (
     <>
       {" "}
       <div className="z-10 sticky top-0">
         <ModalHeader title="New Category" />
       </div>
-      <form className="p-4 space-y-4 relative">
+      {/* <form className="p-4 space-y-4 relative">
         <InputHandler
           props={{
             ...findInputById(VehicleCategoryDefaultFieldsModel(), "name")!,
@@ -368,7 +367,7 @@ const EditModalControls = () => {
             disabled={allCategoryTypes.length >= 1 ? false : true}
           />
         </div>
-      </form>
+      </form> */}
     </>
   );
 };

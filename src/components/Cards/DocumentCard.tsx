@@ -2,7 +2,7 @@ import { FileDocument } from "@/models/Document";
 import { FC } from "react";
 import { Lbl } from "../Typography";
 import { Ellipsis, Trash, FileQuestion, File } from "lucide-react";
-import { IconDropdown } from "../Dropdown";
+import { MenuDropdown } from "../Inputs";
 
 export const DocCard: FC<{ doc: FileDocument }> = ({ doc }) => {
   var sourceType: string;
@@ -43,7 +43,7 @@ export const DocCard: FC<{ doc: FileDocument }> = ({ doc }) => {
           <p className="text-xs font-semibold">{doc.name}</p>
           <Lbl label={`Uploaded: ${doc.dateUploaded}`} />
         </div>
-        <IconDropdown
+        <MenuDropdown
           items={[
             {
               id: "1",

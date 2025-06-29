@@ -1,6 +1,10 @@
 import { classNames } from "@/lib/utilities/helperFunctions";
 import { FC, useContext } from "react";
-import { BreadCrumbs } from "../BreadCrumbs";
+import {
+  BreadCrumbContainer,
+  BreadCrumbItem,
+  BreadCrumbs,
+} from "../BreadCrumbs";
 import { ModuleContainerContext } from "@/context/ModuleContainerContext";
 
 export const MainHeader: FC<{ title: string }> = ({ title }) => {
@@ -49,14 +53,26 @@ export const PageHeader = () => {
             {moduleContext.mainPage.name}
           </p>
         ) : (
-          <BreadCrumbs
-            data={moduleContext.breadCrumbs}
-            mainPage={{
-              id: "",
-              name: moduleContext.mainPage.name,
-              href: moduleContext.mainPage.href,
-            }}
+          <BreadCrumbContainer
+            children={
+              <>
+                {moduleContext.breadCrumbs.map((crumb, index) => (
+                  <BreadCrumbItem
+                    key={index}
+                    breadCrumb={crumb}
+                  />
+                ))}
+              </>
+            }
           />
+          // <BreadCrumbs
+          //   data={moduleContext.breadCrumbs}
+          //   mainPage={{
+          //     id: "",
+          //     name: moduleContext.mainPage.name,
+          //     href: moduleContext.mainPage.href,
+          //   }}
+          // />
         )}
 
         <div className="flex gap-4 items-center text-xs text-slate-700">

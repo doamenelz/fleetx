@@ -5,7 +5,6 @@ import {
   PageContainer,
   SCREEN_WIDTH,
   Spinner,
-  Tab,
   Tabs,
 } from "@/components";
 import { sampleVehicles, Vehicle } from "@/models/Vehicle/Vehicle";
@@ -142,17 +141,15 @@ export default function VehicleDetails({
                     )}
                   </p>
                   <p className="text-xs text-slate-500 flex items-center gap-2">
-                    <span>{selectedVehicle.odometer}</span> •
-                    <span>{selectedVehicle.location}</span>
+                    <span>{selectedVehicle.odometer}</span>
+                    <span>•{selectedVehicle.location}</span>
                   </p>
                 </div>
                 <Tabs
                   tabs={tabs}
                   tabHandler={tabHandler}
                   selectedTab={selectedTab}
-                >
-                  <></>
-                </Tabs>
+                ></Tabs>
               </div>
               {children}
             </VehicleDetailsContext.Provider>

@@ -10,17 +10,16 @@ import {
   AVATAR_SIZES,
   Avatar,
   StatusBadge,
-  STATUS_COLORS,
   Lbl,
   SlideOutWrapper,
 } from "@/components";
 import { TableContext } from "@/components/Table/TableContext";
 import { Vehicle } from "@/models/Vehicle/Vehicle";
 import Link from "next/link";
-import { ServiceReminders } from "@/models/ServiceAndRecalls/Service";
+import { ServiceEntry } from "@/models/ServiceAndRecalls/Service";
 import { ServiceDetails } from "@/app/service/components/ServiceDetails";
 
-export const VehicleServiceTableList: FC<{ data: ServiceReminders[] }> = ({
+export const VehicleServiceTableList: FC<{ data: ServiceEntry[] }> = ({
   data,
 }) => {
   const [showModal, setShowModal] = useState(false);
@@ -125,17 +124,14 @@ export const VehicleServiceTableList: FC<{ data: ServiceReminders[] }> = ({
                       <TableCell
                         label={
                           <>
-                            <StatusBadge
-                              label={service.status}
-                              statusType={STATUS_COLORS.success}
-                            />
+                            <StatusBadge label={service.status} />
                           </>
                         }
                         mainCell={false}
                         hideOnMobile={false}
                       />
                       <TableCell
-                        label={service.status}
+                        label={service.odometer}
                         mainCell={false}
                         hideOnMobile={false}
                       />
@@ -145,23 +141,7 @@ export const VehicleServiceTableList: FC<{ data: ServiceReminders[] }> = ({
                         hideOnMobile={false}
                       />
                       <TableCell
-                        label={
-                          <div className="flex items-center gap-2">
-                            {/* {vehicle.operator !== undefined ? (
-                              <>
-                                <Avatar
-                                  firstName={vehicle.operator.firstName}
-                                  lastName={vehicle.operator.lastName}
-                                  imageUrl={vehicle.operator.avatar}
-                                  size={AVATAR_SIZES.sm}
-                                />
-                                <Lbl label={vehicle.operator.name} />
-                              </>
-                            ) : (
-                              "Unassigned"
-                            )} */}
-                          </div>
-                        }
+                        label={service.odometer}
                         mainCell={false}
                         hideOnMobile={false}
                       />

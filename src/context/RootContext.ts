@@ -1,6 +1,7 @@
 import React from "react";
 import { Company } from "@/models/Company";
 import { UserStore } from "@/models/UserStore";
+import { User } from "@/models/Shared/User";
 export const RootContext = React.createContext<{
   company?: Company;
   documentTitle: string;
@@ -19,6 +20,8 @@ export const RootContext = React.createContext<{
   updateStore: Function;
   envVar: { baseURL: string };
   configuration: any;
+  // user?: User;
+  // setUser: (user: User) => void;
   // browserStore: StoredItems;
   // updateStore: Function;
 }>({
@@ -37,4 +40,5 @@ export const RootContext = React.createContext<{
   envVar: { baseURL: "" },
   store: { isLoggedIn: false, lastLoginDate: "" },
   configuration: "",
+  // setUser: () => {},
 });

@@ -6,12 +6,12 @@ import {
   SectionHeader,
   SearchField,
   Lbl,
-  IconDropdown,
   Button,
   BUTTON_SKIN,
   ICON_POSITION,
-  MenuDropdownItemProp,
   PageLoader,
+  MenuDropdown,
+  MenuDropdownProps,
 } from "@/components";
 import {
   PlusIcon,
@@ -30,21 +30,6 @@ import { apiHandler } from "@/lib/utilities/apiHelper";
 import { useContext, useEffect, useState } from "react";
 import { RootContext } from "@/context/RootContext";
 import { VendorClass } from "@/models/Configurations";
-
-const vehicleControlItems: MenuDropdownItemProp[] = [
-  {
-    id: "1",
-    label: "Import from CSV",
-    function: () => {},
-    icon: <Upload className="w-3 h-3" />,
-  },
-  {
-    id: "2",
-    label: "Download to CSV",
-    function: () => {},
-    icon: <Download className="w-3 h-3" />,
-  },
-];
 
 export default function Page() {
   const rootContext = useContext(RootContext);
@@ -99,12 +84,18 @@ export default function Page() {
     >
       <div>
         {isLoading ? (
-          <PageLoader size="sm" label="Getting Vendors.." />
+          <PageLoader
+            size="sm"
+            label="Getting Vendors.."
+          />
         ) : (
           <>
             {" "}
             <div className="flex justify-between gap-2 items-center pt-2">
-              <SearchField placeholder="Search" setQuery={() => {}} />
+              <SearchField
+                placeholder="Search"
+                setQuery={() => {}}
+              />
               <div className="flex gap-2">
                 <Lbl label={`${vendors?.length} results`} />
                 <div className="border-r pr-2">
@@ -119,8 +110,21 @@ export default function Page() {
                   <Filter className="w-4 h-4" />
                 </button>
                 <div className="items-center flex gap-2">
-                  <IconDropdown
-                    items={vehicleControlItems}
+                  <MenuDropdown
+                    items={[
+                      {
+                        id: "1",
+                        label: "Import from CSV",
+                        function: () => {},
+                        icon: <Upload className="w-3 h-3" />,
+                      },
+                      {
+                        id: "2",
+                        label: "Download to CSV",
+                        function: () => {},
+                        icon: <Download className="w-3 h-3" />,
+                      },
+                    ]}
                     button={
                       <div className="p-2 rounded-sm border hover:bg-slate-50 hover:text-brand-blueRoyal">
                         <Ellipsis className="w-4 h-4" />
@@ -139,7 +143,10 @@ export default function Page() {
                 </div>
               </div>
             </div>
-            <VendorTableList data={vendors!} vendorClass={vendorClass!} />
+            <VendorTableList
+              data={vendors!}
+              vendorClass={vendorClass!}
+            />
           </>
         )}
       </div>

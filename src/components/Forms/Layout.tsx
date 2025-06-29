@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Accordion, SectionHeader } from "..";
+import clsx from "clsx";
 
 export const FormLayout: FC<{
   title: string;
@@ -41,9 +42,15 @@ export const FormSection: FC<{
   children: JSX.Element;
   label: string;
   copy?: string;
-}> = ({ children, copy, label }) => {
+  hasBottomBorder?: boolean;
+}> = ({ children, copy, label, hasBottomBorder = false }) => {
   return (
-    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+    <div
+      className={clsx(
+        "px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0",
+        hasBottomBorder === true && "border-b"
+      )}
+    >
       <dt className="text-sm/6 font-medium text-gray-900">{label}</dt>
       <div className="grid grid-cols-2 sm:col-span-2 gap-4">{children}</div>
     </div>

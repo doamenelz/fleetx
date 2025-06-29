@@ -25,7 +25,6 @@ export const getVendorClass = () => {
     const parsedVendorClass = parseConfig.find(
       (item: { type: string }) => item.type === "VENDOR_CLASSES"
     ) as VendorClass;
-    console.log(parsedVendorClass?.classes[0]);
     return parsedVendorClass;
   }
 

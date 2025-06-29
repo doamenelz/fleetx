@@ -4,11 +4,10 @@ import {
   BackHeader,
   Button,
   ICON_POSITION,
-  IconDropdown,
+  MenuDropdown,
   PageContainer,
   SCREEN_WIDTH,
   Spinner,
-  Tab,
   Tabs,
 } from "@/components";
 import { sampleVehicles, Vehicle } from "@/models/Vehicle/Vehicle";
@@ -114,7 +113,7 @@ export default function VendorDetailsLayout({
                   {selectedVendor!.name !== "" ? selectedVendor!.name : <></>}
                 </p>
               </div>
-              <IconDropdown
+              <MenuDropdown
                 items={[
                   {
                     id: "1",
@@ -148,13 +147,13 @@ export default function VendorDetailsLayout({
                 }
               />
             </div>
-            <Tabs
+            {/* <Tabs
               tabs={tabs(loc)}
               tabHandler={tabHandler}
               selectedTab={selectedTab}
             >
               <></>
-            </Tabs>
+            </Tabs> */}
           </div>
           {children}
         </>

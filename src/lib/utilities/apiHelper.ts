@@ -40,7 +40,7 @@ export async function apiHandler(props: APIProps) {
     const json = await response.json();
     const completion: APICompletion = {
       status: response.status,
-      data: json,
+      data: json.data,
       success: response.status >= 200 && response.status < 300 ? true : false,
       errorMessage: json.message,
     };

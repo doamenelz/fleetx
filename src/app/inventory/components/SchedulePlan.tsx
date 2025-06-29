@@ -1,38 +1,138 @@
-import { SectionHeader } from "../../../components/Headers";
 import { BoxCalendar } from "../../../components/Calendar/BoxCalendar";
-import { FC, useEffect } from "react";
+import { FC, useContext, useEffect } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 import {
-  checkIfDateInRange,
   ALL_MONTHS,
   allDatesInMonth,
+  isDateInRange,
+  getFirstAndLastDayOfMonth,
 } from "@/lib/utilities/dateHelpers";
-import { CalendarStore } from "@/context/CalendarStore";
-import {
-  TimeOffDetails,
-  sampleCalendarEmployee,
-} from "@/app/time-off/models/TimeOff";
+import { CalendarStore, DateIndicator } from "@/context/CalendarStore";
 
 import { getScheduleColor, ScheduleList } from "./ScheduleListing";
 import { classNames } from "@/lib/utilities/helperFunctions";
+import { SCHEDULE_TYPES, ScheduleEntry } from "@/models/ScheduleEntry";
+import {
+  API_HEADERS,
+  APICompletion,
+  apiHandler,
+} from "@/lib/utilities/apiHelper";
+import { RootContext } from "@/context/RootContext";
 
-export const ScheduleView = () => {
+export const ScheduleView: FC<{ vehicleId: string }> = ({ vehicleId }) => {
   /** State Controls for the Calendar Toggles */
+
   const [toggleMonth, setToggleMonth] = useState(new Date().getMonth());
   const [toggleYear, setToggleYear] = useState(new Date().getFullYear());
   const [toggledDay, setToggleDay] = useState(new Date());
+  const [schedules, setSchedules] = useState<ScheduleEntry[]>([]);
+  const [apiResponse, setApiResponse] = useState<APICompletion | undefined>();
   const today = new Date();
-
+  const [isLoading, setIsLoading] = useState(true);
+  const rootContext = useContext(RootContext);
   const [allDates, setAllDates] = useState<Date[]>([]);
+  const [filteredSchedules, setFilteredSchedules] = useState<ScheduleEntry[]>(
+    []
+  );
 
   const scheduleTypes = [
-    "payment",
-    "service",
-    "inspection",
-    "renewals",
-    "others",
+    SCHEDULE_TYPES.INSPECTION,
+    SCHEDULE_TYPES.RENEWAL,
+    SCHEDULE_TYPES.SERVICE,
   ];
+
+  const getDistinctSchedules = (schedules: ScheduleEntry[]) => {
+    const seen = new Set();
+    return schedules.filter((item) => {
+      if (seen.has(item.id)) return false;
+      seen.add(item.id);
+      return true;
+    });
+  };
+
+  const updateSchedules = (data: ScheduleEntry[]) => {
+    const _days = getFirstAndLastDayOfMonth(toggleYear, toggleMonth);
+    const _filteredSchedules: ScheduleEntry[] = [];
+    const _featuredDates: DateIndicator[] = [];
+
+    const setFeaturedDate = (schedule: ScheduleEntry) => {
+      return {
+        date: new Date(schedule.date),
+        color: getScheduleColor(schedule.type),
+      };
+    };
+
+    //Check if the the selected calendar date is in the current month and parse through the list of schedules
+    // isDateInRange(_days.firstDay, _days.lastDay, selectedCalendarDate)
+    //   ? data.map((schedule) => {
+    //       if (
+    //         // isDateInRange(_days.firstDay, _days.lastDay, selectedCalendarDate)
+    //         isDateInRange(
+    //           new Date(selectedCalendarDate.setUTCHours(0, 0, 0, 0)),
+    //           new Date(selectedCalendarDate.setUTCHours(23, 59, 59, 999)), //.setUTCHours(23, 59, 59, 999),
+    //           new Date(schedule.date)
+    //         )
+    //       ) {
+    //         console.log("Date in range", schedule.date);
+    //         _featuredDates.push(setFeaturedDate(schedule));
+    //         _filteredSchedules.push(schedule);
+    //       }
+    //     })
+    //   : // If the selected date is not in the current month, filter by the date range
+    //     data.map((schedule) => {
+    //       if (
+    //         // isDateInRange(_days.firstDay, _days.lastDay, selectedCalendarDate)
+    //         isDateInRange(
+    //           _days.firstDay,
+    //           _days.lastDay,
+    //           new Date(schedule.date)
+    //         )
+    //       ) {
+    //         _filteredSchedules.push(schedule);
+    //         _featuredDates.push(setFeaturedDate(schedule));
+    //       }
+    //     });
+
+    data.map((schedule) => {
+      if (
+        // isDateInRange(_days.firstDay, _days.lastDay, selectedCalendarDate)
+        isDateInRange(_days.firstDay, _days.lastDay, new Date(schedule.date))
+      ) {
+        _filteredSchedules.push(schedule);
+        _featuredDates.push(setFeaturedDate(schedule));
+      }
+    });
+    setFilteredSchedules(_filteredSchedules);
+  };
+
+  const getSchedule = async () => {
+    setIsLoading(true);
+    const _days = getFirstAndLastDayOfMonth(toggleYear, toggleMonth);
+    const api = await apiHandler({
+      url: `${
+        rootContext.envVar.baseURL
+      }/schedule?vehicleId=${vehicleId}&startDate=${
+        _days.firstDay.toISOString().split("T")[0]
+      }&endDate=${_days.lastDay.toISOString().split("T")[0]}`,
+      method: "GET",
+      headers: API_HEADERS.baseHeaders,
+    });
+
+    setApiResponse(api);
+    if (api.success) {
+      const _schedules = schedules;
+
+      const combinedSchedules = getDistinctSchedules([
+        ..._schedules,
+        ...(api.data as ScheduleEntry[]),
+      ]);
+
+      setSchedules(combinedSchedules);
+      updateSchedules(combinedSchedules);
+    }
+    setIsLoading(false);
+  };
 
   /** Date selected on the Calendar Control */
   const [selectedCalendarDate, setSelectedCalendarDate] = useState(toggledDay);
@@ -60,14 +160,20 @@ export const ScheduleView = () => {
     setToggleDay(today);
     setToggleMonth(today.getMonth());
     setToggleYear(today.getFullYear());
+    setSelectedCalendarDate(today);
   };
 
   useEffect(() => {
     let dates: Date[] = allDatesInMonth(toggleMonth, toggleYear);
     setAllDates(dates);
-    // console.log(dates.length);
-    console.log(dates[0].getDay());
+    getSchedule();
   }, [toggleMonth, toggleYear]);
+
+  // useEffect(() => {
+  //   console.log("Selected Calendar Date Changed", selectedCalendarDate);
+  //   console.log("Toggled Day Changed", schedules);
+  //   updateSchedules(schedules);
+  // }, [selectedCalendarDate]);
 
   return (
     <CalendarStore.Provider
@@ -77,7 +183,12 @@ export const ScheduleView = () => {
         selectedYear: toggleYear,
         selectedDay: toggledDay,
         datesInMonth: allDates,
+        canClickDateCell: false,
         selectedCalendarDate: selectedCalendarDate,
+        highlightedDates: filteredSchedules.map((schedule) => ({
+          date: new Date(schedule.date),
+          color: getScheduleColor(schedule.type),
+        })),
         updateSelectedCalendarDate: setSelectedCalendarDate,
       }}
     >
@@ -128,14 +239,23 @@ export const ScheduleView = () => {
 
         <div className="items-center gap-4 px-4 text-xs lg:flex">
           {scheduleTypes.map((scheduleType) => (
-            <LegendItem type={scheduleType} />
+            <LegendItem
+              key={scheduleType}
+              type={scheduleType}
+            />
           ))}
         </div>
       </div>
+
       <BoxCalendar
         calendarContent={
           <>
-            <ScheduleList />
+            <ScheduleList
+              schedules={filteredSchedules}
+              isLoading={isLoading}
+              isSuccess={apiResponse?.success ?? false}
+              getSchedules={getSchedule}
+            />
           </>
         }
       />

@@ -15,8 +15,12 @@ export const ListTable: FC<{
   return (
     <div className=" border-gray-100">
       <dl className="divide-y divide-slate-100 [&>*:nth-child(even)]:bg-indigo-50/20">
-        {data.map((item) => (
-          <ListCell data={item} type={type ?? LIST_TABLE_TYPE.generic} />
+        {data.map((item, index) => (
+          <ListCell
+            key={index}
+            data={item}
+            type={type ?? LIST_TABLE_TYPE.generic}
+          />
         ))}
       </dl>
     </div>
@@ -74,7 +78,10 @@ export const ListTableCell: FC<{
   return (
     <div className="space-y-0">
       {url && (
-        <Link href={url} className="text-brand-blueRoyal hover:underline">
+        <Link
+          href={url}
+          className="text-brand-blueRoyal hover:underline"
+        >
           {title}
         </Link>
       )}

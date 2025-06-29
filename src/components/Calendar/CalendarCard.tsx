@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
+"use client";
 import { useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { FC } from "react";
 
-import { ALL_MONTHS, parseCalStart } from "@/lib/utilities/dateHelpers";
-import { classNames } from "@/lib/utilities/helperFunctions";
-import { INPUT_TYPES, InputObject } from "../TextInput";
+import clsx from "clsx";
+import { ALL_MONTHS, parseCalStart } from "./dateHelpers";
 export interface CalendarProps {
   selectedDate: Date;
   /** This function updates the date prop */
@@ -21,7 +22,7 @@ export const CalendarCard: FC<CalendarProps> = ({ selectedDate, ...props }) => {
   );
 
   const allYears = () => {
-    let yearsArray: [number] = [selectedDate.getFullYear()];
+    const yearsArray: [number] = [selectedDate.getFullYear()];
 
     for (let i = 1; i < 9; i++) {
       yearsArray.push(selectedDate.getFullYear() + i);
@@ -35,14 +36,14 @@ export const CalendarCard: FC<CalendarProps> = ({ selectedDate, ...props }) => {
   const [showYear, setShowYear] = useState(false);
   const [years, setYears] = useState<number[]>(allYears());
   const allDates = () => {
-    let _selectedMonth = ALL_MONTHS.find(
+    const _selectedMonth = ALL_MONTHS.find(
       (item) => item.long === selectedMonth
     )!.id;
-    let date = new Date(selectedYear, _selectedMonth, 1);
+    const date = new Date(selectedYear, _selectedMonth, 1);
 
-    let dates: Date[] = [];
+    const dates: Date[] = [];
     while (date.getMonth() === _selectedMonth) {
-      let _date = new Date(date);
+      const _date = new Date(date);
       dates.push(_date);
       date.setDate(date.getDate() + 1);
     }
@@ -57,7 +58,6 @@ export const CalendarCard: FC<CalendarProps> = ({ selectedDate, ...props }) => {
 
   const selectMonthHandler = (month: string) => {
     setSelectedMonth(month);
-    console.log(month);
 
     setShowMonth(false);
     setShowYear(false);
@@ -82,27 +82,23 @@ export const CalendarCard: FC<CalendarProps> = ({ selectedDate, ...props }) => {
   };
 
   const nextYears = () => {
-    let firstYear = years.at(-1)! + 1;
-    let yearsArray: [number] = [firstYear];
+    const firstYear = years.at(-1)! + 1;
+    const yearsArray: [number] = [firstYear];
 
     for (let i = 1; i < 9; i++) {
       yearsArray.push(firstYear + i);
     }
-
-    console.log(yearsArray);
 
     setYears(yearsArray);
   };
 
   const previousYears = () => {
-    let firstYear = years[0] - 9;
-    let yearsArray: [number] = [firstYear];
+    const firstYear = years[0] - 9;
+    const yearsArray: [number] = [firstYear];
 
     for (let i = 1; i < 9; i++) {
       yearsArray.push(firstYear + i);
     }
-
-    console.log(yearsArray);
 
     setYears(yearsArray);
   };
@@ -161,7 +157,10 @@ export const CalendarCard: FC<CalendarProps> = ({ selectedDate, ...props }) => {
               className="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
             >
               <span className="sr-only">Previous month</span>
-              <ChevronLeftIcon className="w-5 h-5" aria-hidden="true" />
+              <ChevronLeftIcon
+                className="w-5 h-5"
+                aria-hidden="true"
+              />
             </button>
             <div className="w-full grid grid-cols-3 mt-3">
               {years.map((year) => (
@@ -181,7 +180,10 @@ export const CalendarCard: FC<CalendarProps> = ({ selectedDate, ...props }) => {
               className="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
             >
               <span className="sr-only">Next month</span>
-              <ChevronRightIcon className="w-5 h-5" aria-hidden="true" />
+              <ChevronRightIcon
+                className="w-5 h-5"
+                aria-hidden="true"
+              />
             </button>
           </div>
         )}
@@ -220,7 +222,7 @@ export const CalendarCard: FC<CalendarProps> = ({ selectedDate, ...props }) => {
                   onClick={() => {
                     selectDayHandler(day);
                   }}
-                  className={classNames(
+                  className={clsx(
                     "bg-white divide-x-0 py-1.5 hover:bg-gray-100 focus:z-10",
                     day.getDate() === 1 ? parseCalStart(day.getDay()) : ``
                   )}

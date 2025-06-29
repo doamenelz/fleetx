@@ -8,6 +8,9 @@ export const CalendarStore = React.createContext<{
 
   selectedCalendarDate: Date;
   updateSelectedCalendarDate: Function;
+  canClickDateCell?: boolean;
+  highlightedDates?: DateIndicator[];
+  setHighlightedDates?: React.Dispatch<React.SetStateAction<DateIndicator[]>>;
 }>({
   today: new Date(),
   selectedMonth: new Date().getMonth(),
@@ -18,3 +21,8 @@ export const CalendarStore = React.createContext<{
   selectedCalendarDate: new Date(),
   updateSelectedCalendarDate: () => {},
 });
+
+export interface DateIndicator {
+  date: Date;
+  color: string;
+}

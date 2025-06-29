@@ -1,18 +1,18 @@
 import { FlexLogoFull } from "../../assets/FlexLogo";
 import { AVATAR_SIZES, Avatar } from "../Avatar";
-import { Tab } from "../Tabs";
+// import { Tab } from "../Tabs";
 import { classNames } from "@/lib/utilities/helperFunctions";
 import { sampleEmployee } from "../../models";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 export const MainNavigation = () => {
   const location = usePathname();
-  const tabs: Tab[] = [
-    { id: "", name: "Home", href: "/dashboard" },
-    // { name: "Inbox", href: "/inbox" },
-    { id: "", name: "Documents", href: "/documents" },
-    { id: "", name: "Profile", href: "/my-profile" },
-  ];
+  // const tabs: Tab[] = [
+  //   { id: "", name: "Home", href: "/dashboard" },
+  //   // { name: "Inbox", href: "/inbox" },
+  //   { id: "", name: "Documents", href: "/documents" },
+  //   { id: "", name: "Profile", href: "/my-profile" },
+  // ];
   return (
     <nav className="fixed inset-x-0 top-0 z-40 items-center border-b bg-gray-25 shadow-gray-200">
       <div className="max-w-full px-4 mx-auto sm:px-6 lg:px-4 ">
@@ -26,7 +26,7 @@ export const MainNavigation = () => {
               <FlexLogoFull />
             </Link>
             <div className="tracking-tight md:flex md:gap-x-2 md:text-sm md:font-medium md:leading-6 md:text-gray-600">
-              {tabs.map((tab, i) => (
+              {/* {tabs.map((tab, i) => (
                 <Link
                   key={i}
                   className={classNames(
@@ -41,7 +41,7 @@ export const MainNavigation = () => {
 
                   {tab.name}
                 </Link>
-              ))}
+              ))} */}
             </div>
           </div>
           <div className="flex items-center gap-4">

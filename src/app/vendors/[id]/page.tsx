@@ -12,7 +12,6 @@ import {
   Spinner,
   STATUS_COLORS,
   StatusBadge,
-  Tab,
   Tabs,
   Button,
   SectionHeader,
@@ -82,7 +81,10 @@ export default function Page({ params }: { params: { id: string } }) {
               <>
                 <SectionHeader title="Transactions" />
                 <div className="flex pt-2 justify-between items-center">
-                  <SearchField placeholder="Search" setQuery={() => {}} />
+                  <SearchField
+                    placeholder="Search"
+                    setQuery={() => {}}
+                  />
 
                   <div className="flex gap-2">
                     <Lbl

@@ -4,17 +4,11 @@ import {
   AVATAR_SIZES,
   Button,
   BUTTON_SKIN,
-  findInputById,
   FormCell,
   FormSection,
   FormSectionLayout,
   INPUT_TYPES,
-  InputHandler,
-  InputObject,
-  parseFieldTypes,
   Spinner,
-  TEXT_INPUT_SIZE,
-  TextInputProps,
 } from "@/components";
 import { setInputs } from "@/lib/utilities/helperFunctions";
 import { FC, useContext, useEffect, useState } from "react";
@@ -29,194 +23,194 @@ export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
   const rootContext = useContext(RootContext);
   const [isLoading, setIsLoading] = useState(true);
   const [fetchComplete, setFetchComplete] = useState(false);
-  const [defaultFields, setDefaultFields] = useState<TextInputProps[]>();
-  const [otherInformationFields, setOtherInformationFields] =
-    useState<TextInputProps[]>();
-  const [roleSectionFields, setRoleSectionFields] =
-    useState<TextInputProps[]>();
-  const [userInfoInput, setUserInfoInput] = useState<InputObject[]>([]);
+  // const [defaultFields, setDefaultFields] = useState<TextInputProps[]>();
+  // const [otherInformationFields, setOtherInformationFields] =
+  //   useState<TextInputProps[]>();
+  // const [roleSectionFields, setRoleSectionFields] =
+  //   useState<TextInputProps[]>();
+  // const [userInfoInput, setUserInfoInput] = useState<InputObject[]>([]);
   const [showErrors, setShowErrors] = useState(true);
 
-  const checkFormRequiredFields = () => {
-    return userInfoInput.find(
-      (input) => input.required === true && input.stringValue!.length < 3
-    );
-  };
+  // const checkFormRequiredFields = () => {
+  //   return userInfoInput.find(
+  //     (input) => input.required === true && input.stringValue!.length < 3
+  //   );
+  // };
 
   const checkGenericRequiredFields = () => {};
 
-  const validateRequiredField = (
-    id: string,
-    textProps: TextInputProps[] | undefined
-  ) => {
-    if (showErrors) {
-      const _input = userInfoInput.find((input) => input.id === id);
+  // const validateRequiredField = (
+  //   id: string,
+  //   textProps: TextInputProps[] | undefined
+  // ) => {
+  //   if (showErrors) {
+  //     const _input = userInfoInput.find((input) => input.id === id);
 
-      const _textProp = textProps?.find((prop) => prop.id === id);
+  //     const _textProp = textProps?.find((prop) => prop.id === id);
 
-      switch (_textProp?.type) {
-        case "text":
-          if (_input?.required && _input.stringValue === "") {
-            return true;
-          } else {
-            return false;
-          }
+  //     switch (_textProp?.type) {
+  //       case "text":
+  //         if (_input?.required && _input.stringValue === "") {
+  //           return true;
+  //         } else {
+  //           return false;
+  //         }
 
-        case "email":
-          if (
-            _input?.required &&
-            (_input.stringValue === "" || emailRegex(_input.stringValue!))
-          ) {
-            return true;
-          } else {
-            return false;
-          }
+  //       case "email":
+  //         if (
+  //           _input?.required &&
+  //           (_input.stringValue === "" || emailRegex(_input.stringValue!))
+  //         ) {
+  //           return true;
+  //         } else {
+  //           return false;
+  //         }
 
-        // case "checkbox":
-        //   if (_input?.required && _input.boolValue === "") {
-        //     return true;
-        //   } else {
-        //     return false;
-        //   }
+  //       // case "checkbox":
+  //       //   if (_input?.required && _input.boolValue === "") {
+  //       //     return true;
+  //       //   } else {
+  //       //     return false;
+  //       //   }
 
-        case "password":
-          if (
-            _input?.required &&
-            (_input.stringValue === "" || _input.stringValue!.length < 5)
-          ) {
-            return true;
-          } else {
-            return false;
-          }
+  //       case "password":
+  //         if (
+  //           _input?.required &&
+  //           (_input.stringValue === "" || _input.stringValue!.length < 5)
+  //         ) {
+  //           return true;
+  //         } else {
+  //           return false;
+  //         }
 
-        default:
-          return false;
-      }
-    } else {
-      return false;
-    }
-  };
+  //       default:
+  //         return false;
+  //     }
+  //   } else {
+  //     return false;
+  //   }
+  // };
 
-  const inputHelper = (input: InputObject) => {
-    setUserInfoInput(
-      userInfoInput.map((item) => {
-        if (item.id === input.id) {
-          return {
-            ...item,
-            stringValue: input.stringValue,
-            boolValue: input.boolValue,
-            // dateValue: input.dateValue,
-          };
-        } else {
-          return item;
-        }
-      })
-    );
-  };
+  // const inputHelper = (input: InputObject) => {
+  //   setUserInfoInput(
+  //     userInfoInput.map((item) => {
+  //       if (item.id === input.id) {
+  //         return {
+  //           ...item,
+  //           stringValue: input.stringValue,
+  //           boolValue: input.boolValue,
+  //           // dateValue: input.dateValue,
+  //         };
+  //       } else {
+  //         return item;
+  //       }
+  //     })
+  //   );
+  // };
 
-  const getRolesFormFields = async () => {
-    console.log(rootContext.envVar.baseURL);
+  // const getRolesFormFields = async () => {
+  //   console.log(rootContext.envVar.baseURL);
 
-    const api = await apiHandler({
-      url: `${rootContext.envVar.baseURL}/configurations/forms/USER_ROLES`,
-      method: "GET",
-      headers: API_HEADERS.baseHeaders,
-    });
+  //   const api = await apiHandler({
+  //     url: `${rootContext.envVar.baseURL}/configurations/forms/USER_ROLES`,
+  //     method: "GET",
+  //     headers: API_HEADERS.baseHeaders,
+  //   });
 
-    if (api.success) {
-      console.log(api);
-      const apiCompletion = (await api.data.form) as CustomFormSection;
-      console.log(`Completion is ${apiCompletion.type}`);
+  //   if (api.success) {
+  //     console.log(api);
+  //     const apiCompletion = (await api.data.form) as CustomFormSection;
+  //     console.log(`Completion is ${apiCompletion.type}`);
 
-      const _roles = apiCompletion.sections[0].fields.map((role) => {
-        return {
-          ...role,
-          style: INPUT_TYPES.checkBox,
-          copy: role.description,
-          span: TEXT_INPUT_SIZE.span1,
-          defaultValue: checkIfUserHasRole(role.id, user.role),
-          // defaultValue: true,
-          editMode: true,
-          placeHolder: "",
-          disabled: false,
-          setShowError: () => {},
-          required: false,
-          setValue: inputHelper,
-        };
-      });
-      setRoleSectionFields(_roles);
-      return { isSuccess: true, fields: _roles };
-    } else {
-      return { isSuccess: false };
-    }
-  };
+  //     const _roles = apiCompletion.sections[0].fields.map((role) => {
+  //       return {
+  //         ...role,
+  //         style: INPUT_TYPES.checkBox,
+  //         copy: role.description,
+  //         span: TEXT_INPUT_SIZE.span1,
+  //         defaultValue: checkIfUserHasRole(role.id, user.role),
+  //         // defaultValue: true,
+  //         editMode: true,
+  //         placeHolder: "",
+  //         disabled: false,
+  //         setShowError: () => {},
+  //         required: false,
+  //         setValue: inputHelper,
+  //       };
+  //     });
+  //     setRoleSectionFields(_roles);
+  //     return { isSuccess: true, fields: _roles };
+  //   } else {
+  //     return { isSuccess: false };
+  //   }
+  // };
 
-  const getOtherInformation = async () => {
-    console.log(rootContext.envVar.baseURL);
+  // const getOtherInformation = async () => {
+  //   console.log(rootContext.envVar.baseURL);
 
-    const api = await apiHandler({
-      url: `${rootContext.envVar.baseURL}/configurations/forms/EDIT_USER`,
-      method: "GET",
-      headers: API_HEADERS.baseHeaders,
-    });
+  //   const api = await apiHandler({
+  //     url: `${rootContext.envVar.baseURL}/configurations/forms/EDIT_USER`,
+  //     method: "GET",
+  //     headers: API_HEADERS.baseHeaders,
+  //   });
 
-    if (api.success) {
-      console.log(api);
-      const apiCompletion = (await api.data.form) as CustomFormSection;
-      console.log(`Completion is ${apiCompletion.type}`);
+  //   if (api.success) {
+  //     console.log(api);
+  //     const apiCompletion = (await api.data.form) as CustomFormSection;
+  //     console.log(`Completion is ${apiCompletion.type}`);
 
-      const _fields = apiCompletion.sections[0].fields.map((field) => {
-        return {
-          ...field,
-          style: parseFieldTypes(field.inputType),
-          copy: field.description,
-          span: TEXT_INPUT_SIZE.span1,
-          defaultValue: user.customProperties?.find(
-            (val) => val.id === field.id
-          )?.value,
-          editMode: true,
-          placeHolder: "",
-          disabled: false,
-          setShowError: () => {},
-          required: field.isRequired,
-          setValue: inputHelper,
-        };
-      });
-      // setInputs([..._roles, ...parsedInput], setUserInfoInput);
-      setOtherInformationFields(_fields);
-      return { isSuccess: true, fields: _fields };
-    } else {
-      return { isSuccess: false };
-    }
-  };
+  //     const _fields = apiCompletion.sections[0].fields.map((field) => {
+  //       return {
+  //         ...field,
+  //         style: parseFieldTypes(field.inputType),
+  //         copy: field.description,
+  //         span: TEXT_INPUT_SIZE.span1,
+  //         defaultValue: user.customProperties?.find(
+  //           (val) => val.id === field.id
+  //         )?.value,
+  //         editMode: true,
+  //         placeHolder: "",
+  //         disabled: false,
+  //         setShowError: () => {},
+  //         required: field.isRequired,
+  //         setValue: inputHelper,
+  //       };
+  //     });
+  //     // setInputs([..._roles, ...parsedInput], setUserInfoInput);
+  //     setOtherInformationFields(_fields);
+  //     return { isSuccess: true, fields: _fields };
+  //   } else {
+  //     return { isSuccess: false };
+  //   }
+  // };
 
-  const getFields = async () => {
-    const roles = await getRolesFormFields();
-    const otherInfo = await getOtherInformation();
+  // const getFields = async () => {
+  //   const roles = await getRolesFormFields();
+  //   const otherInfo = await getOtherInformation();
 
-    if (roles.isSuccess && otherInfo.isSuccess) {
-      const _defaultFields: TextInputProps[] = UserInputModel(user).map(
-        (item) => {
-          return item;
-        }
-      );
-      setDefaultFields(_defaultFields);
-      setRoleSectionFields(roles.fields);
-      setOtherInformationFields(otherInfo.fields);
-      setInputs(
-        [...UserInputModel(user), ...roles.fields!, ...otherInfo.fields!],
-        setUserInfoInput
-      );
-      setFetchComplete(true);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-      setFetchComplete(false);
-    }
-  };
+  //   if (roles.isSuccess && otherInfo.isSuccess) {
+  //     const _defaultFields: TextInputProps[] = UserInputModel(user).map(
+  //       (item) => {
+  //         return item;
+  //       }
+  //     );
+  //     setDefaultFields(_defaultFields);
+  //     setRoleSectionFields(roles.fields);
+  //     setOtherInformationFields(otherInfo.fields);
+  //     setInputs(
+  //       [...UserInputModel(user), ...roles.fields!, ...otherInfo.fields!],
+  //       setUserInfoInput
+  //     );
+  //     setFetchComplete(true);
+  //     setIsLoading(false);
+  //   } else {
+  //     setIsLoading(false);
+  //     setFetchComplete(false);
+  //   }
+  // };
 
   useEffect(() => {
-    getFields();
+    // getFields();
   }, []);
 
   return (
@@ -238,7 +232,7 @@ export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
                 <>
                   <FormSection label="Basic Information">
                     <>
-                      <FormCell>
+                      {/* <FormCell>
                         <InputHandler
                           props={{
                             ...findInputById(defaultFields!, "firstName")!,
@@ -298,7 +292,7 @@ export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
                               : false,
                           }}
                         />
-                      </FormCell>
+                      </FormCell> */}
                       <FormCell span="full">
                         <div className="space-y-2">
                           {/* <label
@@ -332,7 +326,7 @@ export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
                   </FormSection>
                   <FormSection label="License Information">
                     <>
-                      <FormCell>
+                      {/* <FormCell>
                         <InputHandler
                           props={{
                             ...findInputById(defaultFields!, "licenseNumber")!,
@@ -363,10 +357,10 @@ export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
                             setValue: inputHelper,
                           }}
                         />
-                      </FormCell>
+                      </FormCell> */}
                     </>
                   </FormSection>
-                  {roleSectionFields!.length >= 1 && (
+                  {/* {roleSectionFields!.length >= 1 && (
                     <FormSection label="Roles Configuration">
                       <>
                         {roleSectionFields!.map((role) => (
@@ -412,23 +406,23 @@ export const EditUserFormView: FC<{ user: Person }> = ({ user }) => {
                           ))}
                         </>
                       </FormSection>
-                    )}
+                    )} */}
                 </>
               </FormSectionLayout>
               <div className="flex items-end justify-end gap-2">
-                <Button
+                {/* <Button
                   label="Cancel"
                   destructive
                   onClick={() => {
                     console.log(userInfoInput);
                   }}
                   skin={BUTTON_SKIN.secondaryColor}
-                />
-                <Button
+                /> */}
+                {/* <Button
                   label="Save Changes"
                   type="submit"
                   disabled={checkFormRequiredFields() ? true : false}
-                />
+                /> */}
               </div>
             </form>
           ) : (

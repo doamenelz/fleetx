@@ -12,12 +12,12 @@ import {
 } from "@/components";
 import {
   sampleServiceReminders,
-  ServiceReminders,
+  ServiceEntry,
 } from "@/models/ServiceAndRecalls/Service";
 import { FC, useEffect, useState } from "react";
 
 export const ServiceDetails: FC<{ serviceId: string }> = ({ serviceId }) => {
-  const [serviceDetails, setServiceDetails] = useState<ServiceReminders>();
+  const [serviceDetails, setServiceDetails] = useState<ServiceEntry>();
   useEffect(() => {
     const _service = sampleServiceReminders.find(
       (service) => service.id === serviceId

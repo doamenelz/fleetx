@@ -1,46 +1,24 @@
 "use client";
 
-import {
-  PageContainer,
-  SCREEN_WIDTH,
-  SectionHeader,
-  SearchField,
-  Lbl,
-  IconDropdown,
-  Button,
-  BUTTON_SKIN,
-  ICON_POSITION,
-  MenuDropdownItemProp,
-} from "@/components";
-import {
-  PlusIcon,
-  Upload,
-  Download,
-  Ellipsis,
-  ChevronLeft,
-  ChevronRight,
-  SlidersHorizontal,
-  Filter,
-  UserRoundPlus,
-} from "lucide-react";
+import { PageContainer, SCREEN_WIDTH } from "@/components";
 
 import { UsersList } from "./components/UsersList";
-import { generatePerson, Person } from "@/models/Person";
+import { Person } from "@/models/Person";
 
-const vehicleControlItems: MenuDropdownItemProp[] = [
-  {
-    id: "1",
-    label: "Import from CSV",
-    function: () => {},
-    icon: <Upload className="w-3 h-3" />,
-  },
-  {
-    id: "2",
-    label: "Download to CSV",
-    function: () => {},
-    icon: <Download className="w-3 h-3" />,
-  },
-];
+// const vehicleControlItems: MenuDropdownItemProp[] = [
+//   {
+//     id: "1",
+//     label: "Import from CSV",
+//     function: () => {},
+//     icon: <Upload className="w-3 h-3" />,
+//   },
+//   {
+//     id: "2",
+//     label: "Download to CSV",
+//     function: () => {},
+//     icon: <Download className="w-3 h-3" />,
+//   },
+// ];
 
 export const sampleUsers: Person[] = [
   //   generatePerson("employee"),

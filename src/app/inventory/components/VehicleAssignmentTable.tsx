@@ -7,14 +7,13 @@ import {
   TableHeadCell,
   TableRow,
   StatusBadge,
-  STATUS_COLORS,
   SlideOutWrapper,
-  IconDropdown,
-  MenuDropdownItemProp,
   AvatarCell,
   AVATAR_SIZES,
   Button,
   BUTTON_SKIN,
+  MenuDropdownProps,
+  MenuDropdown,
 } from "@/components";
 import { TableContext } from "@/components/Table/TableContext";
 import { ServiceDetails } from "@/app/service/components/ServiceDetails";
@@ -44,24 +43,10 @@ export const VehicleAssignmentTable: FC<{ data: VehicleAssignment[] }> = ({
     setShowModal(true);
   };
 
-  const getServiceFromId = (id: string) => {
-    return data.find((service) => service.id === id);
-  };
+  // const getServiceFromId = (id: string) => {
+  //   return data.find((service) => service.id === id);
+  // };
 
-  const ellipsisItems: MenuDropdownItemProp[] = [
-    {
-      id: "1",
-      label: "Edit",
-      function: () => {},
-      icon: <FilePenLine className="w-3 h-3" />,
-    },
-    {
-      id: "2",
-      label: "Transfer Custody",
-      function: () => {},
-      icon: <ArrowLeftRight className="w-3 h-3" />,
-    },
-  ];
   return (
     <>
       <TableContext.Provider
@@ -176,8 +161,21 @@ export const VehicleAssignmentTable: FC<{ data: VehicleAssignment[] }> = ({
                         centerCell
                         label={
                           assignment.isCurrent ? (
-                            <IconDropdown
-                              items={ellipsisItems}
+                            <MenuDropdown
+                              items={[
+                                {
+                                  id: "1",
+                                  label: "Edit",
+                                  function: () => {},
+                                  icon: <FilePenLine className="w-3 h-3" />,
+                                },
+                                {
+                                  id: "2",
+                                  label: "Transfer Custody",
+                                  function: () => {},
+                                  icon: <ArrowLeftRight className="w-3 h-3" />,
+                                },
+                              ]}
                               button={
                                 <div className="p-2 rounded-sm border hover:border-slate-300 hover:bg-slate-50 hover:text-brand-persianBlue">
                                   <Ellipsis className="w-4 h-4" />

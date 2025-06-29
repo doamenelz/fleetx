@@ -1,4 +1,4 @@
-import { InputObject, NOTIFICATION_TYPE, TextInputProps } from "@/components";
+import { NOTIFICATION_TYPE } from "@/components";
 
 export const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(" ");
@@ -39,20 +39,20 @@ export const validateEmail = (email: string) => {
     );
 };
 
-export const setInputs = (inputs: TextInputProps[], setInputs: Function) => {
-  let formItems: InputObject[] = [];
-  inputs.forEach((item) => {
-    let _inputObject: InputObject = {
-      id: item.id,
-      stringValue: item.defaultValue as string,
-      boolValue: item.defaultValue as boolean,
-      type: item.style,
-      required: item.required,
-    };
-    formItems.push(_inputObject);
-  });
-  setInputs(formItems);
-};
+// export const setInputs = (inputs: TextInputProps[], setInputs: Function) => {
+//   let formItems: InputObject[] = [];
+//   inputs.forEach((item) => {
+//     let _inputObject: InputObject = {
+//       id: item.id,
+//       stringValue: item.defaultValue as string,
+//       boolValue: item.defaultValue as boolean,
+//       type: item.style,
+//       required: item.required,
+//     };
+//     formItems.push(_inputObject);
+//   });
+//   setInputs(formItems);
+// };
 
 export const SessionStore = {
   configurations: "configurations",
@@ -64,5 +64,27 @@ export const getSessionStorageInfo = (key: string, type: string) => {
     return parseConfig;
   } else {
     //TODO: Call API
+  }
+};
+
+export const parseFrequencyLabel = (frequency: string) => {
+  switch (frequency) {
+    case "biWeekly":
+      return "bi-weekly";
+    case "biAnnual":
+      return "bi-annual";
+    case "monthly":
+      return "monthly";
+    case "annual":
+      return "annually";
+    case "single":
+      return "";
+    case "quarterly":
+      return "quarterly";
+    case "weekly":
+      return "weekly";
+
+    default:
+      return "Every";
   }
 };

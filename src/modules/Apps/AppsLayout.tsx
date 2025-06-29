@@ -5,7 +5,6 @@ import {
   NavigationProps,
   PrimaryNavigation,
   SecondaryNavigation,
-  Tab,
   Tabs,
 } from "@/components";
 import { formatDate, DATE_OPTIONS } from "@/lib/utilities/dateHelpers";
@@ -59,41 +58,6 @@ export const AppsLayout = () => {
             </h1>
           </div>
         </div>
-
-        <Tabs
-          tabs={_tabs}
-          tabHandler={setSelectedTab}
-          selectedTab={selectedTab}
-        >
-          {/* <SearchPallette open={toggleSearch} setOpen={setToggleSearch} /> */}
-          <div className="w-full pt-4">
-            {selectedTab === "Personal Apps" && (
-              <ul className="grid gap-4 lg:grid-cols-4 md:grid-cols-3 ">
-                {PrimaryNavigation.filter((item) => item.id !== "apps").map(
-                  (nav: NavigationProps, index) => (
-                    <NavigationCell navItem={nav} key={index} />
-                  )
-                )}
-              </ul>
-            )}
-            {selectedTab === "Company Apps" && (
-              <div className="grid w-full gap-4 pt-4 lg:grid-cols-4 md:grid-cols-3 ">
-                {SecondaryNavigation.map((nav: NavigationProps, index) => (
-                  <NavigationCell navItem={nav} key={index} />
-                ))}
-              </div>
-            )}
-            {selectedTab === "All Apps" && (
-              <div className="grid w-full gap-4 lg:grid-cols-4 md:grid-cols-3 ">
-                {[...PrimaryNavigation, ...SecondaryNavigation].map(
-                  (nav: NavigationProps, index) => (
-                    <NavigationCell navItem={nav} key={index} />
-                  )
-                )}
-              </div>
-            )}
-          </div>
-        </Tabs>
       </div>
       <div className="w-full gap-2 mx-auto text-sm text-center bg-gray-50 flex items-center p-4">
         <FlexLogoFull />
@@ -104,12 +68,6 @@ export const AppsLayout = () => {
     </div>
   );
 };
-
-const _tabs: Tab[] = [
-  { id: "", name: "Personal Apps", href: "personal" },
-  { id: "", name: "Company Apps", href: "" },
-  { id: "", name: "All Apps", href: "" },
-];
 
 const NavigationCell: FC<{ navItem: NavigationProps }> = ({ navItem }) => {
   const rootContext = useContext(RootContext);

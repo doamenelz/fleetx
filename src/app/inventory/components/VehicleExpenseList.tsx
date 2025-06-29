@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import {
   TableContainer,
@@ -7,225 +7,309 @@ import {
   TableHeadCell,
   TableRow,
   StatusBadge,
-  STATUS_COLORS,
   SlideOutWrapper,
-  IconDropdown,
-  MenuDropdownItemProp,
-  AvatarCell,
-  AVATAR_SIZES,
+  TablePagination,
+  TableControlIconButton,
+  PageIndexMeta,
+  EmptyTable,
   Button,
   BUTTON_SKIN,
+  ICON_POSITION,
 } from "@/components";
 import { TableContext } from "@/components/Table/TableContext";
-import { ServiceDetails } from "@/app/service/components/ServiceDetails";
-import { VehicleExpenses } from "@/models";
-import {
-  ArrowLeftRight,
-  Download,
-  Ellipsis,
-  FilePenLine,
-  Upload,
-} from "lucide-react";
+import { VehicleExpenseEntry } from "@/models";
 
-export const VehicleExpenseList: FC<{ data: VehicleExpenses[] }> = ({
-  data,
+import { getCompanyProfile } from "@/models/Shared/Configs";
+import { RootContext } from "@/context/RootContext";
+import { CompanyConfiguration } from "@/models/Shared/CompanyConfig";
+import { DATE_OPTIONS, formatDate } from "@/lib/utilities/dateHelpers";
+import { VehicleExpenseDetails } from "./VehicleExpenseDetails";
+import {
+  ListFilter,
+  PackageOpen,
+  Redo,
+  Search,
+  TriangleAlert,
+} from "lucide-react";
+import { da } from "@faker-js/faker";
+import {
+  API_HEADERS,
+  APICompletion,
+  apiHandler,
+} from "@/lib/utilities/apiHelper";
+import { usePathname } from "next/navigation";
+
+export const VehicleExpenseList: FC<{ vehicleId: string }> = ({
+  vehicleId,
 }) => {
+  const rootContext = useContext(RootContext);
+  const pathName = usePathname();
   const [showModal, setShowModal] = useState(false);
-  const [selectedService, setSelectedService] = useState("");
+  const [expensesCompletion, setExpensesCompletion] = useState<APICompletion>();
+  const [selectedExpense, setSelectedExpense] = useState<VehicleExpenseEntry>();
+  const company = getCompanyProfile(
+    rootContext.envVar.baseURL
+  ) as CompanyConfiguration;
+
+  //----- Page Controls ----
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalResults, setTotalResults] = useState<number>(0);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [entries, setEntries] = useState<VehicleExpenseEntry[]>([]);
+  const [pageIndexMeta, setPageIndexMeta] = useState<PageIndexMeta>();
+
   const showModalHandler = () => {
-    //TODO: Make API call to get the list of reports on modal dismiss if the user saved changes
     setShowModal(false);
     // setIsLoading(false);
     // simulateLoader(setIsLoading, 2000);
   };
 
-  const viewServiceDetailsHandler = (id: string) => {
-    setSelectedService(id);
+  const viewServiceDetailsHandler = (expense: VehicleExpenseEntry) => {
+    setSelectedExpense(expense);
+    // setSelectedService(id);
     setShowModal(true);
   };
 
-  const getServiceFromId = (id: string) => {
-    return data.find((service) => service.id === id);
+  const getExpenses = async () => {
+    const api = await apiHandler({
+      url: `${
+        rootContext.envVar.baseURL
+      }/expenses?vehicleId=${vehicleId}&page=${currentPage}&pageSize=${10}`,
+      method: "GET",
+      headers: API_HEADERS.baseHeaders,
+    });
+
+    if (api.success) {
+      setEntries(api.data.results);
+      setTotalPages(api.data.totalNumberOfPages);
+      setTotalResults(api.data.count);
+      setPageIndexMeta(api.data.pageIndexMeta);
+    }
+    console.log("API Response: ", api);
+    setExpensesCompletion(api);
+    setIsLoading(false);
   };
 
-  const ellipsisItems: MenuDropdownItemProp[] = [
-    {
-      id: "1",
-      label: "Edit",
-      function: () => {},
-      icon: <FilePenLine className="w-3 h-3" />,
-    },
-    {
-      id: "2",
-      label: "Transfer Custody",
-      function: () => {},
-      icon: <ArrowLeftRight className="w-3 h-3" />,
-    },
-  ];
+  //------ Search Controls -----
+  const [searchModal, setSearchModal] = useState(false);
+  const searchModalHandler = () => {
+    setSearchModal(false);
+  };
+
+  useEffect(() => {
+    getExpenses();
+  }, [currentPage]);
+
+  const darkHeader = false;
+
+  useEffect(() => {}, [currentPage]);
+
   return (
     <>
       <TableContext.Provider
         value={{
           updateData: () => {},
           updatePageDetails: () => {},
-          data: data,
-          page: { totalResults: data.length, tableMax: 8 },
+          currentPage: currentPage,
+          setCurrentPage: setCurrentPage,
+          totalPages: totalPages,
+          totalResults: totalResults,
+          tableMax: 12,
+          data: [],
+          page: { totalResults: 15, tableMax: 8 },
         }}
       >
         <TableContainer
+          sectionHeader={{
+            header: "Expenses",
+            copy: "All Expenses associated with this vehicle",
+            button: (
+              <div className="flex items-center gap-2">
+                {totalResults > 0 && (
+                  <p className="text-xs pr-2 border-r">
+                    Showing{" "}
+                    {expensesCompletion?.data.pageIndexMeta?.startRecord} -{" "}
+                    {expensesCompletion?.data.pageIndexMeta?.endRecord} of{" "}
+                    {totalResults} Results
+                  </p>
+                )}
+                <TableControlIconButton
+                  icon={<Search className="size-4" />}
+                  onClick={() => setSearchModal(true)}
+                />
+                <TableControlIconButton
+                  icon={<ListFilter className="size-4" />}
+                  onClick={() => {}}
+                />
+              </div>
+            ),
+          }}
           mainContent={
-            <Table
-              head={
-                <>
-                  <TableHeadCell
-                    label={"# ID"}
-                    mainCell={true}
-                    hideOnMobile={false}
-                  />
-                  <TableHeadCell
-                    label={"Summary"}
-                    mainCell={false}
-                    hideOnMobile={false}
-                  />
-                  <TableHeadCell
-                    label={"Created"}
-                    mainCell={false}
-                    hideOnMobile={false}
-                  />
-                  <TableHeadCell
-                    label={"Type"}
-                    mainCell={false}
-                    hideOnMobile={false}
-                  />
-                  <TableHeadCell
-                    label={"Vendor"}
-                    mainCell={false}
-                    hideOnMobile={false}
-                  />
-                  <TableHeadCell
-                    label={"Amount"}
-                    mainCell={false}
-                    hideOnMobile={false}
-                    centerCell
-                  />
-                  <TableHeadCell
-                    label={"Status"}
-                    mainCell={false}
-                    hideOnMobile={false}
-                    centerCell={true}
-                  />
-                  {/* <TableHeadCell
-                    label={""}
-                    mainCell={false}
-                    hideOnMobile={false}
-                    centerCell={true}
-                  /> */}
-                </>
-              }
-              body={
-                <>
-                  {data.map((expense, index) => (
-                    <TableRow key={expense.id}>
-                      <TableCell
-                        label={
-                          <button
-                            onClick={() =>
-                              viewServiceDetailsHandler(expense.id)
-                            }
-                            className="hover:text-indigo-700 font-semibold text-indigo-800"
-                          >
-                            <p>{expense.id}</p>
-                          </button>
-                        }
-                        mainCell={false}
-                        hideOnMobile={false}
-                      />
-                      {/* <TableCell
-                        label={
-                          <AvatarCell
-                            firstName={expense.custodian.firstName}
-                            lastName={expense.custodian.lastName}
-                            imageUrl={expense.custodian.avatar}
-                            size={AVATAR_SIZES.xs}
-                            fullName={`${expense.custodian.firstName} ${expense.custodian.lastName}`}
-                            row2={`${
-                              expense.isCurrent ? "Current Custodian" : ""
-                            }`}
+            <>
+              {expensesCompletion?.success === true &&
+                expensesCompletion.status === 200 && (
+                  <>
+                    <Table
+                      head={
+                        <>
+                          <TableHeadCell
+                            label={"# ID"}
+                            mainCell={true}
+                            hideOnMobile={false}
+                            isDark={darkHeader}
                           />
-                        }
-                        mainCell={false}
-                        hideOnMobile={false}
-                      /> */}
-                      <TableCell
-                        label={expense.summary}
-                        mainCell={false}
-                        hideOnMobile={false}
-                      />
-                      <TableCell
-                        label={expense.dateReported}
-                        mainCell={false}
-                        hideOnMobile={false}
-                      />
-                      <TableCell
-                        label={expense.type}
-                        mainCell={false}
-                        hideOnMobile={false}
-                      />
-                      <TableCell
-                        label={expense.vendorId}
-                        mainCell={false}
-                        hideOnMobile={false}
-                      />
-                      <TableCell
-                        label={expense.cost.spentAmount}
-                        centerCell
-                        mainCell={false}
-                        hideOnMobile={false}
-                      />
-                      <TableCell
-                        label={
-                          <StatusBadge
-                            label={expense.status}
-                            statusType={
-                              expense.status === "paid"
-                                ? STATUS_COLORS.success
-                                : expense.status === "declined"
-                                ? STATUS_COLORS.declined
-                                : STATUS_COLORS.pending
-                            }
+                          <TableHeadCell
+                            label={"Summary"}
+                            mainCell={false}
+                            hideOnMobile={false}
+                            isDark={darkHeader}
                           />
-                        }
-                        centerCell
-                        mainCell={false}
-                        hideOnMobile={false}
+                          <TableHeadCell
+                            label={"Expense Date"}
+                            mainCell={false}
+                            hideOnMobile={false}
+                            isDark={darkHeader}
+                          />
+                          <TableHeadCell
+                            label={"Type"}
+                            mainCell={false}
+                            hideOnMobile={false}
+                            isDark={darkHeader}
+                          />
+                          <TableHeadCell
+                            label={"Amount"}
+                            mainCell={false}
+                            hideOnMobile={false}
+                            isDark={darkHeader}
+                            centerCell
+                          />
+                          <TableHeadCell
+                            isDark={darkHeader}
+                            label={"Status"}
+                            mainCell={false}
+                            hideOnMobile={false}
+                            centerCell={true}
+                          />
+                        </>
+                      }
+                      body={
+                        <>
+                          {entries.map((expense, index) => (
+                            <TableRow key={expense.id}>
+                              <TableCell
+                                label={
+                                  <button
+                                    onClick={() =>
+                                      viewServiceDetailsHandler(expense)
+                                    }
+                                    className="hover:text-indigo-700 font-semibold text-indigo-800"
+                                  >
+                                    <p>{expense.id}</p>
+                                  </button>
+                                }
+                                mainCell={false}
+                                hideOnMobile={false}
+                                isLoading={isLoading}
+                              />
+
+                              <TableCell
+                                label={expense.summary}
+                                mainCell={false}
+                                hideOnMobile={false}
+                                isLoading={isLoading}
+                              />
+                              <TableCell
+                                label={formatDate(
+                                  new Date(expense.expenseDate),
+                                  DATE_OPTIONS.dMY
+                                )}
+                                mainCell={false}
+                                hideOnMobile={false}
+                                isLoading={isLoading}
+                              />
+                              <TableCell
+                                label={`${expense.type.toUpperCase()}`}
+                                mainCell={false}
+                                hideOnMobile={false}
+                                isLoading={isLoading}
+                              />
+                              <TableCell
+                                label={
+                                  <p className="font-mono">{`${
+                                    company.currency.code
+                                  }${
+                                    expense.status === "approved"
+                                      ? expense.cost.approvedAmount
+                                      : expense.cost.reportedAmount
+                                  }`}</p>
+                                }
+                                centerCell
+                                mainCell={false}
+                                hideOnMobile={false}
+                                isLoading={isLoading}
+                              />
+                              <TableCell
+                                label={
+                                  <StatusBadge
+                                    showDot
+                                    style="text"
+                                    label={expense.status}
+                                  />
+                                }
+                                centerCell
+                                mainCell={false}
+                                hideOnMobile={false}
+                                isLoading={isLoading}
+                              />
+                            </TableRow>
+                          ))}
+                        </>
+                      }
+                    />
+                    {totalPages !== undefined && totalPages > 1 && (
+                      <TablePagination />
+                    )}
+                  </>
+                )}
+              {expensesCompletion?.success === false &&
+                expensesCompletion.status !== 404 && (
+                  <EmptyTable
+                    title="Something went wrong"
+                    copy={
+                      expensesCompletion?.errorMessage ??
+                      "Unable to fetch data."
+                    }
+                    image={
+                      <div>
+                        <TriangleAlert className="size-8 mx-auto text-error-400" />
+                      </div>
+                    }
+                    action={
+                      <Button
+                        onClick={getExpenses}
+                        label="Retry"
+                        skin={BUTTON_SKIN.secondary}
+                        icon={{
+                          asset: <Redo className="size-3" />,
+                          position: ICON_POSITION.trailing,
+                        }}
                       />
-                      {/* <TableCell
-                        centerCell
-                        label={
-                          expense.isCurrent ? (
-                            <IconDropdown
-                              items={ellipsisItems}
-                              button={
-                                <div className="p-2 rounded-sm border hover:border-slate-300 hover:bg-slate-50 hover:text-brand-persianBlue">
-                                  <Ellipsis className="w-4 h-4" />
-                                </div>
-                              }
-                            />
-                          ) : (
-                            <Button
-                              label="Edit"
-                              skin={BUTTON_SKIN.secondary}
-                            ></Button>
-                          )
-                        }
-                        mainCell={false}
-                        hideOnMobile={false}
-                      /> */}
-                    </TableRow>
-                  ))}
-                </>
-              }
-            />
+                    }
+                  />
+                )}
+              {expensesCompletion?.success === false &&
+                expensesCompletion.status === 404 && (
+                  <EmptyTable
+                    title={expensesCompletion?.errorMessage ?? "Nothing Found"}
+                    image={
+                      <div>
+                        <PackageOpen className="size-8 mx-auto text-gray-600" />
+                      </div>
+                    }
+                  />
+                )}
+            </>
           }
         ></TableContainer>
       </TableContext.Provider>
@@ -233,9 +317,19 @@ export const VehicleExpenseList: FC<{ data: VehicleExpenses[] }> = ({
         <SlideOutWrapper
           closeControl={showModalHandler}
           openControl={showModal}
-          size="3xl"
+          size="max-w-md"
         >
-          <ServiceDetails serviceId={selectedService} />
+          <VehicleExpenseDetails expense={selectedExpense!} />
+        </SlideOutWrapper>,
+        document.getElementById("modal")!
+      )}
+      {ReactDOM.createPortal(
+        <SlideOutWrapper
+          closeControl={searchModalHandler}
+          openControl={searchModal}
+          size="max-w-md"
+        >
+          <p>Search</p>
         </SlideOutWrapper>,
         document.getElementById("modal")!
       )}

@@ -9,8 +9,6 @@ import {
   StatusBadge,
   STATUS_COLORS,
   SlideOutWrapper,
-  IconDropdown,
-  MenuDropdownItemProp,
   AvatarCell,
   AVATAR_SIZES,
   Button,
@@ -19,7 +17,7 @@ import {
 } from "@/components";
 import { TableContext } from "@/components/Table/TableContext";
 import { ServiceDetails } from "@/app/service/components/ServiceDetails";
-import { VehicleExpenses } from "@/models";
+import { VehicleExpenseEntry } from "@/models";
 import {
   ArrowLeftRight,
   Download,
@@ -28,7 +26,7 @@ import {
   Upload,
 } from "lucide-react";
 
-export const VendorTransactionsTable: FC<{ data: VehicleExpenses[] }> = ({
+export const VendorTransactionsTable: FC<{ data: VehicleExpenseEntry[] }> = ({
   data,
 }) => {
   const [showModal, setShowModal] = useState(false);
@@ -49,20 +47,6 @@ export const VendorTransactionsTable: FC<{ data: VehicleExpenses[] }> = ({
     return data.find((service) => service.id === id);
   };
 
-  const ellipsisItems: MenuDropdownItemProp[] = [
-    {
-      id: "1",
-      label: "Edit",
-      function: () => {},
-      icon: <FilePenLine className="w-3 h-3" />,
-    },
-    {
-      id: "2",
-      label: "Transfer Custody",
-      function: () => {},
-      icon: <ArrowLeftRight className="w-3 h-3" />,
-    },
-  ];
   return (
     <>
       {/* <SectionHeader title="Transactions" /> */}

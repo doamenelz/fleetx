@@ -4,10 +4,8 @@ export function validatePhoneNumber(phoneNumber: string) {
   );
 
   if (pattern.test(phoneNumber)) {
-    console.log("Phone number is valid");
     return true;
   } else {
-    console.log("Phone number is not valid");
     return false;
   }
 }

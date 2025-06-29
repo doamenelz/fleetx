@@ -58,6 +58,17 @@ export const parseCalStart = (dayOneWeekDay: number) => {
   }
 };
 
+export const getFirstAndLastDayOfMonth = (year: number, month: number) => {
+  const date = new Date(`${year}-${month + 1}-01`);
+
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+
+  return {
+    firstDay: firstDay,
+    lastDay: lastDay,
+  };
+};
 export const getWeeksInMonth = (year: number, month: number) => {
   const weeks = [];
   const firstDay: Date = new Date(year, month, 1);
@@ -68,19 +79,13 @@ export const getWeeksInMonth = (year: number, month: number) => {
   let start = firstDay.getDate();
   let end: number;
 
-  console.log(
-    `First Date is ${firstDay}, dayofweek is ${firstDay.getDay()} start is ${start}`
-  );
-
   for (let i = 1; i < daysInMonth + 1; i++) {
     if (dayOfWeek === 0 || i === 1) {
       start = i;
-      console.log(`Start is ${dayOfWeek} date is `);
     }
 
     if (dayOfWeek === 6 || i === daysInMonth) {
       end = i;
-      console.log(`End is ${i}`);
 
       if (start !== end) {
         weeks.push({
@@ -93,7 +98,6 @@ export const getWeeksInMonth = (year: number, month: number) => {
     dayOfWeek = new Date(year, month, i).getDay();
   }
 
-  console.log(weeks);
   return weeks;
 };
 
@@ -158,6 +162,11 @@ export const checkIfDateInRange = (start: Date, end: Date, testDate: Date) => {
   return (
     testDate.getDate() >= start.getDate() && testDate.getDate() <= end.getDate()
   );
+};
+
+/** Checks if the testDate is in the range of the start, and end dates */
+export const isDateInRange = (start: Date, end: Date, testDate: Date) => {
+  return testDate >= start && testDate <= end;
 };
 
 export enum DATE_OPTIONS {

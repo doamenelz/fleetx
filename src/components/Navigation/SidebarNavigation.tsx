@@ -1,16 +1,15 @@
 "use client";
-import { FC, useState, useEffect, useContext, Fragment } from "react";
-import { useRouter } from "next/navigation";
+import { FC, useState, useEffect, useContext } from "react";
+
 import Link from "next/link";
 import { classNames } from "@/lib/utilities/helperFunctions";
-// import { ScrollToTop } from "../components/ScrollToTop";
 import { NavigationProps } from "./SidebarNavigation.types";
 import { usePathname } from "next/navigation";
 import { AVATAR_SIZES, Avatar } from "../Avatar";
-import { Employee, sampleEmployee } from "../../models";
+import { Employee } from "../../models";
 import { MobileNav } from "./MobileNavigation";
 import { RootContext } from "@/context/RootContext";
-import { SecondaryNavigation, SearchPallette, MenuDropdownItemProp } from "..";
+import { SecondaryNavigation, SearchPallette } from "..";
 import { PrimaryNavigation } from "..";
 
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
@@ -20,40 +19,41 @@ import {
   PanelLeftOpen,
   Search,
 } from "lucide-react";
-import { getUserStore, UserStore } from "@/models/UserStore";
+import { UserStore } from "@/models/UserStore";
 
 export const SidebarLayout: FC<{
   children?: React.ReactNode;
 }> = (props) => {
+  const rootContext = useContext(RootContext);
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const [toggleSearch, setToggleSearch] = useState(false);
   const [switchColor, setSwitchColor] = useState(false);
   const [profile, setProfile] = useState("admin");
-  const loc = usePathname();
+
   const [user, setUser] = useState<UserStore>();
 
   const filterNavigation = (type: string) => {
-    var base = PrimaryNavigation.filter((item) => item.category === "personal");
+    var allowedModules: NavigationProps[] = [];
 
-    return [
-      ...base,
-      ...PrimaryNavigation.filter((item) => item.category === type),
-    ];
+    for (let index = 0; index < PrimaryNavigation.length; index++) {
+      if (
+        rootContext.store?.user?.roles?.some(
+          ({ module }) => module === PrimaryNavigation[index].id
+        )
+      ) {
+        allowedModules.push(PrimaryNavigation[index]);
+      }
+    }
+    return allowedModules;
   };
-  const router = useRouter();
 
   useEffect(() => {
     const keyDownHandler = (event: KeyboardEvent) => {
-      console.log("User pressed: ", event.key);
-
       if (event.key === "[") {
         event.preventDefault();
         setSidebarIsOpen(!sidebarIsOpen);
       }
     };
-
-    const _user = getUserStore();
-    setUser(_user);
 
     document.addEventListener("keydown", keyDownHandler);
     return () => {
@@ -61,19 +61,6 @@ export const SidebarLayout: FC<{
     };
   }, [sidebarIsOpen]);
 
-  // useEffect(() => {
-  //   var userStore = getUserStore();
-  //   if (!userStore?.isLoggedIn) {
-  //     router.push("/login");
-  //     window.location.reload();
-
-  //     console.log("Im routing to login from SideNav");
-  //   }
-
-  //   console.log(`User Logged in status is ${userStore.isLoggedIn}`);
-  // }, [loc]);
-
-  const rootContext = useContext(RootContext);
   return (
     <>
       <div className="">
@@ -85,7 +72,11 @@ export const SidebarLayout: FC<{
           )}
         >
           <div className="flex flex-col p-2.5 overflow-y-auto grow bg-slate-50">
-            <img src="/fleetShort.svg" alt="" className="pb-2 w-8 h-8" />
+            <img
+              src="/fleetShort.svg"
+              alt=""
+              className="pb-2 w-8 h-8"
+            />
             <nav className="flex flex-col flex-1 place-items-center pt-2 ">
               <ul
                 className={classNames(
@@ -157,24 +148,30 @@ export const SidebarLayout: FC<{
               {/* <FlexIcon /> */}
               <Avatar
                 size={AVATAR_SIZES.sm}
-                firstName={user?.user?.firstName ?? ""}
-                lastName={user?.user?.lastName ?? ""}
-                imageUrl={user?.user?.avatar}
+                firstName={rootContext?.store?.user?.firstName ?? ""}
+                lastName={rootContext?.store?.user?.lastName ?? ""}
+                imageUrl={rootContext?.store?.user?.avatar}
                 hasPadding={false}
               />
               {sidebarIsOpen && (
                 <div>
                   <p className="text-xs text-slate-700 font-medium">
-                    {user?.user?.name}
+                    {rootContext?.store?.user?.firstName}{" "}
+                    {rootContext?.store?.user?.lastName}
                   </p>
-                  <p className="text-xs text-slate-600">{user?.user?.id}</p>
+                  <p className="text-xs text-slate-600">
+                    {rootContext?.store?.user?.id}
+                  </p>
                 </div>
               )}
             </div>
           </div>
         </div>
         <MobileNav />
-        <SearchPallette open={toggleSearch} setOpen={setToggleSearch} />
+        <SearchPallette
+          open={toggleSearch}
+          setOpen={setToggleSearch}
+        />
         <div
           className={classNames(sidebarIsOpen ? "lg:pl-56" : "lg:pl-12", "")}
         >
@@ -271,11 +268,17 @@ const SearchButton: FC<{
 
 const AvatarDropdown: FC<{ employee: Employee }> = ({ employee }) => {
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu
+      as="div"
+      className="relative inline-block text-left"
+    >
       <div>
         <MenuButton className="flex items-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
           <span className="sr-only">Open options</span>
-          <EllipsisVerticalIcon aria-hidden="true" className="h-5 w-5" />
+          <EllipsisVerticalIcon
+            aria-hidden="true"
+            className="h-5 w-5"
+          />
         </MenuButton>
       </div>
 
@@ -308,7 +311,10 @@ const AvatarDropdown: FC<{ employee: Employee }> = ({ employee }) => {
               License
             </a>
           </MenuItem>
-          <form action="#" method="POST">
+          <form
+            action="#"
+            method="POST"
+          >
             <MenuItem>
               <button
                 type="submit"

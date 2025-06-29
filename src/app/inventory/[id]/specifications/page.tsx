@@ -70,21 +70,25 @@ export default function Page() {
               copy=""
               id=""
               style="section"
-              body={<ListTable data={selectedVehicle?.wheelsAndTires ?? []} />}
+              body={
+                <ListTable data={sampleVehicles[0]?.wheelsAndTires ?? []} />
+              }
             />
             <Accordion
               title="Engine"
               copy=""
               id=""
               style="section"
-              body={<ListTable data={selectedVehicle?.engine ?? []} />}
+              body={<ListTable data={sampleVehicles[0]?.engine ?? []} />}
             />
             <Accordion
               title="Features"
               copy=""
               id=""
               style="section"
-              body={<ListTable data={selectedVehicle?.wheelsAndTires ?? []} />}
+              body={
+                <ListTable data={sampleVehicles[0]?.wheelsAndTires ?? []} />
+              }
             />
           </>
         }
@@ -97,7 +101,9 @@ export default function Page() {
               id=""
               style="section"
               body={
-                <ListTable data={selectedVehicle?.weightAndDimensions ?? []} />
+                <ListTable
+                  data={sampleVehicles[0]?.weightAndDimensions ?? []}
+                />
               }
             />
             <Accordion
@@ -105,7 +111,7 @@ export default function Page() {
               copy=""
               id=""
               style="section"
-              body={<ListTable data={selectedVehicle?.fuelAndEnergy ?? []} />}
+              body={<ListTable data={sampleVehicles[0]?.fuelAndEnergy ?? []} />}
             />
             <Accordion
               title="Other Information"
@@ -113,7 +119,9 @@ export default function Page() {
               id=""
               style="section"
               body={
-                <ListTable data={selectedVehicle?.weightAndDimensions ?? []} />
+                <ListTable
+                  data={sampleVehicles[0]?.weightAndDimensions ?? []}
+                />
               }
             />
           </>

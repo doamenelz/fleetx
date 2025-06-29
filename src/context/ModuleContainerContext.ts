@@ -12,6 +12,7 @@ export const ModuleContainerContext = React.createContext<{
     id: "",
     name: "",
     href: "",
+    type: "main",
   },
   showHeader: true,
   breadCrumbs: [],

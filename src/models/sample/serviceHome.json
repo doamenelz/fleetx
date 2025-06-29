@@ -1,0 +1,403 @@
+{
+  "summary": {
+    "scheduled": "6",
+    "overdue": "2",
+    "completed": "40",
+    "serviceCost": {
+      "cost": "5,111.45",
+      "currency": "$"
+    },
+    "repairCost": {
+      "cost": "25,456.44",
+      "currency": "$"
+    },
+    "totalCost": {
+      "cost": "30,567.89",
+      "currency": "$"
+    }
+  },
+  "items": [
+    {
+      "id": "EZA1P",
+      "programName": "Quarterly Oil Change",
+      "programDescription": "Sample service reminder program",
+      "status": "active",
+      "vehicleId": "V001",
+      "scheduledDate": "2022-12-31",
+      "repairStartDate": "2022-12-31",
+      "repairEndDate": "2023-01-01",
+      "odometer": "10000 km",
+      "schedule": {
+        "dueDate": "2022-12-31",
+        "dueAt": "17:00"
+      },
+      "serviceDetails": [
+        {
+          "id": "HCILS6H4G",
+          "key": "Vendor",
+          "value": "Padberg, Stracke and Grady"
+        },
+        {
+          "id": "WQH52PB4V",
+          "key": "Inspection ID",
+          "value": "4F2BRAV"
+        },
+        {
+          "id": "JYGND3F79",
+          "key": "Notes",
+          "value": "Aureus quidem baiulus. Adficio ultio vinculum vilicus. Ars ambulo consequuntur aer utroque cupressus tardus tendo carus trepide."
+        }
+      ],
+      "resolvedIssues": [
+        {
+          "id": "VI01ES",
+          "summary": "Engine Overheating",
+          "status": "open",
+          "reportedDate": "23 Jul, 2024",
+          "reportedBy": {
+            "id": "JI6SW17J",
+            "name": "Donald Kihn",
+            "firstName": "Zander",
+            "lastName": "Hayes",
+            "class": "Back Office",
+            "role": ["Back Office"],
+            "avatar": "https://avatars.githubusercontent.com/u/85181891",
+            "email": "Rhett56@hotmail.com",
+            "phone": "1-491-818-7501",
+            "status": "Pending",
+            "lastLogin": "Apr 3, 2024, 12:09 p.m.",
+            "licenseInformation": {
+              "number": "1KBRXQY0UX54FY",
+              "class": "General",
+              "expirationDate": "Dec 25, 2024"
+            }
+          },
+          "assignedTo": {
+            "id": "377OOHLB",
+            "name": "Alice Little II",
+            "firstName": "Leif",
+            "lastName": "Lemke",
+            "class": "Employee",
+            "role": ["Employee"],
+            "avatar": "https://avatars.githubusercontent.com/u/31050874",
+            "email": "Gianni.Luettgen@hotmail.com",
+            "phone": "889.352.2397 x306",
+            "status": "Active",
+            "lastLogin": "Jan 11, 2024, 11:01 p.m.",
+            "licenseInformation": {
+              "number": "OBFW7EYR2FHK7D",
+              "class": "General 1",
+              "expirationDate": "Mar 5, 2025"
+            }
+          },
+          "priority": "Low",
+          "additionalNotes": "Engine needs to be replaced"
+        },
+        {
+          "id": "VI01ES45",
+          "summary": "Steering vibrates at high speeds",
+          "status": "High",
+          "reportedDate": "18 Jul, 2024",
+          "reportedBy": {
+            "id": "4TRDF3E7",
+            "name": "Drew Wolff",
+            "firstName": "Domenic",
+            "lastName": "Padberg",
+            "class": "Back Office",
+            "role": "Technician",
+            "avatar": "https://avatars.githubusercontent.com/u/80030203",
+            "email": "Vickie_Bahringer@gmail.com",
+            "phone": "1-339-935-2356 x02920",
+            "status": "Pending",
+            "lastLogin": "Feb 29, 2024, 4:15 p.m.",
+            "licenseInformation": {
+              "number": "PYKHMRNHELELVZ",
+              "class": "General 1",
+              "expirationDate": "Oct 15, 2027"
+            }
+          },
+          "assignedTo": {
+            "id": "O88P0A7X",
+            "name": "Mrs. Arlene Rodriguez",
+            "firstName": "Pablo",
+            "lastName": "Borer",
+            "class": "Employee",
+            "role": "Employee",
+            "avatar": "https://avatars.githubusercontent.com/u/38729960",
+            "email": "Kaitlyn_Stiedemann@hotmail.com",
+            "phone": "1-666-886-2947 x382",
+            "status": "Pending",
+            "lastLogin": "Jan 14, 2024, 12:41 p.m.",
+            "licenseInformation": {
+              "number": "LO6NC3SUTMN3WL",
+              "class": "Class A",
+              "expirationDate": "Mar 7, 2024"
+            }
+          },
+          "priority": "High",
+          "additionalNotes": "Power Steering needs realignment"
+        }
+      ],
+      "workItems": {
+        "total": 123,
+        "currency": "$",
+        "taxes": "10%",
+        "subtotal": 100,
+        "items": [
+          {
+            "id": "BDQ1WF90T",
+            "key": "PREMIUM SYN PACKAGE",
+            "value": "23.45",
+            "qty": 2,
+            "type": "parts"
+          },
+          {
+            "id": "13CNTXGW0",
+            "key": "RECYCLING FEE",
+            "value": "10.56",
+            "qty": 2,
+            "type": "labour"
+          },
+          {
+            "id": "T5TQMQZR7",
+            "key": "SHOP SUPPLIES",
+            "value": "14.56",
+            "qty": 1,
+            "type": "labour"
+          },
+          {
+            "id": "COCGSPEFQ",
+            "key": "OIL FILTER PH2867",
+            "value": "145.56",
+            "qty": 2,
+            "type": "labour"
+          },
+          {
+            "id": "IKXDG2C46",
+            "key": "TIRE PRESSURE INSPECTION",
+            "value": "35",
+            "qty": 4,
+            "type": "labour"
+          },
+          {
+            "id": "WRGJZUDN8",
+            "key": "FREE WASHER FLUID TOP-UP",
+            "value": "0",
+            "qty": 1,
+            "type": "labour"
+          },
+          {
+            "id": "VC2CFMG0U",
+            "key": "AUTO TRANS SVC SPECIALTY ",
+            "value": "259.44",
+            "qty": 2,
+            "type": "labour"
+          },
+          {
+            "id": "RCEWFIH8G",
+            "key": "Workmanship",
+            "value": "120.00",
+            "qty": 2,
+            "type": "labour"
+          }
+        ]
+      },
+      "workOrderId": "string",
+      "task": {
+        "id": "string",
+        "name": "string"
+      }
+    },
+    {
+      "id": "00QAF",
+      "programName": "Quarterly Oil Change",
+      "programDescription": "Sample service reminder program",
+      "status": "active",
+      "vehicleId": "V001",
+      "scheduledDate": "2022-12-31",
+      "repairStartDate": "2022-12-31",
+      "repairEndDate": "2023-01-01",
+      "odometer": "10000 km",
+      "schedule": {
+        "dueDate": "2022-12-31",
+        "dueAt": "17:00"
+      },
+      "serviceDetails": [
+        {
+          "id": "JW4KYK9YJ",
+          "key": "Vendor",
+          "value": "Brekke and Sons"
+        },
+        {
+          "id": "CZ48WWY7J",
+          "key": "Inspection ID",
+          "value": "GCSBFXF"
+        },
+        {
+          "id": "MREKREJM7",
+          "key": "Notes",
+          "value": "Capitulus communis cervus audeo accendo volutabrum cattus solus perferendis. Tardus corrupti amplitudo ago. Curis deporto accusantium advenio vulgivagus vilicus vorax cernuus eligendi collum."
+        }
+      ],
+      "resolvedIssues": [
+        {
+          "id": "VI01ES",
+          "summary": "Engine Overheating",
+          "status": "open",
+          "reportedDate": "23 Jul, 2024",
+          "reportedBy": {
+            "id": "JI6SW17J",
+            "name": "Donald Kihn",
+            "firstName": "Zander",
+            "lastName": "Hayes",
+            "class": "Back Office",
+            "role": ["Back Office"],
+            "avatar": "https://avatars.githubusercontent.com/u/85181891",
+            "email": "Rhett56@hotmail.com",
+            "phone": "1-491-818-7501",
+            "status": "Pending",
+            "lastLogin": "Apr 3, 2024, 12:09 p.m.",
+            "licenseInformation": {
+              "number": "1KBRXQY0UX54FY",
+              "class": "General",
+              "expirationDate": "Dec 25, 2024"
+            }
+          },
+          "assignedTo": {
+            "id": "377OOHLB",
+            "name": "Alice Little II",
+            "firstName": "Leif",
+            "lastName": "Lemke",
+            "class": "Employee",
+            "role": ["Employee"],
+            "avatar": "https://avatars.githubusercontent.com/u/31050874",
+            "email": "Gianni.Luettgen@hotmail.com",
+            "phone": "889.352.2397 x306",
+            "status": "Active",
+            "lastLogin": "Jan 11, 2024, 11:01 p.m.",
+            "licenseInformation": {
+              "number": "OBFW7EYR2FHK7D",
+              "class": "General 1",
+              "expirationDate": "Mar 5, 2025"
+            }
+          },
+          "priority": "Low",
+          "additionalNotes": "Engine needs to be replaced"
+        },
+        {
+          "id": "VI01ES45",
+          "summary": "Steering vibrates at high speeds",
+          "status": "High",
+          "reportedDate": "18 Jul, 2024",
+          "reportedBy": {
+            "id": "4TRDF3E7",
+            "name": "Drew Wolff",
+            "firstName": "Domenic",
+            "lastName": "Padberg",
+            "class": "Back Office",
+            "role": ["Technician"],
+            "avatar": "https://avatars.githubusercontent.com/u/80030203",
+            "email": "Vickie_Bahringer@gmail.com",
+            "phone": "1-339-935-2356 x02920",
+            "status": "Pending",
+            "lastLogin": "Feb 29, 2024, 4:15 p.m.",
+            "licenseInformation": {
+              "number": "PYKHMRNHELELVZ",
+              "class": "General 1",
+              "expirationDate": "Oct 15, 2027"
+            }
+          },
+          "assignedTo": {
+            "id": "O88P0A7X",
+            "name": "Mrs. Arlene Rodriguez",
+            "firstName": "Pablo",
+            "lastName": "Borer",
+            "class": "Employee",
+            "role": ["Employee"],
+            "avatar": "https://avatars.githubusercontent.com/u/38729960",
+            "email": "Kaitlyn_Stiedemann@hotmail.com",
+            "phone": "1-666-886-2947 x382",
+            "status": "Pending",
+            "lastLogin": "Jan 14, 2024, 12:41 p.m.",
+            "licenseInformation": {
+              "number": "LO6NC3SUTMN3WL",
+              "class": "Class A",
+              "expirationDate": "Mar 7, 2024"
+            }
+          },
+          "priority": "High",
+          "additionalNotes": "Power Steering needs realignment"
+        }
+      ],
+      "workItems": {
+        "total": 123,
+        "currency": "$",
+        "taxes": "10%",
+        "subtotal": 100,
+        "items": [
+          {
+            "id": "BDQ1WF90T",
+            "key": "PREMIUM SYN PACKAGE",
+            "value": "23.45",
+            "qty": 2,
+            "type": "parts"
+          },
+          {
+            "id": "13CNTXGW0",
+            "key": "RECYCLING FEE",
+            "value": "10.56",
+            "qty": 2,
+            "type": "labour"
+          },
+          {
+            "id": "T5TQMQZR7",
+            "key": "SHOP SUPPLIES",
+            "value": "14.56",
+            "qty": 1,
+            "type": "labour"
+          },
+          {
+            "id": "COCGSPEFQ",
+            "key": "OIL FILTER PH2867",
+            "value": "145.56",
+            "qty": 2,
+            "type": "labour"
+          },
+          {
+            "id": "IKXDG2C46",
+            "key": "TIRE PRESSURE INSPECTION",
+            "value": "35",
+            "qty": 4,
+            "type": "labour"
+          },
+          {
+            "id": "WRGJZUDN8",
+            "key": "FREE WASHER FLUID TOP-UP",
+            "value": "0",
+            "qty": 1,
+            "type": "labour"
+          },
+          {
+            "id": "VC2CFMG0U",
+            "key": "AUTO TRANS SVC SPECIALTY ",
+            "value": "259.44",
+            "qty": 2,
+            "type": "labour"
+          },
+          {
+            "id": "RCEWFIH8G",
+            "key": "Workmanship",
+            "value": "120.00",
+            "qty": 2,
+            "type": "labour"
+          }
+        ]
+      },
+      "workOrderId": "string",
+      "task": {
+        "id": "string",
+        "name": "string"
+      }
+    }
+  ]
+}

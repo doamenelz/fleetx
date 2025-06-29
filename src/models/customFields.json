@@ -1,0 +1,14 @@
+[
+  {
+    "id": "employeeId",
+    "label": "Employee ID"
+  },
+  {
+    "id": "jobTitle",
+    "label": "Job Title"
+  },
+  {
+    "id": "employeeId",
+    "label": "Employee ID"
+  }
+]

@@ -10,7 +10,6 @@ import {
   Spinner,
   Tabs,
   BUTTON_SKIN,
-  IconDropdown,
   ICON_POSITION,
   ModalBackdrop,
   SlideOutWrapper,
@@ -19,6 +18,7 @@ import {
   SectionHeader,
   ModalHeader,
   IconButton,
+  MenuDropdown,
 } from "@/components";
 import { useContext, useEffect, useState } from "react";
 import {
@@ -172,7 +172,7 @@ export default function UserDetailsLayout({
                 </div>
               </div>
 
-              <IconDropdown
+              <MenuDropdown
                 items={[
                   {
                     id: "1",
@@ -225,13 +225,13 @@ export default function UserDetailsLayout({
               />
             </div>
 
-            <Tabs
+            {/* <Tabs
               tabs={tabs(loc)}
               tabHandler={tabHandler}
               selectedTab={selectedTab}
             >
               <></>
-            </Tabs>
+            </Tabs> */}
           </div>
           {children}
         </UserContext.Provider>
@@ -275,7 +275,10 @@ export default function UserDetailsLayout({
                 </div>
                 <div className="mt-5 sm:mt-4 sm:flex gap-2 sm:flex-row-reverse">
                   {modalType === "deactivate_user" ? (
-                    <Button label={"Deactivate User"} destructive />
+                    <Button
+                      label={"Deactivate User"}
+                      destructive
+                    />
                   ) : (
                     <Button label={"Activate User"} />
                   )}

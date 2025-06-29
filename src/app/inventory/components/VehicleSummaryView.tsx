@@ -1,32 +1,56 @@
 import {
   Avatar,
   AVATAR_SIZES,
+  AVATAR_TOOLTIP_TYPES,
+  AvatarToolTip,
   Button,
   BUTTON_SKIN,
   CARD_SPAN,
   CardWithSectionHeader,
+  CopyLoader,
   GRID_TYPE,
   GridLayout,
   ICON_POSITION,
   Lbl,
   ListTable,
   ListTableData,
-  STATUS_COLORS,
   StatusBadge,
 } from "@/components";
-import { sampleVehicleIssues, VehicleIssues } from "@/models";
-import { Vehicle } from "@/models/Vehicle/Vehicle";
+import {
+  generatePerson,
+  generateUser,
+  Renewal,
+  sampleVehicleIssues,
+  VehicleFault,
+  VehicleIssues,
+} from "@/models";
+import { generateVehicleDetails, Vehicle } from "@/models/Vehicle/Vehicle";
 import Link from "next/link";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { CostSummaryCard } from "./VehicleCostSummary";
 import { Archive, Delete, Edit, FileWarning, Trash } from "lucide-react";
 import { VehicleFuelSummaryCard } from "./VehicleFuelSummaryCard";
 import { DATE_OPTIONS, formatDate } from "@/lib/utilities/dateHelpers";
-
-export const VehicleSummaryView: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
+import {
+  API_HEADERS,
+  APICompletion,
+  apiHandler,
+} from "@/lib/utilities/apiHelper";
+import { RootContext } from "@/context/RootContext";
+import { parseFrequencyLabel } from "@/lib/utilities/helperFunctions";
+import { getCompanyProfile } from "@/models/Shared/Configs";
+import { CompanyConfiguration } from "@/models/Shared/CompanyConfig";
+import clsx from "clsx";
+//TODO: Show Error
+//TODO: Sort Faults
+export const VehicleSummaryView: FC<{
+  vehicle: Vehicle;
+}> = ({ vehicle }) => {
+  const rootContext = useContext(RootContext);
   useEffect(() => {
     setSummaryData(vehicle?.specifications);
+    console.log(generateVehicleDetails("active", "VEH1000005"));
   }, []);
   const [summaryData, setSummaryData] = useState<any | null>();
   const [generalInfo, setGeneralInfo] = useState<Vehicle>(vehicle);
@@ -47,6 +71,7 @@ export const VehicleSummaryView: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
           <div className="space-y-6">
             <OverviewCard vehicle={generalInfo!} />
             <CostSummaryCard
+              copy="Last 12 Months"
               vehicle={generalInfo!}
               span={CARD_SPAN.full}
               title="Costs Overview"
@@ -55,43 +80,21 @@ export const VehicleSummaryView: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
           </div>
         }
         rhs={
-          <div className="space-y-6">
+          <div className="space-y-4">
             <img
               className="rounded-md"
               alt=""
-              src="https://www.aronline.co.uk/wp-content/uploads/2008/04/Chrysler-300C.jpeg"
+              src={vehicle.mainImage}
             />
-            <div className="flex gap-2">
-              <Button
-                label="Edit Vehicle"
-                fillWidth
-                skin={BUTTON_SKIN.secondaryColor}
-                icon={{
-                  position: ICON_POSITION.leading,
-                  asset: <Edit className="h-3 w-3" />,
-                }}
-              />
-              <Button
-                label="Log Issue"
-                fillWidth
-                skin={BUTTON_SKIN.secondaryColor}
-                icon={{
-                  position: ICON_POSITION.leading,
-                  asset: <FileWarning className="h-3 w-3" />,
-                }}
-              />
-              <Button
-                label="Archive Vehicle"
-                destructive
-                fillWidth
-                icon={{
-                  position: ICON_POSITION.leading,
-                  asset: <Archive className="h-3 w-3" />,
-                }}
-              />
-            </div>
-            <UpcomingActivities vehicle={generalInfo!} />
-            <FaultSummary vehicle={generalInfo!} />
+
+            <ProgramsAndRenewals
+              vehicle={generalInfo!}
+              baseURL={rootContext.envVar.baseURL}
+            />
+            <FaultSummary
+              vehicle={generalInfo!}
+              baseURL={rootContext.envVar.baseURL}
+            />
           </div>
         }
       ></GridLayout>
@@ -104,12 +107,7 @@ const OverviewCard: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
     {
       id: "1",
       key: "Status",
-      value: (
-        <StatusBadge
-          label={vehicle.status}
-          statusType={STATUS_COLORS.success}
-        />
-      ),
+      value: <StatusBadge label={vehicle.status} />,
     },
     { id: "2", key: "SN / VIN", value: vehicle.vin },
     { id: "3", key: "License #", value: vehicle.licenseNumber },
@@ -192,81 +190,135 @@ const OverviewCard: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
   );
 };
 
-const FaultSummary: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
-  const issues: VehicleIssues[] = sampleVehicleIssues;
+const FaultSummary: FC<{ vehicle: Vehicle; baseURL: string }> = ({
+  vehicle,
+  baseURL,
+}) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [apiResponse, setApiResponse] = useState<APICompletion | undefined>();
+
+  const getFaults = async () => {
+    const api = await apiHandler({
+      url: `${baseURL}/faults?vehicleId=${vehicle.id}&status=new`,
+      method: "GET",
+      headers: API_HEADERS.baseHeaders,
+    });
+
+    setApiResponse(api);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    getFaults();
+  }, []);
   return (
     <CardWithSectionHeader
       title="Open Issues"
       hasBoundary={false}
       button={
-        <Button
-          componentType="link"
-          link=""
-          skin={BUTTON_SKIN.link}
-          label="All Issues"
-        />
+        <>
+          {apiResponse?.data.count > 5 && (
+            <Button
+              componentType="link"
+              link=""
+              skin={BUTTON_SKIN.link}
+              label="All Issues"
+            />
+          )}
+        </>
       }
-      //   copy="Specifications of the Vehicle"
     >
-      <div>
-        <dl className="[&>*:nth-child(even)]:bg-indigo-50/20 divide-y divide-slate-100">
-          {issues.map((issue) => (
-            <div id={issue.id} className="py-4 space-y-2 px-2">
-              <div className="flex justify-between">
+      {isLoading && (
+        <>
+          <div className="mx-auto w-full py-2">
+            <CopyLoader />
+          </div>
+        </>
+      )}
+
+      {isLoading && !apiResponse?.success && <></>}
+      {!isLoading && apiResponse?.success && (
+        <div>
+          <dl className="[&>*:nth-child(even)]:bg-indigo-50/20 divide-y divide-slate-100">
+            {apiResponse.data.results.slice(0, 5).map((issue: VehicleFault) => (
+              <div
+                key={issue.id}
+                id={issue.id}
+                className="py-4 space-y-2 px-2"
+              >
                 <Link
                   href={""}
                   className="text-brand-blueRoyal text-xs font-semibold items-center flex group"
                 >
                   [#{issue.id}] -
                   <span className="text-sm pl-1 flex justify-between text-slate-700 group-hover:text-brand-blueRoyal">
-                    {issue.summary}
+                    {issue.name}
                   </span>
                 </Link>
+
+                <p className="text-xs text-slate-900">
+                  Inspection Notes: {issue.description}
+                </p>
+
+                <div className="flex gap-2">
+                  {vehicle != undefined && (
+                    <div className="flex gap-1 items-center">
+                      <Lbl label="Reporter:" />
+                      <Lbl
+                        label=""
+                        labelComponent={
+                          <AvatarToolTip
+                            type={AVATAR_TOOLTIP_TYPES.text}
+                            person={issue.createdBy}
+                          />
+                        }
+                      />
+                      •
+                      <Lbl
+                        label=""
+                        labelComponent={
+                          <p className="text-slate-600">
+                            {formatDate(
+                              new Date(issue.createdAt),
+                              DATE_OPTIONS.dMHrs
+                            )}
+                          </p>
+                        }
+                      />
+                    </div>
+                  )}
+                </div>
                 <StatusBadge
-                  label={issue.priority}
-                  statusType={
-                    issue.status === "High"
-                      ? STATUS_COLORS.declined
-                      : STATUS_COLORS.pending
-                  }
+                  style="text"
+                  showDot
+                  label={issue.severity}
                 />
               </div>
-
-              <p className="text-xs text-slate-900">
-                Inspection Notes: {issue.additionalNotes}
-              </p>
-
-              <div className="flex gap-2">
-                {vehicle != undefined && (
-                  <div className="flex gap-1 items-center">
-                    <Lbl label="Reporter:" />
-                    <Lbl
-                      label=""
-                      labelComponent={
-                        <p className=" text-brand-blueRoyal">
-                          {issue.reportedBy.name}
-                        </p>
-                      }
-                    />
-                    •
-                    <Lbl
-                      label=""
-                      labelComponent={
-                        <p className="text-slate-600">{issue.reportedDate}</p>
-                      }
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
-        </dl>
-      </div>
+            ))}
+          </dl>
+        </div>
+      )}
     </CardWithSectionHeader>
   );
 };
 
-const UpcomingActivities: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
+const ProgramsAndRenewals: FC<{ vehicle: Vehicle; baseURL: string }> = ({
+  vehicle,
+  baseURL,
+}) => {
+  const [isLoading, setIsloading] = useState(true);
+  const [renewalList, setRenewalList] = useState<ListTableData[]>([]);
+  const [programList, setProgramList] = useState<ListTableData[]>([]);
+
+  const companyProfile = getCompanyProfile(baseURL) as CompanyConfiguration;
+  const [renewalResponse, setRenewalResponse] = useState<
+    APICompletion | undefined
+  >();
+
+  const [programResponse, setProgramResponse] = useState<
+    APICompletion | undefined
+  >();
+
   const data: ListTableData[] = [
     {
       id: "1",
@@ -294,71 +346,118 @@ const UpcomingActivities: FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
         </div>
       ),
     },
-    {
-      id: "2",
-      key: "Inspection",
-      value: (
-        <div className=" space-y-2">
-          <ListTableCell
-            url={`${vehicle.id}/specifications`}
-            title="Emission Test"
-            copy="Quarterly"
-            due="23 Aug, 2024"
-          />
-          <ListTableCell
-            url={`${vehicle.id}/specifications`}
-            title="IMTO 6-Point Check"
-            copy="Annual"
-            due="23 Aug, 2024"
-          />
-        </div>
-      ),
-    },
-    {
-      id: "4",
-      key: "Renewals",
-      value: (
-        <div className=" space-y-2">
-          <ListTableCell
-            url={`${vehicle.id}/specifications`}
-            title="Vehicle Insurance"
-            copy="$233.45 p/m"
-            due="23 Aug, 2024"
-          />
-          <ListTableCell
-            url={`${vehicle.id}/specifications`}
-            title="Lease Payment"
-            copy="$199.99 b/w"
-            due="23 Aug, 2024"
-          />
-
-          <div className="space-y-0">
-            <button className="text-brand-blueRoyal hover:underline">
-              Vehicle License
-            </button>
-            <p className="text-slate-500 text-[10px]/[10px] normal-case">
-              $233.45 p/m | <span>23 Aug, 2024</span>
-            </p>
-          </div>
-          <div className="space-y-0">
-            <button className="text-brand-blueRoyal hover:underline">
-              401 Transponder Renewal
-            </button>
-            <p className="text-slate-500 text-[10px]/[10px] normal-case">
-              $21 p/m | <span>23 Aug, 2024</span>
-            </p>
-          </div>
-        </div>
-      ),
-    },
   ];
+  const getRenewals = async () => {
+    const api = await apiHandler({
+      url: `${baseURL}/renewals?vehicleId=${vehicle.id}&status=new`,
+      method: "GET",
+      headers: API_HEADERS.baseHeaders,
+    });
+
+    setRenewalResponse(api);
+
+    if (api?.success) {
+      const list: JSX.Element[] = [];
+      api.data.results.map((renewal: Renewal) => {
+        const cell = (
+          <ListTableCell
+            key={renewal.id}
+            functionClick={() => {}}
+            title={renewal.name}
+            copy={`${companyProfile.currency.code ?? ""}${
+              renewal.cost.reportedAmount
+            } ${parseFrequencyLabel(renewal.frequency)}`}
+            due={
+              <span
+                className={clsx(
+                  " text-xs normal-case",
+                  new Date(renewal.dueDate) < new Date()
+                    ? "text-error-600"
+                    : "text-slate-500"
+                )}
+              >{`Next: ${formatDate(
+                new Date(renewal.dueDate),
+                DATE_OPTIONS.dMY
+              )}`}</span>
+            }
+          />
+        );
+
+        list.push(cell);
+      });
+      const tableData = [
+        {
+          id: "4",
+          key: "Renewals",
+          value: <div className=" space-y-2">{list}</div>,
+        },
+      ];
+
+      setRenewalList(tableData);
+    }
+  };
+
+  const getPrograms = async () => {
+    const api = await apiHandler({
+      url: `${baseURL}/programTransactions?vehicleId=${vehicle.id}`,
+      method: "GET",
+      headers: API_HEADERS.baseHeaders,
+    });
+
+    setProgramResponse(api);
+    console.log("..", api.data.results);
+
+    if (api?.success) {
+      const list: JSX.Element[] = [];
+      api.data.results.map((programTransaction: any) => {
+        const cell = (
+          <ListTableCell
+            key={programTransaction.id}
+            functionClick={() => {}}
+            title={programTransaction.program.name}
+            copy={`${programTransaction.program.type}`}
+            due={`${
+              programTransaction.program.frequency.byDate
+                ? parseFrequencyLabel(
+                    programTransaction.program.frequency.byDate
+                  )
+                : programTransaction.program.frequency.byMileage
+                ? `${parseFrequencyLabel(
+                    programTransaction.program.frequency.byMileage
+                  )} ${programTransaction.program.frequency.byMileage}${
+                    companyProfile.mileage.code
+                  }`
+                : `Once`
+            }`}
+          />
+        );
+
+        list.push(cell);
+      });
+      const tableData = [
+        {
+          id: "4",
+          key: "Programs",
+          value: <div className=" space-y-2">{list}</div>,
+        },
+      ];
+
+      setProgramList(tableData);
+    }
+  };
+
+  useEffect(() => {
+    getRenewals();
+    getPrograms();
+  }, []);
   return (
     <CardWithSectionHeader
-      title="Scheduled Items"
+      title="Programs and Renewals"
       hasBoundary={false}
-      copy="Overdue and Upcoming Items"
+      copy="Programs and Renewals attached to this vehicle"
     >
-      <ListTable data={data} />
+      {programResponse?.success && <ListTable data={programList} />}
+      {renewalResponse?.success && <ListTable data={renewalList} />}
     </CardWithSectionHeader>
   );
 };
@@ -367,20 +466,29 @@ const ListTableCell: FC<{
   url?: string;
   title: string;
   copy?: string;
-  due: string;
-}> = ({ title, copy, url, due }) => {
+  due: string | JSX.Element;
+  functionClick?: () => void;
+}> = ({ title, copy, url, due, functionClick }) => {
   return (
     <div className="space-y-0">
       {url && (
-        <Link href={url} className="text-brand-blueRoyal hover:underline">
+        <Link
+          href={url}
+          className="text-brand-blueRoyal hover:underline"
+        >
           {title}
         </Link>
       )}
-      {!url && <p className="">{title}</p>}
+      {functionClick && (
+        <button className="text-brand-blueRoyal hover:underline">
+          {title}
+        </button>
+      )}
 
-      <p className="text-slate-500 text-[10px]/[10px] normal-case">
-        {copy} | <span>{due}</span>
-      </p>
+      <div className="flex space-x-1 items-center">
+        <p className="text-slate-500 text-xs capitalize pr-1">{copy}</p> |
+        <p className="text-slate-500 text-xs capitalize">{due}</p>
+      </div>
     </div>
   );
 };

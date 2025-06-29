@@ -3,4 +3,4 @@ export * from "./AroundTheOrg";
 export * from "./CelebrationsCell";
 export * from "./DashboardHeader";
 export * from "./EmployeeCard";
-export * from "./OOODashboardCard";
+export * from "./InboxCard";

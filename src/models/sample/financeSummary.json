@@ -1,0 +1,418 @@
+{
+  "summary": {
+    "total": "$15,432.45",
+    "fuel": "$10,333.00",
+    "service": "$2,500.00",
+    "others": "$2,599.45"
+  },
+  "data": [
+    {
+      "id": "4PE2FVKF4",
+      "dateReported": "Sunday, Nov 24, 2024",
+      "type": "FUEL",
+      "summary": "Fuel Refill",
+      "reportedBy": {
+        "id": "7HTDGXTU",
+        "name": "Inez Koepp V",
+        "firstName": "Kristofer",
+        "lastName": "DuBuque",
+        "class": "Employee",
+        "role": [""],
+        "avatar": "https://avatars.githubusercontent.com/u/28821195",
+        "email": "Dianna2@hotmail.com",
+        "phone": "(740) 773-4719 x5000",
+        "status": "Pending",
+        "lastLogin": "Jul 18, 2024, 2:37 a.m.",
+        "licenseInformation": {
+          "number": "LZRRIKX3APHNZ1",
+          "class": "General 1",
+          "expirationDate": "Apr 17, 2025"
+        }
+      },
+      "operator": {
+        "id": "S6IAFCSO",
+        "name": "Shirley Schoen",
+        "firstName": "Leda",
+        "lastName": "O'Keefe",
+        "class": "Back Office",
+        "role": [""],
+        "avatar": "https://avatars.githubusercontent.com/u/84553300",
+        "email": "Ciara_Johnson49@hotmail.com",
+        "phone": "396.950.6435",
+        "status": "Active",
+        "lastLogin": "May 29, 2024, 5:51 p.m.",
+        "licenseInformation": {
+          "number": "BT14843G81TAWE",
+          "class": "General 2",
+          "expirationDate": "Mar 3, 2024"
+        }
+      },
+      "vendorId": "Gutkowski - Hayes",
+      "notes": "vomer tonsor fugit eum quidem iste abscido angulus deorsum terreo voveo dapifer corrupti aetas alo attonbitus deinde eligendi vix",
+      "status": "pending",
+      "cost": {
+        "approvedAmount": "",
+        "spentAmount": "$480.00"
+      },
+      "additionalInformation": {},
+      "paymentInformation": {}
+    },
+    {
+      "id": "CBS3SL78F",
+      "dateReported": "Tuesday, Oct 15, 2024",
+      "type": "FUEL",
+      "summary": "Gas Refuel",
+      "reportedBy": {
+        "id": "PAEW6KYP",
+        "name": "Blake West",
+        "firstName": "Tate",
+        "lastName": "Bechtelar",
+        "class": "Employee",
+        "role": [""],
+        "avatar": "https://avatars.githubusercontent.com/u/50207110",
+        "email": "Annamae.Zemlak57@yahoo.com",
+        "phone": "(429) 252-6346 x724",
+        "status": "Pending",
+        "lastLogin": "Apr 20, 2024, 7:51 a.m.",
+        "licenseInformation": {
+          "number": "R0ZD6JH5JLFAAM",
+          "class": "General 2",
+          "expirationDate": "Jul 28, 2025"
+        }
+      },
+      "operator": {
+        "id": "0UVN0Y4H",
+        "name": "Caleb Schiller",
+        "firstName": "Dimitri",
+        "lastName": "Ruecker-Swaniawski",
+        "class": "Technician",
+        "role": [""],
+        "avatar": "https://avatars.githubusercontent.com/u/82273639",
+        "email": "Fermin69@hotmail.com",
+        "phone": "(590) 399-6808 x118",
+        "status": "Pending",
+        "lastLogin": "Jun 30, 2024, 6:17 p.m.",
+        "licenseInformation": {
+          "number": "90JP20K3D8BVND",
+          "class": "General 1",
+          "expirationDate": "Jun 2, 2025"
+        }
+      },
+      "vendorId": "Rau - Mante",
+      "notes": "quisquam caelum volaticus mollitia cilicium solvo caritas coadunatio aetas curatio vapulus defessus adeo vicissitudo deprecator ocer a vinum valetudo",
+      "status": "pending",
+      "cost": {
+        "approvedAmount": "",
+        "spentAmount": "$557.00"
+      },
+      "additionalInformation": {},
+      "paymentInformation": {}
+    },
+    {
+      "id": "CIM0BHWXQ",
+      "dateReported": "Wednesday, Mar 12, 2025",
+      "type": "FUEL",
+      "summary": "Gas Refill",
+      "reportedBy": {
+        "id": "31PEVDJU",
+        "name": "Mark Waelchi",
+        "firstName": "Mario",
+        "lastName": "Turner",
+        "class": "Employee",
+        "role": [""],
+        "avatar": "https://avatars.githubusercontent.com/u/52184079",
+        "email": "Korey.Smitham@yahoo.com",
+        "phone": "(934) 833-4219 x496",
+        "status": "Pending",
+        "lastLogin": "Apr 16, 2024, 5:11 a.m.",
+        "licenseInformation": {
+          "number": "AMW9H7ACFBEVRT",
+          "class": "Class A",
+          "expirationDate": "Dec 13, 2026"
+        }
+      },
+      "operator": {
+        "id": "PHYIFU8P",
+        "name": "Mabel Rodriguez",
+        "firstName": "Estelle",
+        "lastName": "Littel",
+        "class": "Technician",
+        "role": [""],
+        "avatar": "https://avatars.githubusercontent.com/u/60293220",
+        "email": "Frankie72@yahoo.com",
+        "phone": "1-625-407-5563 x5576",
+        "status": "Pending",
+        "lastLogin": "Jan 26, 2024, 12:43 p.m.",
+        "licenseInformation": {
+          "number": "WZK484QIRG76TF",
+          "class": "General 1",
+          "expirationDate": "Nov 10, 2025"
+        }
+      },
+      "vendorId": "Satterfield, Roob and Ferry",
+      "notes": "approbo concedo atrox viriliter ipsa solus libero terebro custodia sto contra bardus earum deludo cupiditas tolero adamo spero adnuo",
+      "status": "paid",
+      "cost": {
+        "approvedAmount": "",
+        "spentAmount": "$7.00"
+      },
+      "additionalInformation": {},
+      "paymentInformation": {}
+    },
+    {
+      "id": "43MCFX4HD",
+      "dateReported": "Friday, Feb 14, 2025",
+      "type": "SERVICE",
+      "summary": "8,000km Oil Check",
+      "reportedBy": {
+        "id": "RCQ72FP7",
+        "name": "Rosemarie Klocko-Crona",
+        "firstName": "Connie",
+        "lastName": "Kub",
+        "class": "Back Office",
+        "role": [""],
+        "avatar": "https://avatars.githubusercontent.com/u/31435135",
+        "email": "Tabitha_Baumbach@yahoo.com",
+        "phone": "(544) 607-0334 x97683",
+        "status": "Deactivated",
+        "lastLogin": "Feb 20, 2024, 3:47 p.m.",
+        "licenseInformation": {
+          "number": "MR7G5XDBVAIHAX",
+          "class": "General 2",
+          "expirationDate": "Oct 20, 2027"
+        }
+      },
+      "operator": {
+        "id": "5TOBTYVZ",
+        "name": "Eileen O'Kon",
+        "firstName": "Gussie",
+        "lastName": "Gerhold",
+        "class": "Employee",
+        "role": [""],
+        "avatar": "https://avatars.githubusercontent.com/u/5760321",
+        "email": "Gerry.Reynolds39@gmail.com",
+        "phone": "(309) 214-6848 x4339",
+        "status": "Pending",
+        "lastLogin": "Sep 21, 2024, 4:03 p.m.",
+        "licenseInformation": {
+          "number": "LA303XKVR95ID3",
+          "class": "General 1",
+          "expirationDate": "Dec 14, 2027"
+        }
+      },
+      "vendorId": "Turner Group",
+      "notes": "consequatur cunae depopulo somniculosus pecto villa absens caries advenio abutor solum acidus articulus sui verbum vesper crur deleo delicate",
+      "status": "paid",
+      "cost": {
+        "approvedAmount": "",
+        "spentAmount": "$376.00"
+      },
+      "additionalInformation": {},
+      "paymentInformation": {}
+    },
+    {
+      "id": "LJTUHN88E",
+      "dateReported": "Tuesday, Aug 13, 2024",
+      "type": "SUBSCRIPTION",
+      "summary": "407 Toll Renewal",
+      "reportedBy": {
+        "id": "74R54MZ8",
+        "name": "Flora Heller",
+        "firstName": "Drake",
+        "lastName": "Zulauf",
+        "class": "Technician",
+        "role": [""],
+        "avatar": "https://avatars.githubusercontent.com/u/90705052",
+        "email": "Vernon.Lubowitz76@gmail.com",
+        "phone": "(330) 260-7965 x0225",
+        "status": "Pending",
+        "lastLogin": "May 17, 2024, 9:57 a.m.",
+        "licenseInformation": {
+          "number": "YA8TM4IM1ZIW07",
+          "class": "General 1",
+          "expirationDate": "Sep 28, 2024"
+        }
+      },
+      "operator": {
+        "id": "0RZCVAXE",
+        "name": "Miriam Maggio",
+        "firstName": "Christine",
+        "lastName": "Breitenberg",
+        "class": "Employee",
+        "role": [""],
+        "avatar": "https://avatars.githubusercontent.com/u/85154805",
+        "email": "Brandyn98@hotmail.com",
+        "phone": "1-837-985-8848 x399",
+        "status": "Active",
+        "lastLogin": "Apr 2, 2024, 8:44 a.m.",
+        "licenseInformation": {
+          "number": "UCSLOFRXBEQH5M",
+          "class": "General 2",
+          "expirationDate": "Mar 27, 2026"
+        }
+      },
+      "vendorId": "Fisher - Zemlak",
+      "notes": "tempore altus trans bos amiculum commodi quis arceo dedecor ciminatio verecundia tergum tempus eos conqueror ademptio velociter vomito uredo",
+      "status": "declined",
+      "cost": {
+        "approvedAmount": "",
+        "spentAmount": "$617.00"
+      },
+      "additionalInformation": {},
+      "paymentInformation": {}
+    },
+    {
+      "id": "U2WNDDA4O",
+      "dateReported": "Tuesday, Oct 29, 2024",
+      "type": "FUEL",
+      "summary": "Gas Refill",
+      "reportedBy": {
+        "id": "0Q1O184I",
+        "name": "Alfredo Raynor II",
+        "firstName": "Verlie",
+        "lastName": "Kris",
+        "class": "Back Office",
+        "role": [""],
+        "avatar": "https://avatars.githubusercontent.com/u/62792185",
+        "email": "Alisa18@hotmail.com",
+        "phone": "(613) 687-3138 x8135",
+        "status": "Active",
+        "lastLogin": "Apr 20, 2024, 4:27 p.m.",
+        "licenseInformation": {
+          "number": "DS87NX1VRCIBV4",
+          "class": "General 2",
+          "expirationDate": "Jan 30, 2026"
+        }
+      },
+      "operator": {
+        "id": "T1A5SS9H",
+        "name": "Mr. Ron Hamill",
+        "firstName": "Sonny",
+        "lastName": "Hills-Kemmer",
+        "class": "Employee",
+        "role": [""],
+        "avatar": "https://avatars.githubusercontent.com/u/87143212",
+        "email": "Landen85@hotmail.com",
+        "phone": "1-966-388-7468",
+        "status": "Pending",
+        "lastLogin": "Aug 6, 2024, 3:01 p.m.",
+        "licenseInformation": {
+          "number": "0P111IQSQ8NGXF",
+          "class": "General 1",
+          "expirationDate": "May 8, 2027"
+        }
+      },
+      "vendorId": "Rempel - Cartwright",
+      "notes": "patria est solitudo decumbo sulum somnus solitudo inflammatio denuncio acsi decerno addo tergo substantia abduco suffragium amitto vitiosus incidunt",
+      "status": "declined",
+      "cost": {
+        "approvedAmount": "",
+        "spentAmount": "$877.00"
+      },
+      "additionalInformation": {},
+      "paymentInformation": {}
+    },
+    {
+      "id": "HG4MXGR8C",
+      "dateReported": "Monday, Jan 6, 2025",
+      "type": "PARTS",
+      "summary": "Cleaning Materials",
+      "reportedBy": {
+        "id": "R3NNK6LH",
+        "name": "Faith Bartell Sr.",
+        "firstName": "Cassidy",
+        "lastName": "Romaguera",
+        "class": "Employee",
+        "role": [""],
+        "avatar": "https://avatars.githubusercontent.com/u/94180697",
+        "email": "Sylvester75@hotmail.com",
+        "phone": "(629) 288-3565",
+        "status": "Pending",
+        "lastLogin": "Jul 16, 2024, 6:51 a.m.",
+        "licenseInformation": {
+          "number": "DB16OG59ICJYOG",
+          "class": "General 2",
+          "expirationDate": "Feb 9, 2025"
+        }
+      },
+      "operator": {
+        "id": "OFCKZCND",
+        "name": "Marilyn Ernser II",
+        "firstName": "Tyrell",
+        "lastName": "Mraz",
+        "class": "Employee",
+        "role": [""],
+        "avatar": "https://avatars.githubusercontent.com/u/89186796",
+        "email": "Hunter87@gmail.com",
+        "phone": "543.929.1616",
+        "status": "Active",
+        "lastLogin": "Oct 17, 2024, 9:03 a.m.",
+        "licenseInformation": {
+          "number": "VTX5E79NPRNTH5",
+          "class": "General 2",
+          "expirationDate": "Apr 24, 2027"
+        }
+      },
+      "vendorId": "Thiel, Farrell and Quigley",
+      "notes": "odit cimentarius odio praesentium volaticus decretum solus vox numquam supra earum umquam tendo deinde amiculum angustus abbas caecus viridis",
+      "status": "paid",
+      "cost": {
+        "approvedAmount": "",
+        "spentAmount": "$780.00"
+      },
+      "additionalInformation": {},
+      "paymentInformation": {}
+    },
+    {
+      "id": "HSBKDCSKD",
+      "dateReported": "Monday, Mar 24, 2025",
+      "type": "PARTS",
+      "summary": "Winter Tires",
+      "reportedBy": {
+        "id": "RPF6UB2C",
+        "name": "Linda Jones",
+        "firstName": "Richmond",
+        "lastName": "Daniel",
+        "class": "Technician",
+        "role": [""],
+        "avatar": "https://avatars.githubusercontent.com/u/90502847",
+        "email": "Ines.Boyer@yahoo.com",
+        "phone": "1-444-830-7447 x869",
+        "status": "Active",
+        "lastLogin": "Jan 27, 2024, 7:59 a.m.",
+        "licenseInformation": {
+          "number": "7QMIULYKAWQ90B",
+          "class": "General 2",
+          "expirationDate": "Jul 8, 2027"
+        }
+      },
+      "operator": {
+        "id": "O2SQ4ZDI",
+        "name": "Mike Mertz",
+        "firstName": "Lindsey",
+        "lastName": "Orn",
+        "class": "Back Office",
+        "role": [""],
+        "avatar": "https://avatars.githubusercontent.com/u/94299182",
+        "email": "Sabrina.Prosacco@gmail.com",
+        "phone": "665-320-5588",
+        "status": "Pending",
+        "lastLogin": "Aug 7, 2024, 11:14 p.m.",
+        "licenseInformation": {
+          "number": "U43DN9PCASYYA1",
+          "class": "Class A",
+          "expirationDate": "Apr 12, 2024"
+        }
+      },
+      "vendorId": "Leannon - Gleichner",
+      "notes": "suasoria fugit caries tantum confido vesper magni comitatus valde utroque tametsi assumenda bellum laboriosam caste crur error turpis tenus",
+      "status": "paid",
+      "cost": {
+        "approvedAmount": "",
+        "spentAmount": "$965.00"
+      },
+      "additionalInformation": {},
+      "paymentInformation": {}
+    }
+  ]
+}

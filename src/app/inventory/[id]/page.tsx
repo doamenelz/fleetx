@@ -5,11 +5,6 @@ import {
   PageContainer,
   PageLoader,
   SCREEN_WIDTH,
-  Spinner,
-  STATUS_COLORS,
-  StatusBadge,
-  Tab,
-  Tabs,
 } from "@/components";
 import { sampleVehicles, Vehicle } from "@/models/Vehicle/Vehicle";
 import { useContext, useEffect, useState } from "react";

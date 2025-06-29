@@ -5,6 +5,7 @@ export interface TableCellProps {
   button?: { url: string; label: string };
   isDark?: Boolean;
   centerCell?: boolean;
+  isLoading?: boolean;
 }
 
 export interface TableContainerProps {
@@ -20,4 +21,11 @@ export interface TableContainerProps {
 export interface TableHeaderCellProps {
   label: string;
   centerCell?: boolean;
+}
+
+export interface PageIndexMeta {
+  pageNumber: number;
+  itemsOnPage: number;
+  startRecord: number;
+  endRecord: number;
 }

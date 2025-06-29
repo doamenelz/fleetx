@@ -9,13 +9,14 @@ export interface Person {
   lastName: string;
   middleName?: string;
   id: string;
-  role: string[];
+  role?: string[];
   avatar: string;
-  email: string;
+  email?: string;
   phone?: string;
+  title?: string;
   lastLogin?: string;
   status?: string;
-  class: string;
+  class?: string;
   customProperties?: {
     id: string;
     value: string | boolean;
@@ -55,11 +56,12 @@ export const generatePerson = (role: string) => {
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
     class: userClass[randomizeUserClass()],
-    role: roles[random()],
+    role: [""], //roles[random()],
     avatar: faker.image.avatarGitHub(),
     email: faker.internet.email(),
     phone: faker.phone.number(),
     status: status[randomizeStatus()],
+    title: faker.person.jobTitle(),
     lastLogin: formatDate(
       new Date(
         faker.date.between({

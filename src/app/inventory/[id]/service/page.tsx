@@ -9,7 +9,6 @@ import {
   GRID_TYPE,
   GridLayout,
   ICON_POSITION,
-  IconDropdown,
   Lbl,
   ListTable,
   PageContainer,

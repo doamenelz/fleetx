@@ -16,12 +16,15 @@ interface PurchaseDetails {
 
 export interface Vehicle {
   id: string;
+  mainImage?: string;
+  images?: string[];
   type: string;
   manufacturer: string;
   name: string;
   model: string;
   year: string;
-  vin?: string;
+  vin: string;
+  assignedTo?: string;
   baseMileage: string;
   odometer?: string;
   location?: string;
@@ -81,6 +84,26 @@ const features = [
 export const generateVehicleDetails = (status: string, id: string) => {
   return {
     id: id,
+    baseMileage: "0",
+    vin: faker.vehicle.vin(),
+    images: [
+      "https://www.aronline.co.uk/wp-content/uploads/2008/04/Chrysler-300C.jpeg",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2Fyc3xlbnwwfHwwfHx8MA%3D%3D",
+    ],
+    mainImage:
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2Fyc3xlbnwwfHwwfHx8MA%3D%3D",
+    energyType: "Electric",
+    licenseNumber: faker.vehicle.vin(),
+    createdDate: formatDate(
+      new Date(
+        faker.date.between({
+          from: "2010-01-01T00:00:00.000Z",
+          to: "2025-01-01T00:00:00.000Z",
+        })
+      ),
+      DATE_OPTIONS.dMY
+    ).toString(),
+    createdBy: "string",
     type: faker.vehicle.type(),
     name: faker.vehicle.model(),
     manufacturer: faker.vehicle.manufacturer(),
@@ -109,7 +132,7 @@ export const generateVehicleDetails = (status: string, id: string) => {
       ),
       DATE_OPTIONS.dMY
     ).toString(),
-    operator: generatePerson("operator"),
+    // operator: generatePerson("operator"),
     status: status,
 
     purchaseDetails: {
@@ -273,8 +296,8 @@ export const generateVehicleDetails = (status: string, id: string) => {
 };
 
 export const sampleVehicles: Vehicle[] = [
-  // generateVehicleDetails("active", "id00101"),
-  // generateVehicleDetails("active", "id00102"),
+  generateVehicleDetails("active", "id00101"),
+  generateVehicleDetails("active", "id00102"),
   // generateVehicleDetails("active", "id00103"),
   // generateVehicleDetails("active", "id00104"),
   // generateVehicleDetails("active", "id00105"),

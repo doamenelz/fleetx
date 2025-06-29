@@ -2,6 +2,11 @@ import { faker, id_ID } from "@faker-js/faker";
 import { CustomField } from "../CustomField";
 import { sampleVehicleIssues, VehicleIssues } from "../Vehicle";
 
+export interface ServiceInformation {
+  summary: ServiceSummary;
+  serviceReminders: ServiceEntry[];
+}
+
 export interface ServiceDetails {
   notes: string;
   issueIds: string[];
@@ -30,6 +35,24 @@ export interface ServiceWorkItems {
     qty: number;
     type: "parts" | "labour";
   }[];
+}
+
+export interface ServiceSummary {
+  scheduled: string;
+  overdue: string;
+  completed: string;
+  serviceCost: {
+    cost: string;
+    currency: string;
+  };
+  repairCost: {
+    cost: string;
+    currency: string;
+  };
+  totalCost: {
+    cost: string;
+    currency: string;
+  };
 }
 
 const sampleServiceWork: ServiceWorkItems = {
@@ -128,7 +151,7 @@ const sampleServiceWork: ServiceWorkItems = {
     },
   ],
 };
-export interface ServiceReminders {
+export interface ServiceEntry {
   id: string;
   programName: string;
   vehicleId: string;
@@ -227,7 +250,7 @@ export const generateService = () => {
   };
 };
 
-export const sampleServiceReminders: ServiceReminders[] = [
+export const sampleServiceReminders: ServiceEntry[] = [
   generateService(),
   generateService(),
 

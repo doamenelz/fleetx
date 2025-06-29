@@ -11,16 +11,14 @@ import {
   AVATAR_SIZES,
   Avatar,
   StatusBadge,
-  STATUS_COLORS,
   Lbl,
   AvatarCell,
-  MenuDropdownItemProp,
-  IconDropdown,
   PageLoader,
   SearchField,
   Button,
   BUTTON_SKIN,
   ICON_POSITION,
+  MenuDropdown,
 } from "@/components";
 import { TableContext } from "@/components/Table/TableContext";
 import { Person } from "@/models/Person";
@@ -50,21 +48,6 @@ export const UsersList: FC<{}> = () => {
   const [loadComplete, setLoadComplete] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const vehicleControlItems: MenuDropdownItemProp[] = [
-    {
-      id: "1",
-      label: "Import from CSV",
-      function: () => {},
-      icon: <Upload className="w-3 h-3" />,
-    },
-    {
-      id: "2",
-      label: "Download to CSV",
-      function: () => {},
-      icon: <Download className="w-3 h-3" />,
-    },
-  ];
-
   const getUsers = async () => {
     console.log("Calling Get User");
     const api = await apiHandler({
@@ -91,7 +74,10 @@ export const UsersList: FC<{}> = () => {
   return (
     <>
       <div className="flex justify-between gap-2 items-center pt-2 w-full">
-        <SearchField placeholder="Search" setQuery={() => {}} />
+        <SearchField
+          placeholder="Search"
+          setQuery={() => {}}
+        />
         <div className="flex gap-2">
           <Lbl label={`${users.length} results`} />
           <div className="border-r pr-2">
@@ -106,8 +92,21 @@ export const UsersList: FC<{}> = () => {
             <Filter className="w-4 h-4" />
           </button>
           <div className="items-center flex gap-2">
-            <IconDropdown
-              items={vehicleControlItems}
+            <MenuDropdown
+              items={[
+                {
+                  id: "1",
+                  label: "Import from CSV",
+                  function: () => {},
+                  icon: <Upload className="w-3 h-3" />,
+                },
+                {
+                  id: "2",
+                  label: "Download to CSV",
+                  function: () => {},
+                  icon: <Download className="w-3 h-3" />,
+                },
+              ]}
               button={
                 <div className="p-2 rounded-sm border hover:bg-slate-50 hover:text-brand-blueRoyal">
                   <Ellipsis className="w-4 h-4" />
@@ -228,13 +227,6 @@ export const UsersList: FC<{}> = () => {
                             <StatusBadge
                               // style="text"
                               label={person.status ?? ""}
-                              statusType={
-                                person.status === "Active"
-                                  ? STATUS_COLORS.success
-                                  : person.status === "Deactivated"
-                                  ? STATUS_COLORS.declined
-                                  : STATUS_COLORS.pending
-                              }
                             />
                           }
                           mainCell={true}
@@ -242,7 +234,7 @@ export const UsersList: FC<{}> = () => {
                         />
                         <TableCell
                           label={
-                            <IconDropdown
+                            <MenuDropdown
                               items={[
                                 {
                                   id: "1",
@@ -252,7 +244,7 @@ export const UsersList: FC<{}> = () => {
                                   },
                                   icon: <UserRound className="w-3 h-3" />,
                                   // type: "link",
-                                  href: `users/${person.id}`,
+                                  // href: `users/${person.id}`,
                                 },
                                 {
                                   id: "2",

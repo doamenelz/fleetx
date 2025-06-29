@@ -1,83 +1,73 @@
 "use client";
 import React from "react";
-import { FC } from "react";
-import { AVATAR_SIZES } from "./Avatar.types";
+import { AVATAR_SIZES, AvatarCellProps } from "./Avatar.types";
 import { Avatar } from "./Avatar";
-import { classNames } from "@/lib/utilities/helperFunctions";
-export const AvatarCell: FC<{
-  firstName: string;
-  lastName: string;
-  imageUrl?: string;
-  size?: AVATAR_SIZES;
-  hasPadding?: boolean;
-  highlightName?: boolean;
-  fullName: string;
-  row2?: string;
-  row3?: string;
-  rowComponent?: JSX.Element;
-  dark?: boolean;
-}> = (props) => {
-  const _size = props.size === undefined ? AVATAR_SIZES.md : props.size;
-  const _hasPadding = props.hasPadding === undefined ? false : props.hasPadding;
-  const _dark = props.dark === undefined ? false : props.dark;
+import clsx from "clsx";
+export const AvatarCell = ({
+  firstName,
+  lastName,
+  imageUrl,
+  size = AVATAR_SIZES.md,
+  hasPadding = false,
+  highlightName,
+  fullName,
+  row2,
+  row3,
+  rowComponent,
+  dark = false,
+  bgColor,
+}: AvatarCellProps) => {
   return (
     <div
       className={`flex text-left ${
-        props.row3 !== undefined || props.rowComponent !== undefined
-          ? ""
-          : "items-center"
-      } ${props.highlightName && "group cursor-pointer"}`}
+        row3 !== undefined || rowComponent !== undefined ? "" : "items-center"
+      } ${highlightName && "group cursor-pointer"}`}
     >
       <Avatar
-        size={_size}
-        firstName={props.firstName}
-        lastName={props.lastName}
-        imageUrl={props.imageUrl}
-        hasPadding={_hasPadding}
+        size={size}
+        firstName={firstName}
+        lastName={lastName}
+        imageUrl={imageUrl}
+        hasPadding={hasPadding}
+        bgColor={bgColor}
       />
 
-      <div className="ml-3">
+      <div className="ml-2 space-y-1">
         <p
-          className={classNames(
-            "text-xs font-medium ",
-            props.highlightName
-              ? "text-brand-blueRoyal group-hover:text-brand-persianBlue"
-              : _dark
+          className={clsx(
+            "text-sm font-medium ",
+            highlightName
+              ? "text-primary-900 group-hover:text-primary-700"
+              : dark
               ? "text-gray-100"
               : "text-gray-900"
           )}
         >
-          {props.fullName}
+          {fullName}
         </p>
-        {props.row2 && (
+        {row2 && (
           <p
-            className={classNames(
-              "text-xs font-light ",
-              _dark ? "text-gray-200" : "text-gray-900"
+            className={clsx(
+              "text-xs",
+              dark ? "text-gray-200" : "text-gray-700"
             )}
           >
-            {props.row2}
+            {row2}
           </p>
         )}
 
-        {props.row3 && (
+        {row3 && (
           <p
-            className={classNames(
-              "text-xs font-light ",
-              _dark ? "text-gray-300" : "text-gray-500"
+            className={clsx(
+              "text-xs",
+              dark ? "text-gray-300" : "text-gray-500"
             )}
           >
-            {props.row3}
+            {row3}
           </p>
         )}
-        {props.rowComponent}
+        {rowComponent}
       </div>
     </div>
   );
 };
-
-// AvatarCell.defaultProps = {
-//   size: AVATAR_SIZES.md,
-//   hasPadding: false,
-//   dark: false,
-// };

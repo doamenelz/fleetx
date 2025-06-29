@@ -6,20 +6,27 @@ import {
   PrimaryNavigation,
   SecondaryNavigation,
   SidebarLayout,
-  TopHeaderNavigation,
 } from "@/components";
 import { useEffect, useState, useRef } from "react";
-import { NextUIProvider } from "@nextui-org/react";
-import { getUserStore, UserStore } from "@/models/UserStore";
+import { UserStore } from "@/models/UserStore";
 import { TemplateLayout } from "@/components/TemplateLayout";
-import { usePathname, useRouter } from "next/navigation";
+
 import { apiHandler } from "@/lib/utilities/apiHelper";
+import { Toaster } from "@/components/ui/toaster";
+import appSettings from "../models/sample/appSettings.json";
+import { AppSettings } from "@/models";
+import { sampleOfficeLocations } from "@/models/Location";
+import { usePathname, useRouter } from "next/navigation";
+import LoginPage from "./login/page";
+import { checkAuthentication } from "@/models/Shared/AuthHelper";
+import { useMounted } from "@/lib/hooks/useMounted";
+import { getCompanyProfile } from "@/models/Shared/Configs";
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const pathName = usePathname();
   const router = useRouter();
+  const pathName = usePathname();
+  const isMounted = useMounted();
   const [documentTitle, setDocumentTitle] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const [navTitle, setNavTitle] = useState("");
   const [notificationCopy, setNotificationCopy] = useState("");
   const [showNotification, setShowNotification] = useState(false);
@@ -45,16 +52,22 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const ref = useRef<Element | null>(null);
 
   async function getStoreProps() {
-    var userStore = getUserStore();
-    // getConfigurations();
-    setStore(userStore);
-    if (!userStore?.isLoggedIn) {
+    const _user = await checkAuthentication();
+
+    if (!_user.isLoggedIn) {
+      setStore(_user);
       router.push("/login");
-      console.log("Im routing to login");
+      console.log("I am routing to login...");
+    } else {
+      setStore(_user);
+      getConfigurations();
     }
   }
 
   const getConfigurations = async () => {
+    const settings = appSettings as AppSettings;
+    settings.officeLocations = sampleOfficeLocations();
+    sessionStorage.setItem("app_settings", JSON.stringify(settings));
     const api = await apiHandler({
       url: `${envVar.baseURL}/configurations`,
       method: "GET",
@@ -62,7 +75,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
     console.log("Calling Configurations");
     if (api.success) {
-      let response = api.data.data as any;
+      let response = api.data as any;
       sessionStorage.setItem("configurations", JSON.stringify(response));
     } else {
       //TODO: Show Error Component
@@ -71,11 +84,14 @@ export function Providers({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    getConfigurations();
-    ref.current = document.getElementById("modal");
-    setNavTitle(getBaseURL());
-
     getStoreProps();
+  }, [pathName]);
+
+  useEffect(() => {
+    ref.current = document.getElementById("modal");
+    // getStoreProps();
+
+    setNavTitle(getBaseURL());
   }, []);
 
   return (
@@ -99,25 +115,33 @@ export function Providers({ children }: { children: React.ReactNode }) {
         configuration: generalConfig,
       }}
     >
-      {store === undefined ? (
+      {isMounted ? (
         <>
-          <PageLoader
-            size="lg"
-            label="Loading..xx"
-          />
+          {store === undefined ? (
+            <>
+              <PageLoader
+                size="lg"
+                label="Loading.."
+              />
+            </>
+          ) : (
+            <>
+              {store.isLoggedIn ? (
+                <SidebarLayout>{children}</SidebarLayout>
+              ) : (
+                <LoginPage />
+              )}
+
+              <Toaster />
+            </>
+          )}
         </>
       ) : (
-        <>
-          {/* <p>Hello</p> */}
-          {store.isLoggedIn && <SidebarLayout>{children}</SidebarLayout>}
-
-          {!store.isLoggedIn && <TemplateLayout>{children}</TemplateLayout>}
-        </>
+        <PageLoader
+          size="lg"
+          label="Loader"
+        />
       )}
-
-      {/* <NextUIProvider>
-       
-      </NextUIProvider> */}
     </RootContext.Provider>
   );
 }

@@ -1,10 +1,12 @@
 import { useContext } from "react";
-import { compareDates } from "@/lib/utilities/dateHelpers";
-import { getCalendarColumnStart, getEmployeesInSelectedDate } from "./helpers";
+import {
+  compareDates,
+  DATE_OPTIONS,
+  formatDate,
+} from "@/lib/utilities/dateHelpers";
+import { getCalendarColumnStart } from "./helpers";
 import { CalendarStore } from "@/context/CalendarStore";
-import { AVATAR_SIZES, Avatar } from "../Avatar";
-import { Employee } from "@/models";
-import { TimeOffDetails } from "@/app/time-off/models/TimeOff";
+import clsx from "clsx";
 
 export const BoxCalendarControl = () => {
   const calendarStore = useContext(CalendarStore);
@@ -15,15 +17,22 @@ export const BoxCalendarControl = () => {
       <div className="hidden text-center lg:grid grid-cols-7 mt-1 text-xs  bg-gray-200  divide-y isolate ring-1 ring-gray-200 ">
         {calendarStore.datesInMonth.map((day, index) => (
           <button
-            onClick={() => calendarStore.updateSelectedCalendarDate(day)}
+            onClick={
+              calendarStore.canClickDateCell === true
+                ? () => calendarStore.updateSelectedCalendarDate(day)
+                : () => {}
+            }
             key={index}
-            className={`divide-x-0 flex-col py-2  hover:bg-primary-50 ${"py-3 focus:z-10"} ${
+            className={clsx(
+              "divide-x-0 flex-col py-3 focus:z-10",
+              calendarStore.canClickDateCell === true && "hover:bg-primary-50",
               compareDates(day, calendarStore.selectedCalendarDate)
                 ? "bg-brand-indiGlow"
                 : day.getDay() === 6 || day.getDay() === 0
                 ? "bg-gray-50"
-                : "bg-white"
-            } ${day.getDate() === 1 && getCalendarColumnStart(day)} `}
+                : "bg-white",
+              day.getDate() === 1 && getCalendarColumnStart(day)
+            )}
           >
             <div className="flex items-center gap-2 px-3">
               <time
@@ -40,8 +49,33 @@ export const BoxCalendarControl = () => {
                 {day.getDate()}
               </time>
               <div className="flex gap-1">
+                {calendarStore.highlightedDates?.some(
+                  ({ date }) =>
+                    formatDate(date, DATE_OPTIONS.dMY) ==
+                    formatDate(day, DATE_OPTIONS.dMY)
+                ) && (
+                  <div
+                    className={clsx(
+                      "w-1.5 h-1.5 rounded-full",
+                      calendarStore.highlightedDates[
+                        calendarStore.highlightedDates.findIndex(
+                          (highlightedDate) =>
+                            formatDate(
+                              highlightedDate.date,
+                              DATE_OPTIONS.dMY
+                            ) == formatDate(day, DATE_OPTIONS.dMY)
+                        )
+                      ].color
+                    )}
+                  ></div>
+                )}
+
+                {/* {day.getMonth() === calendarStore.selectedDay.getMonth() &&
+                  day.getDate() === 4 && (
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary-300"></div>
+                  )}
                 {day.getMonth() === calendarStore.selectedDay.getMonth() &&
-                  day.getDate() === 6 && (
+                  day.getDate() === 4 && (
                     <div className="w-1.5 h-1.5 rounded-full bg-primary-300"></div>
                   )}
                 {day.getMonth() === calendarStore.selectedDay.getMonth() &&
@@ -63,7 +97,7 @@ export const BoxCalendarControl = () => {
                 {day.getMonth() === calendarStore.selectedDay.getMonth() &&
                   day.getDate() === 6 && (
                     <div className="w-1.5 h-1.5 rounded-full bg-warning-300"></div>
-                  )}
+                  )} */}
               </div>
             </div>
           </button>

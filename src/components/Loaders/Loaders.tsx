@@ -1,6 +1,7 @@
 "use client";
 
 import { classNames } from "@/lib/utilities/helperFunctions";
+import clsx from "clsx";
 import { LoaderCircle } from "lucide-react";
 // import { lineWobble } from "ldrs";
 
@@ -10,31 +11,45 @@ export interface LoaderProps {
   label?: string;
   size?: "sm" | "md" | "lg";
   withModal?: boolean;
+  showBackground?: boolean;
 }
 export const PageLoader: FC<LoaderProps> = (props) => {
   return (
     <div className="mx-auto fixed inset-0 overscroll-y-none flex items-center justify-center bg-slate-200/50 z-20">
-      <Spinner props={props} />
+      <Spinner
+        label={props.label}
+        showBackground={props.showBackground}
+        size={props.size}
+      />
     </div>
   );
 };
 
-export const Spinner: FC<{ props: LoaderProps }> = ({ props }) => {
+export const Spinner: FC<{
+  label?: string;
+  size?: string;
+  showBackground?: boolean;
+}> = ({ label, size, showBackground = false }) => {
   return (
-    <div className="text-center mx-auto">
+    <div
+      className={clsx(
+        "text-center mx-auto",
+        showBackground && "bg-white p-4 rounded-md"
+      )}
+    >
       <LoaderCircle
         className={classNames(
           "animate-spin text-indigo-700 bg-clip-text mx-auto",
-          props.size === "lg"
+          size === "lg"
             ? "h-24 w-24"
-            : props.size === "md"
+            : size === "md"
             ? "h-16 w-16"
             : "h-12 w-12"
         )}
       />
-      {props.label && (
+      {label && (
         <p className="animate-pulse font-mono text-center text-xs text-slate-600">
-          {props.label}
+          {label}
         </p>
       )}
     </div>

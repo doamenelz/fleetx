@@ -41,7 +41,7 @@ const navProps: AdministrationNavProps[] = [
       {
         id: "manufacturer",
         label: "Manufacturer",
-        link: "/administration/inventory/manufacturer",
+        link: "/administration/inventory/manufacturers",
       },
       {
         id: "category",
@@ -123,15 +123,18 @@ export default function ConfigurationsLayout({
         }}
       >
         <div className="flex">
-          <div className="w-56 bg-white border-r flex-col flex h-screen overflow-auto">
+          <div className="w-56 bg-white border-r flex-col flex inset-y-0 fixed overflow-auto">
             <p className="font-lg font-semibold p-3">Administration</p>
             <ul className="space-y-8 p-4">
               {navProps.map((item) => (
-                <NavSection item={item} key={item.id} />
+                <NavSection
+                  item={item}
+                  key={item.id}
+                />
               ))}
             </ul>
           </div>
-          <div className="mx-auto w-full">
+          <div className="mx-auto w-full pl-56">
             <>
               <PageHeader />
               {children}
@@ -152,7 +155,10 @@ const NavSection: FC<{ item: AdministrationNavProps }> = ({ item }) => {
       </p>
       <ul className="space-y-1">
         {item.items.map((item) => (
-          <Link href={item.link} key={item.id}>
+          <Link
+            href={item.link}
+            key={item.id}
+          >
             <p
               className={classNames(
                 "p-2 rounded-sm text-xs font-medium ",

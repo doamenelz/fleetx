@@ -11,10 +11,9 @@ import {
   StatusBadge,
   STATUS_COLORS,
   Lbl,
-  MenuDropdownItemProp,
-  IconDropdown,
   Button,
   BUTTON_SKIN,
+  MenuDropdown,
 } from "@/components";
 import { TableContext } from "@/components/Table/TableContext";
 import Link from "next/link";
@@ -22,20 +21,6 @@ import { FileDocument } from "@/models/Document";
 import { Download, Ellipsis, FilePenLine, Trash } from "lucide-react";
 
 export const UserDocumentsTable: FC<{ data: FileDocument[] }> = ({ data }) => {
-  const ellipsisItems: MenuDropdownItemProp[] = [
-    {
-      id: "1",
-      label: "Edit Entry",
-      function: () => {},
-      icon: <FilePenLine className="w-3 h-3" />,
-    },
-    {
-      id: "2",
-      label: "Delete Document",
-      function: () => {},
-      icon: <Trash className="w-3 h-3" />,
-    },
-  ];
   return (
     <>
       <TableContext.Provider
@@ -112,8 +97,21 @@ export const UserDocumentsTable: FC<{ data: FileDocument[] }> = ({ data }) => {
 
                       <TableCell
                         label={
-                          <IconDropdown
-                            items={ellipsisItems}
+                          <MenuDropdown
+                            items={[
+                              {
+                                id: "1",
+                                label: "Edit Entry",
+                                function: () => {},
+                                icon: <FilePenLine className="w-3 h-3" />,
+                              },
+                              {
+                                id: "2",
+                                label: "Delete Document",
+                                function: () => {},
+                                icon: <Trash className="w-3 h-3" />,
+                              },
+                            ]}
                             button={
                               <div className="p-2 rounded-sm border hover:border-slate-300 hover:bg-slate-50 hover:text-brand-persianBlue">
                                 <Ellipsis className="w-4 h-4" />

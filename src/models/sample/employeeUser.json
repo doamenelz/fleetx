@@ -1,0 +1,40 @@
+{
+  "id": "JNW58931",
+  "firstName": "June",
+  "lastName": "Wilcox",
+  "middleName": "Eve",
+  "email": "june@email.com",
+  "phone": "4372263490",
+  "department": "IT Architecture",
+  "title": "Senior Architect",
+  "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=3164&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "roles": [
+    {
+      "module": "home",
+      "crudValues": [
+        "home_fault_create",
+        "home_trip_create",
+        "home_fault_history",
+        "home_trip_history",
+        "home_service_history",
+        "home_request_history",
+        "home_assigned_vehicles",
+        "home_request_vehicle",
+        "home_view_profile"
+      ]
+    },
+    {
+      "module": "vehicle",
+      "crudValues": ["vehicle_summary_view", "vehicle_specifications_view"]
+    },
+    {
+      "module": "my_vehicles",
+      "crudValues": []
+    }
+  ],
+  "lastLogin": "2024-03-27T13:01:14.971Z",
+  "status": "active",
+  "assignedVehicles": ["id00101", "VEH1000005"],
+  "files": [],
+  "profile": "employee"
+}

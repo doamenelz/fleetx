@@ -1,7 +1,8 @@
-import { Address } from "@/models";
+import { JSX } from "react";
 
 export interface TextProps {
-  label: string;
+  label?: string;
+  labelStyle?: string;
   copy?: string | JSX.Element;
   isLight?: boolean;
   required?: boolean;
@@ -9,5 +10,5 @@ export interface TextProps {
   labelComponent?: JSX.Element;
   copyStyle?: string;
   /** Defaults to Left when no value is provided */
-  textAlign?: "text-right" | "text-center";
+  textAlign?: "text-right" | "text-center" | "text-left";
 }

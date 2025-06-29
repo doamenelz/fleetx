@@ -1,0 +1,408 @@
+[
+  {
+    "id": "VEH1000005",
+    "baseMileage": "0",
+    "images": [
+      "https://images.hgmsites.net/hug/2020-dodge-grand-caravan_100717338_h.jpg",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2Fyc3xlbnwwfHwwfHx8MA%3D%3D"
+    ],
+    "mainImage": "https://medias.fcacanada.ca/specs/dodge/grandcaravan/year-2020/media/images/gallery/2020-dodge-grand-caravan-gallery-exterior-grey-rear-view-driving-wood_61da6f4ddd5f1c81f671b6ec0c7ba226-1920x1280.jpg",
+    "energyType": "Electric",
+    "licenseNumber": "L6S4323",
+    "createdDate": "Nov 17, 2013",
+    "createdBy": "string",
+    "type": "Minivan",
+    "name": "Grand Caravan",
+    "manufacturer": "Dodge",
+    "model": "Dodge Rand",
+    "year": "2020",
+    "odometer": "125,555km",
+    "location": "Lagos, Nigeria",
+    "trim": "XLE",
+    "vin": "3XX5M4NH0UJR60115",
+    "fuel": "Gasoline",
+    "contractOwnership": "Lease",
+    "sn": "AJ621L23B0AV72446",
+    "license": "GZ40YRQ",
+    "color": "orange",
+    "activeSince": "Aug 4, 2015",
+    "status": "active",
+    "purchaseDetails": {
+      "date": "Nov 21, 2024",
+      "price": "[object Object] 459.56"
+    },
+    "specifications": {
+      "make": "Chevrolet",
+      "type": "Wagon",
+      "subType": "Jeep Model S",
+      "model": "Model 3",
+      "year": 1969,
+      "color": "plum",
+      "mileage": 13358,
+      "genesis": "razor"
+    },
+    "features": [
+      {
+        "id": "1",
+        "key": "Safety Features",
+        "value": [
+          "Backup Camera",
+          "Automatic High Beams (AHB)",
+          "BSM w/RCTA",
+          "Star Safety System: Smart Stop Technology, Vehicle Stability Control, Anti-Lock Brakes, Traction Control, Electronic Brake Force Distribution, Brake Assist"
+        ]
+      },
+      {
+        "id": "2",
+        "key": "Convenience",
+        "value": ["Keyless Entry", "Cruise Control"]
+      },
+      {
+        "id": "3",
+        "key": "Interior Features",
+        "value": ["Dual Zone Automatic Climate Control", "Rear Window Defogger"]
+      },
+      {
+        "id": "4",
+        "key": "Mechanical Features",
+        "value": [
+          "Vehicle Stability Control (VSC)",
+          "Active rear sport differential",
+          "Electric Power Steering (EPS)"
+        ]
+      }
+    ],
+    "weightAndDimensions": [
+      {
+        "id": "0364837b-dab9-4e73-a423-37af4daaab12",
+        "key": "Length (mm)",
+        "value": "4694.20"
+      },
+      {
+        "id": "f513243e-d93a-4e3d-b5bc-c58d238bb12d",
+        "key": "Height (mm)",
+        "value": "1414.97"
+      },
+      {
+        "id": "a1ff0a2e-0407-4d6a-94a7-6c076e25ede8",
+        "key": "Width (mm)",
+        "value": "1802"
+      },
+      {
+        "id": "d040786d-b5aa-45d5-8ac0-c8e25c662764",
+        "key": "Curb weight (kg)",
+        "value": "1310"
+      },
+      {
+        "id": "3d296f8e-e26c-452d-8cb4-10b5f77672b9",
+        "key": "Ground clearance – no-load/maximum permissible weight; (mm)",
+        "value": "134 / 108.64"
+      }
+    ],
+    "engine": [
+      {
+        "id": "3595aff2-1227-4a4c-9d46-3acd549b6654",
+        "key": "Engine type",
+        "value": "2.0-litre inline 4-cylinder"
+      },
+      {
+        "id": "ef9d7329-e9a3-4fe0-aa1f-ee7c7b387e74",
+        "key": "Two-motor hybrid system",
+        "value": "1414.97"
+      },
+      {
+        "id": "bafcec56-d4a5-49f1-a6dc-a15695c230c4",
+        "key": "Valve train",
+        "value": "16-Valve DOHC with Dual Variable Timing Control (VTC)"
+      },
+      {
+        "id": "c84cd998-cff9-4a85-b747-f9bc81337fcb",
+        "key": "Emissions rating",
+        "value": "Tier 3 Bin 30"
+      }
+    ],
+    "wheelsAndTires": [
+      {
+        "id": "ba20376d-18f5-42db-a998-a72a87b95412",
+        "key": "Wheelbase (mm)",
+        "value": "2735"
+      },
+      {
+        "id": "d8502124-6f40-4b75-889c-2727ead4eb72",
+        "key": "Wheel Size",
+        "value": "16' Steel with covers"
+      },
+      {
+        "id": "b41e1605-c4d8-4f7a-8516-3403a330dfff",
+        "key": "All-season tires",
+        "value": "P215/55 R16 93H"
+      },
+      {
+        "id": "151e6cc4-d00b-4468-be29-f94f84175f13",
+        "key": "Tire repair kit",
+        "value": "-"
+      },
+      {
+        "id": "ef3875c5-6e69-4c69-8c68-93d35420f4a9",
+        "key": "Stabilizer bars – front/rear (mm)",
+        "value": "26.5/17.0"
+      },
+      {
+        "id": "c511f670-0fff-4484-9174-5a2a22881ab1",
+        "key": "Power-assisted, ventilated front disc/solid rear disc brakes",
+        "value": "-"
+      },
+      {
+        "id": "6fb17014-d51d-4ad2-ab8d-6bdd27b44a35",
+        "key": "Drive Type",
+        "value": "RWD"
+      },
+      {
+        "id": "16dfdd77-7417-420c-8cd0-01c6836b75be",
+        "key": "Brake System",
+        "value": "Hydraulic"
+      },
+      {
+        "id": "d1ad7f63-966b-4dab-acde-044802ffec62",
+        "key": "Front Track Width",
+        "value": "68.1"
+      },
+      {
+        "id": "bdc8287f-d15f-4095-8ecf-1e4cdb2d6581",
+        "key": "Front Tire Type",
+        "value": "LT245/75R16"
+      },
+      {
+        "id": "0b8c3add-4260-4443-9de2-8c9e98ae831b",
+        "key": "Rear Tire Type",
+        "value": "LT245/75R16"
+      }
+    ],
+    "fuelAndEnergy": [
+      {
+        "id": "c17f9e16-4b15-438e-930b-718b42c59636",
+        "key": "Continuously variable transmission (City/Hwy/Combined)",
+        "value": "7.3/5.7/6.6"
+      },
+      {
+        "id": "60a07b62-efe5-49b8-87a6-dacace71f829",
+        "key": "Electro-Continuously Variable Transmission (eCVT) (City/Hwy/Combined)",
+        "value": "-"
+      },
+      {
+        "id": "a1a45b08-b400-47bb-9f40-021428a6a9f6",
+        "key": "Fuel tank capacity (L)",
+        "value": "46.9"
+      },
+      {
+        "id": "f2c2f03d-b13e-4701-8d43-107bf0a49021",
+        "key": "Recommended fuel",
+        "value": "Regular"
+      }
+    ],
+    "otherInformation": []
+  },
+  {
+    "id": "VEH1000006",
+    "baseMileage": "0",
+    "images": [
+      "https://www.aronline.co.uk/wp-content/uploads/2008/04/Chrysler-300C.jpeg",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2Fyc3xlbnwwfHwwfHx8MA%3D%3D"
+    ],
+    "mainImage": "https://www.aronline.co.uk/wp-content/uploads/2008/04/Chrysler-300C.jpeg",
+    "energyType": "Electric",
+    "licenseNumber": "31PCX8CCS1UN14863",
+    "vin": "3XX5M4NH0UJR60115",
+    "createdDate": "Feb 10, 2024",
+    "createdBy": "string",
+    "type": "Cargo Van",
+    "name": "CTS",
+    "manufacturer": "Mercedes Benz",
+    "model": "1",
+    "year": "2022",
+    "odometer": "125,555km",
+    "location": "Lagos, Nigeria",
+    "trim": "XLE",
+    "fuel": "Diesel",
+    "contractOwnership": "Lease",
+    "sn": "X44HK99J7DTW47187",
+    "license": "DL38UGE",
+    "color": "sky blue",
+    "activeSince": "Mar 13, 2018",
+    "status": "active",
+    "purchaseDetails": {
+      "date": "Jul 25, 2024",
+      "price": "[object Object] 131.89"
+    },
+    "specifications": {
+      "make": "Kia",
+      "type": "Minivan",
+      "subType": "Tesla Spyder",
+      "model": "Challenger",
+      "year": 1969,
+      "color": "white",
+      "mileage": 88449,
+      "genesis": "razor"
+    },
+    "features": [
+      {
+        "id": "1",
+        "key": "Safety Features",
+        "value": [
+          "Backup Camera",
+          "Automatic High Beams (AHB)",
+          "BSM w/RCTA",
+          "Star Safety System: Smart Stop Technology, Vehicle Stability Control, Anti-Lock Brakes, Traction Control, Electronic Brake Force Distribution, Brake Assist"
+        ]
+      },
+      {
+        "id": "2",
+        "key": "Convenience",
+        "value": ["Keyless Entry", "Cruise Control"]
+      },
+      {
+        "id": "3",
+        "key": "Interior Features",
+        "value": ["Dual Zone Automatic Climate Control", "Rear Window Defogger"]
+      },
+      {
+        "id": "4",
+        "key": "Mechanical Features",
+        "value": [
+          "Vehicle Stability Control (VSC)",
+          "Active rear sport differential",
+          "Electric Power Steering (EPS)"
+        ]
+      }
+    ],
+    "weightAndDimensions": [
+      {
+        "id": "40cbd3b8-2c76-4cb1-8d7f-e825762dd32e",
+        "key": "Length (mm)",
+        "value": "4694.20"
+      },
+      {
+        "id": "03f81ee1-8f8f-4f1f-8ecf-afa629716a13",
+        "key": "Height (mm)",
+        "value": "1414.97"
+      },
+      {
+        "id": "204b6757-9418-4426-929d-707e75de31e5",
+        "key": "Width (mm)",
+        "value": "1802"
+      },
+      {
+        "id": "9ef21cc0-9eaf-4f05-8c52-8aae4eb3113a",
+        "key": "Curb weight (kg)",
+        "value": "1310"
+      },
+      {
+        "id": "ab5ffc22-347a-494d-96f4-08ed53185ae0",
+        "key": "Ground clearance – no-load/maximum permissible weight; (mm)",
+        "value": "134 / 108.64"
+      }
+    ],
+    "engine": [
+      {
+        "id": "4599da38-efdf-46cd-9cd2-411f11ec70a2",
+        "key": "Engine type",
+        "value": "2.0-litre inline 4-cylinder"
+      },
+      {
+        "id": "6cfd6e2a-2ead-4f40-a9d4-8a2e97bd90ed",
+        "key": "Two-motor hybrid system",
+        "value": "1414.97"
+      },
+      {
+        "id": "f654b6d4-1665-437b-816e-0d493e158d52",
+        "key": "Valve train",
+        "value": "16-Valve DOHC with Dual Variable Timing Control (VTC)"
+      },
+      {
+        "id": "fe659238-9e3c-4d2e-a423-8eb452671952",
+        "key": "Emissions rating",
+        "value": "Tier 3 Bin 30"
+      }
+    ],
+    "wheelsAndTires": [
+      {
+        "id": "0b12ac23-4ca2-4dbf-8e62-3ab8b6fb1be5",
+        "key": "Wheelbase (mm)",
+        "value": "2735"
+      },
+      {
+        "id": "5bcfc3fb-fce4-4eed-b1a3-2441e3fcb408",
+        "key": "Wheel Size",
+        "value": "16' Steel with covers"
+      },
+      {
+        "id": "229b9532-12b2-4af7-98e6-f3b6fd2228f8",
+        "key": "All-season tires",
+        "value": "P215/55 R16 93H"
+      },
+      {
+        "id": "d84f496d-0b1d-4b79-8f12-6c63e9acbb47",
+        "key": "Tire repair kit",
+        "value": "-"
+      },
+      {
+        "id": "ef24bf42-bc39-40ec-a4d1-2fc6579898e6",
+        "key": "Stabilizer bars – front/rear (mm)",
+        "value": "26.5/17.0"
+      },
+      {
+        "id": "ed26aa73-cbce-456c-ba58-50fe2cc6e115",
+        "key": "Power-assisted, ventilated front disc/solid rear disc brakes",
+        "value": "-"
+      },
+      {
+        "id": "8731df4d-332f-4b78-80b9-4465e557e9f6",
+        "key": "Drive Type",
+        "value": "RWD"
+      },
+      {
+        "id": "07c97065-b069-4370-b48c-38750e2f62bf",
+        "key": "Brake System",
+        "value": "Hydraulic"
+      },
+      {
+        "id": "95ef4b0e-0062-4037-bfb4-adbe99f63ce7",
+        "key": "Front Track Width",
+        "value": "68.1"
+      },
+      {
+        "id": "40f61a29-6f4a-4a91-aeae-8d460bef93d7",
+        "key": "Front Tire Type",
+        "value": "LT245/75R16"
+      },
+      {
+        "id": "c79ac249-2770-4aa9-a794-127e30bb8f91",
+        "key": "Rear Tire Type",
+        "value": "LT245/75R16"
+      }
+    ],
+    "fuelAndEnergy": [
+      {
+        "id": "846146a4-19c3-493f-b552-a6fd8db16519",
+        "key": "Continuously variable transmission (City/Hwy/Combined)",
+        "value": "7.3/5.7/6.6"
+      },
+      {
+        "id": "3cebb731-171f-43b6-90c4-270de3505a8c",
+        "key": "Electro-Continuously Variable Transmission (eCVT) (City/Hwy/Combined)",
+        "value": "-"
+      },
+      {
+        "id": "64abaccd-5c3b-473f-9b14-8bf186f6c0fe",
+        "key": "Fuel tank capacity (L)",
+        "value": "46.9"
+      },
+      {
+        "id": "a5c7a853-892d-42d5-bdab-93c18aa408e2",
+        "key": "Recommended fuel",
+        "value": "Regular"
+      }
+    ],
+    "otherInformation": []
+  }
+]

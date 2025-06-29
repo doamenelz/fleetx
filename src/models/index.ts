@@ -4,3 +4,6 @@ export * from "./Contracts";
 export * from "./CustomField";
 export * from "./Modules";
 export * from "./Person";
+export * from "./Shared";
+export * from "./Trips";
+export * from "./Renewals";

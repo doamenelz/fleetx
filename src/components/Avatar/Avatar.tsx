@@ -1,39 +1,28 @@
 "use client";
 import React from "react";
-import { FC, useState } from "react";
+import { useState } from "react";
 import { AVATAR_SIZES, AvatarProps } from "./Avatar.types";
-import { classNames } from "@/lib/utilities/helperFunctions";
-import Image from "next/image";
-export const Avatar: FC<AvatarProps> = ({
-  size,
+import clsx from "clsx";
+export const Avatar = ({
+  size = AVATAR_SIZES.md,
   firstName,
   lastName,
   imageUrl,
-  hasPadding,
+  hasPadding = false,
   center,
-}) => {
-  const avatarColors = [
-    "bg-primary-600",
-    "bg-gray-900",
-    "bg-primary-910",
-    "bg-success-500",
-  ];
-
+  bgColor = "bg-gradient-to-r from-gray-600 to-gray-900",
+}: AvatarProps) => {
   const getInitials = () => {
     return `${firstName?.charAt(0)}${lastName?.charAt(0)} `.toUpperCase();
   };
 
-  const _size = size ?? AVATAR_SIZES.md;
-  const _hasPadding = hasPadding ?? false;
-
   let sizeClass;
-
   let textPadding;
 
-  const [loadComplete, setLoadComplete] = useState(false);
+  // const [loadComplete, setLoadComplete] = useState(true);
   const [loadError, setLoadError] = useState(false);
 
-  switch (_size) {
+  switch (size) {
     case AVATAR_SIZES.xs:
       sizeClass = "w-6 h-6 text-sm";
       textPadding = "text-sm";
@@ -70,27 +59,29 @@ export const Avatar: FC<AvatarProps> = ({
   return (
     <>
       {imageUrl !== undefined && imageUrl !== "" && !loadError ? (
+        // eslint-disable-next-line @next/next/no-img-element
         <img
-          className={classNames(
+          className={clsx(
             sizeClass,
-            _hasPadding ? "p-1 shadow-sm ring-2 ring-white" : "",
-            "max-w-none rounded-full object-cover flex-shrink-0",
-            center ? "mx-auto" : ""
+            hasPadding && "p-1",
+            "max-w-none ring-1 ring-white rounded-full object-cover flex-shrink-0",
+            center && "mx-auto"
           )}
           src={imageUrl}
-          onLoad={() => setLoadComplete(true)}
+          // onLoad={() => setLoadComplete(true)}
           alt=""
           onError={() => setLoadError(true)}
         />
       ) : (
         <div
-          className={classNames(
+          className={clsx(
             sizeClass,
             textPadding,
-            "items-center flex-shrink-0 justify-center flex text-center rounded-full ring-1 ring-white text-gray-25 bg-gradient-to-r from-gray-600 to-gray-900"
+            bgColor,
+            "items-center flex-shrink-0 justify-center flex text-center rounded-full ring-1 ring-white text-gray-25"
           )}
         >
-          <span className="items-center my-auto text-white">
+          <span className="items-center font-medium my-auto text-white">
             {getInitials()}
           </span>
         </div>
@@ -98,22 +89,3 @@ export const Avatar: FC<AvatarProps> = ({
     </>
   );
 };
-
-// Avatar.defaultProps = {
-//   size: AVATAR_SIZES.md,
-//   hasPadding: false,
-// };
-
-/*
- <img
-            className={classNames(
-              sizeClass,
-              _hasPadding ? "p-1 shadow-sm" : "",
-              "max-w-none ring-2 ring-white rounded-full object-cover flex-shrink-0",
-              center ? "mx-auto" : ""
-            )}
-            src={imageUrl}
-            // onLoad={() => setLoadComplete(true)}
-            alt=""
-          />
-*/

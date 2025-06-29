@@ -4,6 +4,7 @@ import {
   BackHeader,
   PageContainer,
   PageLoader,
+  PlainCard,
   SCREEN_WIDTH,
   Spinner,
   STATUS_COLORS,
@@ -31,9 +32,12 @@ export default function Page() {
         { id: "002", name: "Category", href: "" },
       ]}
     >
-      <>
-        <CategoryTable />
-      </>
+      <div className="py-4">
+        {" "}
+        <PlainCard>
+          <CategoryTable />
+        </PlainCard>
+      </div>
     </PageContainer>
   );
 }

@@ -9,14 +9,12 @@ import {
   AVATAR_SIZES,
   Avatar,
   StatusBadge,
-  STATUS_COLORS,
   Lbl,
   SearchField,
-  IconDropdown,
   Button,
   BUTTON_SKIN,
   ICON_POSITION,
-  MenuDropdownItemProp,
+  MenuDropdown,
 } from "@/components";
 import { TableContext } from "@/components/Table/TableContext";
 import { Vehicle } from "@/models/Vehicle/Vehicle";
@@ -29,6 +27,7 @@ import {
   PlusIcon,
   Upload,
 } from "lucide-react";
+import { MenuDropdownItemProp } from "@/components/Dropdown/MenuDropdown";
 
 export const VehicleTableList: FC<{ data: Vehicle[] }> = ({ data }) => {
   const vehicleControlItems: MenuDropdownItemProp[] = [
@@ -76,7 +75,7 @@ export const VehicleTableList: FC<{ data: Vehicle[] }> = ({ data }) => {
                 </div>
 
                 <div className="items-center flex gap-2">
-                  <IconDropdown
+                  <MenuDropdown
                     items={vehicleControlItems}
                     button={
                       <div className="p-2 rounded-sm border hover:bg-slate-50 hover:text-brand-blueRoyal">
@@ -173,10 +172,7 @@ export const VehicleTableList: FC<{ data: Vehicle[] }> = ({ data }) => {
                       <TableCell
                         label={
                           <>
-                            <StatusBadge
-                              label={vehicle.status}
-                              statusType={STATUS_COLORS.success}
-                            />
+                            <StatusBadge label={vehicle.status} />
                           </>
                         }
                         mainCell={false}

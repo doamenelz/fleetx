@@ -1,4 +1,7 @@
+import { constants } from "buffer";
 import { Person } from "./Person";
+import { User } from "./Shared";
+import { Constants } from "./Shared/Constants";
 
 export enum USER_TYPE {
   citizen,
@@ -16,21 +19,7 @@ export interface UserConfig {
 
 export interface UserStore {
   isLoggedIn: boolean;
-  user?: Person;
+  user?: User;
   type?: USER_TYPE;
   lastLoginDate: string;
 }
-
-export const getUserStore = (): UserStore => {
-  const savedUser = localStorage.getItem("userStore");
-
-  if (savedUser !== null) {
-    const user: UserStore = JSON.parse(savedUser);
-    return user;
-  } else {
-    return {
-      isLoggedIn: false,
-      lastLoginDate: "",
-    } as UserStore;
-  }
-};

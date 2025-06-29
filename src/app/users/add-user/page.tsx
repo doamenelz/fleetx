@@ -12,7 +12,6 @@ import {
   Spinner,
   STATUS_COLORS,
   StatusBadge,
-  Tab,
   Tabs,
   Button,
   SectionHeader,
@@ -54,7 +53,7 @@ export default function Page() {
           title="Create a New User"
           copy=""
         />
-        <EditUserFormView />
+        {/* <EditUserFormView /> */}
       </div>
     </PageContainer>
   );
