@@ -341,14 +341,10 @@ export const TableControl: FC<{}> = () => {
 
 export const TableControlIconButton: FC<{
   icon: JSX.Element;
-  onClick: () => void;
-}> = ({ icon, onClick }) => {
-  return (
-    <button
-      onClick={onClick}
-      className="p-2 border rounded-sm hover:bg-gray-700 hover:text-white"
-    >
-      {icon}
-    </button>
-  );
+  style?: string;
+}> = ({
+  icon,
+  style = "p-2 border rounded-sm hover:bg-gray-700 hover:text-white",
+}) => {
+  return <div className={style}>{icon}</div>;
 };

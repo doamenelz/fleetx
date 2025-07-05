@@ -27,6 +27,8 @@ export const DatePicker = ({
   disabled = false,
   required,
   onChangeHandler,
+  maxDate,
+  minDate,
 }: DatePickerProps) => {
   return (
     <div
@@ -94,6 +96,8 @@ export const DatePicker = ({
                   selectedDate={selectedDate}
                   closeFocus={close}
                   updateDate={onChangeHandler}
+                  maxDate={maxDate}
+                  minDate={minDate}
                 />
               )}
             </PopoverPanel>

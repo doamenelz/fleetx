@@ -1,4 +1,11 @@
-import { FC, useContext, useEffect, useState } from "react";
+import {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import ReactDOM from "react-dom";
 import {
   TableContainer,
@@ -15,6 +22,13 @@ import {
   Button,
   BUTTON_SKIN,
   ICON_POSITION,
+  PopoverContainer,
+  PlainCard,
+  BasicTextInputWithIcon,
+  BasicTextInput,
+  Dropdown,
+  SectionHeader,
+  DatePicker,
 } from "@/components";
 import { TableContext } from "@/components/Table/TableContext";
 import { VehicleExpenseEntry } from "@/models";
@@ -25,25 +39,29 @@ import { CompanyConfiguration } from "@/models/Shared/CompanyConfig";
 import { DATE_OPTIONS, formatDate } from "@/lib/utilities/dateHelpers";
 import { VehicleExpenseDetails } from "./VehicleExpenseDetails";
 import {
+  ArrowRight,
   ListFilter,
   PackageOpen,
   Redo,
   Search,
   TriangleAlert,
 } from "lucide-react";
-import { da } from "@faker-js/faker";
 import {
   API_HEADERS,
   APICompletion,
   apiHandler,
 } from "@/lib/utilities/apiHelper";
 import { usePathname } from "next/navigation";
+import clsx from "clsx";
 
+interface Filter {
+  id: string;
+  value: string | Date;
+}
 export const VehicleExpenseList: FC<{ vehicleId: string }> = ({
   vehicleId,
 }) => {
   const rootContext = useContext(RootContext);
-  const pathName = usePathname();
   const [showModal, setShowModal] = useState(false);
   const [expensesCompletion, setExpensesCompletion] = useState<APICompletion>();
   const [selectedExpense, setSelectedExpense] = useState<VehicleExpenseEntry>();
@@ -58,11 +76,13 @@ export const VehicleExpenseList: FC<{ vehicleId: string }> = ({
   const [isLoading, setIsLoading] = useState(true);
   const [entries, setEntries] = useState<VehicleExpenseEntry[]>([]);
   const [pageIndexMeta, setPageIndexMeta] = useState<PageIndexMeta>();
+  const [activeFilters, setActiveFilters] = useState<Filter[]>([]);
+  const [searchValue, setSearchValue] = useState("");
+  const [url, setUrl] = useState<string>();
+  const darkHeader = false;
 
   const showModalHandler = () => {
     setShowModal(false);
-    // setIsLoading(false);
-    // simulateLoader(setIsLoading, 2000);
   };
 
   const viewServiceDetailsHandler = (expense: VehicleExpenseEntry) => {
@@ -72,10 +92,17 @@ export const VehicleExpenseList: FC<{ vehicleId: string }> = ({
   };
 
   const getExpenses = async () => {
+    const _url: string[] = [];
+    searchValue !== "" && _url.push(`&summary=${searchValue}`);
+    url !== undefined && _url.push(url);
+    const parameters = _url.join("");
+    console.log("Parameters", parameters);
     const api = await apiHandler({
-      url: `${
-        rootContext.envVar.baseURL
-      }/expenses?vehicleId=${vehicleId}&page=${currentPage}&pageSize=${10}`,
+      url:
+        `${
+          rootContext.envVar.baseURL
+        }/expenses?vehicleId=${vehicleId}&page=${currentPage}&pageSize=${10}` +
+        parameters,
       method: "GET",
       headers: API_HEADERS.baseHeaders,
     });
@@ -84,7 +111,7 @@ export const VehicleExpenseList: FC<{ vehicleId: string }> = ({
       setEntries(api.data.results);
       setTotalPages(api.data.totalNumberOfPages);
       setTotalResults(api.data.count);
-      setPageIndexMeta(api.data.pageIndexMeta);
+      // setPageIndexMeta(api.data.pageIndexMeta);
     }
     console.log("API Response: ", api);
     setExpensesCompletion(api);
@@ -92,18 +119,26 @@ export const VehicleExpenseList: FC<{ vehicleId: string }> = ({
   };
 
   //------ Search Controls -----
-  const [searchModal, setSearchModal] = useState(false);
-  const searchModalHandler = () => {
-    setSearchModal(false);
+  const [filterModal, setFilterModal] = useState(false);
+  const handleEnterPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      getExpenses();
+    }
+  };
+  const setFilterModalHandler = () => {
+    setFilterModal(false);
+  };
+
+  const searchExpenseHandler = () => {
+    // const _url: string[] = [url ?? ""];
+    // _url.push(`&summary=${searchValue}`);
+    // setUrl(_url.join(""));
+    getExpenses();
   };
 
   useEffect(() => {
     getExpenses();
-  }, [currentPage]);
-
-  const darkHeader = false;
-
-  useEffect(() => {}, [currentPage]);
+  }, [currentPage, url]);
 
   return (
     <>
@@ -125,23 +160,78 @@ export const VehicleExpenseList: FC<{ vehicleId: string }> = ({
             header: "Expenses",
             copy: "All Expenses associated with this vehicle",
             button: (
-              <div className="flex items-center gap-2">
-                {totalResults > 0 && (
-                  <p className="text-xs pr-2 border-r">
-                    Showing{" "}
-                    {expensesCompletion?.data.pageIndexMeta?.startRecord} -{" "}
-                    {expensesCompletion?.data.pageIndexMeta?.endRecord} of{" "}
-                    {totalResults} Results
-                  </p>
-                )}
-                <TableControlIconButton
-                  icon={<Search className="size-4" />}
-                  onClick={() => setSearchModal(true)}
-                />
-                <TableControlIconButton
-                  icon={<ListFilter className="size-4" />}
-                  onClick={() => {}}
-                />
+              <div className=" space-y-1 justify-end">
+                <div className="flex text-xs items-center gap-2 justify-end text-right">
+                  <BasicTextInputWithIcon
+                    id="expense-search"
+                    label=""
+                    placeholder="Expense Name"
+                    onChangeHandler={(
+                      event: React.FormEvent<HTMLInputElement>
+                    ) => {
+                      setSearchValue(event.currentTarget.value);
+                    }}
+                    value={searchValue}
+                    onKeyDownAction={handleEnterPress}
+                    icon={{
+                      asset: <Search className="size-4 text-gray-400" />,
+                      position: ICON_POSITION.leading,
+                    }}
+                    actionIcon={
+                      <button
+                        onClick={searchExpenseHandler}
+                        className={clsx(
+                          "p-1 rounded-sm group ",
+                          searchValue !== ""
+                            ? "hover:bg-gray-700 group-hover:text-white"
+                            : "bg-gray-50"
+                        )}
+                        disabled={searchValue === "" ? true : false}
+                      >
+                        <ArrowRight
+                          className={clsx(
+                            "size-4",
+                            searchValue !== ""
+                              ? "text-gray-700 group-hover:text-white"
+                              : "text-gray-200"
+                          )}
+                        />
+                      </button>
+                    }
+                  />
+
+                  <button onClick={() => setFilterModal(true)}>
+                    <TableControlIconButton
+                      style={clsx(
+                        "p-2 border rounded-sm hover:bg-gray-700 hover:text-white",
+                        activeFilters.length > 1
+                          ? "bg-brand-persianBlue text-white"
+                          : ""
+                      )}
+                      icon={<ListFilter className="size-4" />}
+                    />
+                  </button>
+                </div>
+                <div className="flex gap-2 justify-end items-center font-mono">
+                  {totalResults > 0 && (
+                    <p className=" pr-2 border-r-2 text-right text-[10px]">
+                      {expensesCompletion?.data.pageIndexMeta?.startRecord} -{" "}
+                      {expensesCompletion?.data.pageIndexMeta?.endRecord} of{" "}
+                      {totalResults} Results
+                    </p>
+                  )}
+                  {activeFilters.length > 0 && (
+                    <p className="font-semibold  text-[10px]">FILTERS:</p>
+                  )}
+                  {activeFilters.map((filter) => (
+                    <span
+                      key={filter.id}
+                      className="text-[10px] pr-2 border-r"
+                    >
+                      {filter.id}: {filter.value.toString()}
+                    </span>
+                  ))}
+                </div>
               </div>
             ),
           }}
@@ -304,7 +394,7 @@ export const VehicleExpenseList: FC<{ vehicleId: string }> = ({
                     title={expensesCompletion?.errorMessage ?? "Nothing Found"}
                     image={
                       <div>
-                        <PackageOpen className="size-8 mx-auto text-gray-600" />
+                        <PackageOpen className="size-8 mx-auto text-gray-600 stroke-1" />
                       </div>
                     }
                   />
@@ -325,14 +415,221 @@ export const VehicleExpenseList: FC<{ vehicleId: string }> = ({
       )}
       {ReactDOM.createPortal(
         <SlideOutWrapper
-          closeControl={searchModalHandler}
-          openControl={searchModal}
+          closeControl={setFilterModalHandler}
+          openControl={filterModal}
           size="max-w-md"
         >
-          <p>Search</p>
+          <FilterControls
+            filters={activeFilters}
+            setFilters={setActiveFilters}
+            dismissModal={setFilterModalHandler}
+            setUrl={setUrl}
+          />
         </SlideOutWrapper>,
         document.getElementById("modal")!
       )}
     </>
+  );
+};
+
+enum DATE_RANGE_OPTIONS {
+  allTime = "All Time",
+  ytd = "Year to Date",
+  last30 = "Last 30 Days",
+  last60 = "Last 60 Days",
+  custom = "Custom Range",
+}
+
+enum FILTER_IDS {
+  status = "Status",
+  startDate = "From",
+  endDate = "To",
+  dateRange = "Period",
+  type = "Type",
+}
+const FilterControls: FC<{
+  filters: Filter[];
+  setFilters: Dispatch<SetStateAction<Filter[]>>;
+  dismissModal: () => void;
+  setUrl: Dispatch<SetStateAction<string | undefined>>;
+}> = ({ filters, setFilters, dismissModal, setUrl }) => {
+  const getDataFromFilters = (filter: string, _default: any) => {
+    const index = filters.findIndex((_filter) => _filter.id === filter);
+    return index === -1 ? _default : filters[index].value;
+  };
+  const _baseDate = new Date();
+  const statuses = ["Select a Status", "Approved", "New", "Declined"];
+  const ranges = [
+    DATE_RANGE_OPTIONS.allTime,
+    DATE_RANGE_OPTIONS.last30,
+    DATE_RANGE_OPTIONS.last60,
+    DATE_RANGE_OPTIONS.ytd,
+    DATE_RANGE_OPTIONS.custom,
+  ];
+  const [range, setRange] = useState<string>(
+    getDataFromFilters(FILTER_IDS.dateRange, DATE_RANGE_OPTIONS.last60)
+  );
+  const types = ["Select a Type", "Fuel", "Service", "Repairs"];
+  const [status, setStatus] = useState(
+    getDataFromFilters(FILTER_IDS.status, "Select a Status")
+  );
+  const [startDate, setStartDate] = useState<Date>(
+    getDataFromFilters(FILTER_IDS.startDate, _baseDate)
+  );
+  const [endDate, setEndDate] = useState<Date>(
+    getDataFromFilters(FILTER_IDS.endDate, _baseDate)
+  );
+  const [type, setType] = useState(
+    getDataFromFilters(FILTER_IDS.type, "Select a Type")
+  );
+
+  const applyFilters = () => {
+    const url: string[] = [];
+    const _filters: Filter[] = [];
+    status !== "Select a Status" &&
+      _filters.push({ id: FILTER_IDS.status, value: status });
+    status !== "Select a Status" && url.push(`&status=${status}`);
+
+    type !== "Select a Type" &&
+      _filters.push({ id: FILTER_IDS.type, value: type });
+    type !== "Select a Type" && url.push(`&type=${type}`);
+
+    switch (range) {
+      case DATE_RANGE_OPTIONS.allTime:
+        _filters.push({
+          id: FILTER_IDS.dateRange,
+          value: DATE_RANGE_OPTIONS.allTime,
+        });
+        break;
+      case DATE_RANGE_OPTIONS.last30:
+        _filters.push({ id: FILTER_IDS.dateRange, value: range });
+
+        const _start30 = new Date();
+        _start30.setDate(today.getDate() - 30);
+
+        _filters.push({
+          id: FILTER_IDS.startDate,
+          value: formatDate(_start30, DATE_OPTIONS.dMY),
+        });
+        const _end30 = new Date();
+        _filters.push({
+          id: FILTER_IDS.endDate,
+          value: formatDate(_end30, DATE_OPTIONS.dMY),
+        });
+        url.push(
+          `&startDate=${_start30.toISOString().split("T")[0]}&endDate=${
+            _end30.toISOString().split("T")[0]
+          }`
+        );
+        break;
+      case DATE_RANGE_OPTIONS.last60:
+        const _start60 = new Date();
+        _start60.setDate(today.getDate() - 60);
+        _filters.push({
+          id: FILTER_IDS.startDate,
+          value: formatDate(_start60, DATE_OPTIONS.dMY),
+        });
+        const _end60 = new Date();
+        _filters.push({
+          id: FILTER_IDS.endDate,
+          value: formatDate(_end60, DATE_OPTIONS.dMY),
+        });
+        url.push(
+          `&startDate=${_start60.toISOString().split("T")[0]}&endDate=${
+            _end60.toISOString().split("T")[0]
+          }`
+        );
+        break;
+      case DATE_RANGE_OPTIONS.custom:
+        url.push(
+          `&startDate=${startDate.toISOString().split("T")[0]}&endDate=${
+            endDate.toISOString().split("T")[0]
+          }`
+        );
+        break;
+      case DATE_RANGE_OPTIONS.ytd:
+        const firstDayOfCurrentYear = new Date(new Date().getFullYear(), 0, 1);
+        _filters.push({
+          id: FILTER_IDS.startDate,
+          value: formatDate(firstDayOfCurrentYear, DATE_OPTIONS.dMY),
+        });
+        _filters.push({
+          id: FILTER_IDS.endDate,
+          value: formatDate(new Date(), DATE_OPTIONS.dMY),
+        });
+        _filters.push({
+          id: FILTER_IDS.dateRange,
+          value: DATE_RANGE_OPTIONS.ytd,
+        });
+        url.push(
+          `&startDate=${
+            firstDayOfCurrentYear.toISOString().split("T")[0]
+          }&endDate=${new Date().toISOString().split("T")[0]}`
+        );
+        break;
+
+      default:
+        break;
+    }
+
+    setFilters(_filters);
+    setUrl(url.join(""));
+    dismissModal();
+  };
+
+  const today = new Date();
+  const oldDate = new Date();
+  const minDate = new Date(oldDate.setFullYear(oldDate.getFullYear() - 21));
+  const maxDate = new Date(today.setFullYear(today.getFullYear() + 21));
+  return (
+    <div className="p-4 space-y-4 text-xs font-normal">
+      <SectionHeader title={"Filters"} />
+      <Dropdown
+        id={FILTER_IDS.status}
+        label={FILTER_IDS.status}
+        value={status}
+        onChangeHandler={setStatus}
+        items={statuses}
+      />
+      <Dropdown
+        id={FILTER_IDS.type}
+        label={FILTER_IDS.type}
+        value={type}
+        onChangeHandler={setType}
+        items={types}
+      />
+      <Dropdown
+        id={FILTER_IDS.dateRange}
+        label={FILTER_IDS.dateRange}
+        value={range}
+        onChangeHandler={setRange}
+        items={ranges}
+      />
+      {range === DATE_RANGE_OPTIONS.custom && (
+        <>
+          <DatePicker
+            label={FILTER_IDS.startDate}
+            id={FILTER_IDS.startDate}
+            onChangeHandler={setStartDate}
+            selectedDate={startDate}
+            maxDate={maxDate}
+            minDate={minDate}
+          />
+          <DatePicker
+            label={FILTER_IDS.endDate}
+            id={FILTER_IDS.endDate}
+            onChangeHandler={setEndDate}
+            maxDate={maxDate}
+            minDate={startDate}
+            selectedDate={endDate}
+          />
+        </>
+      )}
+
+      <Button
+        onClick={applyFilters}
+        label="Apply Filters"
+      />
+    </div>
   );
 };

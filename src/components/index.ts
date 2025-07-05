@@ -30,3 +30,4 @@ export * from "./MenuDropdown";
 export * from "./Inputs";
 export * from "./ImageCard";
 export * from "./Errors";
+export * from "./Popover";

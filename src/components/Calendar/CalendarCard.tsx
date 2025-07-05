@@ -5,40 +5,133 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { FC } from "react";
 
 import clsx from "clsx";
-import { ALL_MONTHS, parseCalStart } from "./dateHelpers";
+import { ALL_MONTHS, MonthObject, parseCalStart } from "./dateHelpers";
 export interface CalendarProps {
   selectedDate: Date;
   /** This function updates the date prop */
   updateDate?: Function;
   /** This function closes the modal/view if this component is used with a picker */
   closeFocus?: () => void;
+  maxDate?: Date;
+  minDate?: Date;
 }
 
+function getYears(
+  startYear: number,
+  endYear: number,
+  currentYear?: number
+): number[] {
+  if (startYear > endYear) {
+    throw new Error("startYear must be less than or equal to endYear");
+  }
+
+  const years: number[] = Array.from(
+    { length: endYear - startYear + 1 },
+    (_, i) => startYear + i
+  );
+
+  if (currentYear === undefined) {
+    return years;
+  }
+
+  if (currentYear < startYear || currentYear > endYear) {
+    throw new Error("currentYear must be within the specified range");
+  }
+
+  const currentIndex = years.indexOf(currentYear);
+  return years.slice(currentIndex + 1);
+}
+
+const getYearsInView = (years: number[], year: number): number[] => {
+  const index = years.indexOf(year);
+  if (index === -1) return [];
+  // Return up to 9 elements starting from index
+  const _years = years.slice(index, index + 9);
+  return _years;
+};
+
+function getYearsInViewPrevious(years: number[], year: number): number[] {
+  const index = years.indexOf(year);
+  if (index === -1) return [];
+  const start = Math.max(0, index - 8);
+  return years.slice(start, index + 1);
+}
+
+const compareFirstIndexes = (
+  yearsInView: number[],
+  allYears: number[]
+): boolean => {
+  const _yivFirstIndex = yearsInView[0];
+  const allYearsFirstIndex = allYears[0];
+  return _yivFirstIndex === allYearsFirstIndex;
+};
+const compareLastIndexes = (
+  yearsInView: number[],
+  allYears: number[]
+): boolean => {
+  // const _yivLastIndex = yearsInView.length > 0 ? yearsInView.length - 1 : -1;
+  // const allYearsLastIndex = allYears.length > 0 ? allYears.length - 1 : -1;
+
+  const _yivLastIndex =
+    yearsInView.length > 0 ? yearsInView[yearsInView.length - 1] : undefined;
+  const allYearsLastIndex =
+    allYears.length > 0 ? allYears[allYears.length - 1] : undefined;
+  return _yivLastIndex === allYearsLastIndex;
+};
+
+const getMonthsInSelectedYear = (selectedYear: number, minDate: Date) => {
+  const minDateMonth = minDate.getMonth();
+  let months: MonthObject[] = [];
+
+  if (minDate.getFullYear() === selectedYear) {
+    ALL_MONTHS.map((month) => {
+      if (month.id >= minDateMonth) {
+        months.push(month);
+      }
+    });
+  } else {
+    months = ALL_MONTHS.map((month) => month);
+  }
+
+  return months;
+};
 /** The Calendar component is designed to fill the width of the container its in. It can be used with a picker, or as an independent component */
 export const CalendarCard: FC<CalendarProps> = ({ selectedDate, ...props }) => {
+  //------ Get Global Year Range Start -------
+  const _maxDate = new Date();
+  const maxDate =
+    props.maxDate ??
+    new Date(_maxDate.setFullYear(_maxDate.getFullYear() + 21));
+  const _minDate = new Date();
+  const minDate =
+    props.minDate ??
+    new Date(_minDate.setFullYear(_minDate.getFullYear() - 21));
+
+  /** Total Years to show in Calendar */
+  const allYearsInRange: number[] = Array.from(
+    { length: maxDate.getFullYear() - minDate.getFullYear() + 1 },
+    (_, i) => minDate.getFullYear() + i
+  );
+
+  //------ Get Global Year Range End -------
+
   const [selectedYear, setSelectedYear] = useState(selectedDate.getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(
     selectedDate.toLocaleString("en-us", { month: "long" })
   );
 
-  const allYears = () => {
-    const yearsArray: [number] = [selectedDate.getFullYear()];
-
-    for (let i = 1; i < 9; i++) {
-      yearsArray.push(selectedDate.getFullYear() + i);
-    }
-
-    return yearsArray;
-  };
   const [selectedDay, setSelectedDay] = useState(selectedDate);
 
   const [showMonth, setShowMonth] = useState(false);
   const [showYear, setShowYear] = useState(false);
-  const [years, setYears] = useState<number[]>(allYears());
+  const [years, setYears] = useState<number[]>(
+    getYearsInView(allYearsInRange, selectedDate.getFullYear())
+  );
   const allDates = () => {
-    const _selectedMonth = ALL_MONTHS.find(
+    const _selectedMonth = getMonthsInSelectedYear(selectedYear, minDate).find(
       (item) => item.long === selectedMonth
     )!.id;
+    //TODO: Fix this to set min day
     const date = new Date(selectedYear, _selectedMonth, 1);
 
     const dates: Date[] = [];
@@ -82,39 +175,21 @@ export const CalendarCard: FC<CalendarProps> = ({ selectedDate, ...props }) => {
   };
 
   const nextYears = () => {
-    const firstYear = years.at(-1)! + 1;
-    const yearsArray: [number] = [firstYear];
-
-    for (let i = 1; i < 9; i++) {
-      yearsArray.push(firstYear + i);
-    }
-
-    setYears(yearsArray);
+    const _lastYearInView = years[years.length - 1];
+    const _years = getYearsInView(allYearsInRange, _lastYearInView + 1);
+    setYears(_years);
   };
 
   const previousYears = () => {
-    const firstYear = years[0] - 9;
-    const yearsArray: [number] = [firstYear];
-
-    for (let i = 1; i < 9; i++) {
-      yearsArray.push(firstYear + i);
-    }
-
-    setYears(yearsArray);
+    const firstYearInView = years[0];
+    const _years = getYearsInViewPrevious(allYearsInRange, firstYearInView - 1);
+    setYears(_years);
   };
 
   return (
     <div className="w-full p-3">
       <div className="text-center ">
         <div className="flex items-center text-gray-900 pb-2 border-b">
-          {/* <button
-            type="button"
-            onClick={() => previousYears()}
-            className="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
-          >
-            <span className="sr-only">Previous month</span>
-            <ChevronLeftIcon className="w-5 h-5" aria-hidden="true" />
-          </button> */}
           <div className="flex-auto text-sm font-semibold">
             <button
               type="button"
@@ -139,14 +214,6 @@ export const CalendarCard: FC<CalendarProps> = ({ selectedDate, ...props }) => {
               {selectedYear}
             </button>
           </div>
-          {/* <button
-            onClick={() => nextYears()}
-            type="button"
-            className="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
-          >
-            <span className="sr-only">Next month</span>
-            <ChevronRightIcon className="w-5 h-5" aria-hidden="true" />
-          </button> */}
         </div>
 
         {showYear && (
@@ -154,7 +221,12 @@ export const CalendarCard: FC<CalendarProps> = ({ selectedDate, ...props }) => {
             <button
               type="button"
               onClick={() => previousYears()}
-              className="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
+              disabled={compareFirstIndexes(years, allYearsInRange)}
+              className={clsx(
+                "-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500",
+                compareFirstIndexes(years, allYearsInRange) &&
+                  "cursor-not-allowed"
+              )}
             >
               <span className="sr-only">Previous month</span>
               <ChevronLeftIcon
@@ -176,8 +248,13 @@ export const CalendarCard: FC<CalendarProps> = ({ selectedDate, ...props }) => {
             </div>
             <button
               onClick={() => nextYears()}
+              disabled={compareLastIndexes(years, allYearsInRange)}
               type="button"
-              className="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
+              className={clsx(
+                "-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500",
+                compareLastIndexes(years, allYearsInRange) &&
+                  "cursor-not-allowed"
+              )}
             >
               <span className="sr-only">Next month</span>
               <ChevronRightIcon
@@ -190,7 +267,7 @@ export const CalendarCard: FC<CalendarProps> = ({ selectedDate, ...props }) => {
 
         {showMonth && (
           <div className="grid grid-cols-3 mt-3 ">
-            {ALL_MONTHS.map((item) => (
+            {getMonthsInSelectedYear(selectedYear, minDate).map((item) => (
               <button
                 type="button"
                 onClick={() => selectMonthHandler(item.long)}

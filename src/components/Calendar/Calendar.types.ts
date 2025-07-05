@@ -9,6 +9,8 @@ export interface DatePickerProps {
   disabled?: boolean;
   required?: boolean;
   span?: INPUT_SIZE;
+  maxDate?: Date;
+  minDate?: Date;
   // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   onChangeHandler: Function;
   showError?: boolean;

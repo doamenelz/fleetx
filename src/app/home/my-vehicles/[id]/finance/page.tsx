@@ -4,10 +4,14 @@ import {
   BreadCrumb,
   Button,
   BUTTON_SKIN,
+  CardWithSectionHeader,
   CopyLoader,
   EmptyTable,
+  GRID_TYPE,
+  GridLayout,
   ICON_POSITION,
   Lbl,
+  LblText,
   PageContainer,
   PlainCard,
   SCREEN_WIDTH,
@@ -28,6 +32,12 @@ import { RootContext } from "@/context/RootContext";
 import { usePathname } from "next/navigation";
 import { getCompanyProfile } from "@/models/Shared/Configs";
 import { CompanyConfiguration } from "@/models/Shared/CompanyConfig";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function Page() {
   const [isLoading, setIsLoading] = useState(true);
@@ -113,48 +123,44 @@ export default function Page() {
         </div>
       )}
       {!isLoading && financeCompletion?.success && (
-        <div className="space-y-4 pb-4">
-          <SummaryGrid
-            total={`${currency}${financeCompletion?.data.results.totalCost}`}
-            fuel={`${currency}${financeCompletion?.data.results.totalFuel}`}
-            service={`${currency}${financeCompletion?.data.results.totalService}`}
-            others={`${currency}${financeCompletion?.data.results.totalOthers}`}
-          />
-          <PlainCard>
-            <VehicleExpenseList vehicleId={pathName.split("/")[3]} />
-          </PlainCard>
-          {/* {expensesCompletion === undefined && (
-            <>
-              <CopyLoader />
-            </>
-          )}
-          {expensesCompletion?.success && (
-            <PlainCard>
-              <VehicleExpenseList data={expensesCompletion?.data.results} />
-            </PlainCard>
-          )}
-          {expensesCompletion?.success === false && (
-            <EmptyTable
-              title="Something went wrong"
-              copy={expensesCompletion?.errorMessage ?? "Unable to fetch data."}
-              image={
-                <div>
-                  <TriangleAlert className="size-8 mx-auto text-error-400" />
+        <div className="space-y-4 py-4">
+          <GridLayout
+            type={GRID_TYPE.twoOne}
+            lhs={
+              <PlainCard>
+                <VehicleExpenseList vehicleId={pathName.split("/")[3]} />
+              </PlainCard>
+            }
+            rhs={
+              <CardWithSectionHeader
+                title="Overview"
+                copy="All Time Cost Overview for this vehicle"
+              >
+                <div className="space-y-4 py-4 ">
+                  <LblText
+                    label="Total Costs"
+                    copy={`${currency}${financeCompletion?.data.results.totalCost}`}
+                    copyStyle="text-4xl font-mono"
+                  />
+                  <div className="gap-4 rounded-md grid grid-cols-2 p-4  bg-gradient-to-r from-gray-25 via-gray-50 to-gray-100">
+                    <CostCell
+                      label="Fuel Costs"
+                      body={`${currency}${financeCompletion?.data.results.totalFuel}`}
+                    />
+                    <CostCell
+                      label="Service Costs"
+                      description="Includes Repairs, and Servicing Costs"
+                      body={`${currency}${financeCompletion?.data.results.totalService}`}
+                    />
+                    <CostCell
+                      label="Other Costs"
+                      body={`${currency}${financeCompletion?.data.results.totalOthers}`}
+                    />
+                  </div>
                 </div>
-              }
-              action={
-                <Button
-                  onClick={getExpenseSummary}
-                  label="Retry"
-                  skin={BUTTON_SKIN.secondary}
-                  icon={{
-                    asset: <Redo className="size-3" />,
-                    position: ICON_POSITION.trailing,
-                  }}
-                />
-              }
-            />
-          )} */}
+              </CardWithSectionHeader>
+            }
+          ></GridLayout>
         </div>
       )}
       {!isLoading && !financeCompletion?.success && (
@@ -225,5 +231,38 @@ const GridCell: FC<{ label: string; value: string }> = ({ label, value }) => {
         {value}
       </dd>
     </div>
+  );
+};
+
+export const CostCell: FC<{
+  label: string;
+  body: string;
+  description?: string;
+}> = ({ label, body, description }) => {
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <div className="space-y-1 tracking-tight">
+          <p className="text-xs font-medium text-gray-900">{label}</p>
+          <TooltipTrigger asChild>
+            <p
+              className={clsx(
+                description &&
+                  "underline decoration-dotted text-brand-blueRoyal",
+                "font-mono cursor-pointer  "
+              )}
+            >
+              {body}
+            </p>
+          </TooltipTrigger>
+        </div>
+
+        {description && (
+          <TooltipContent>
+            <p className="bg-white w-56 text-xs">{description}</p>
+          </TooltipContent>
+        )}
+      </Tooltip>
+    </TooltipProvider>
   );
 };

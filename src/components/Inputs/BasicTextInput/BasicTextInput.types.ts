@@ -1,3 +1,4 @@
+import { ICON_POSITION } from "@/components/Button";
 import { INPUT_SIZE } from "../Input.types";
 
 export interface BasicTextInputProps {
@@ -12,5 +13,12 @@ export interface BasicTextInputProps {
   defaultValue?: string;
   placeholder?: string;
   type?: string;
+  icon?: {
+    asset: JSX.Element;
+    position: ICON_POSITION;
+  };
+  actionIcon?: JSX.Element;
+  onKeyDownAction?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+
   onChangeHandler: (event: React.FormEvent<HTMLInputElement>) => void;
 }
